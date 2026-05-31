@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preuve — Cours 4</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #faf9f6;
+    --surface: #ffffff;
+    --border: #e8e4dc;
+    --text: #1a1a1a;
+    --text-light: #555;
+    --article: #c0392b;
+    --juris: #6c3483;
+    --loi: #7b5e3a;
+    --citation: #1a5276;
+    --tag-cours: #2c6e49;
+    --tag-methodo: #1565c0;
+    --tag-oral: #6a0f49;
+    --tag-critique: #b71c1c;
+    --tag-orga: #4a4a4a;
+    --tag-alerte: #e65100;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .page-header {
+    background: #ffffff;
+    color: #1a1a1a;
+    padding: 48px 64px 40px;
+    border-bottom: 4px solid var(--article);
+  }
+  .page-header .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 12px;
+  }
+  .page-header h1 { font-size: 2rem; font-weight: 500; margin-bottom: 8px; }
+  .page-header .subtitle { color: #ccc; font-size: 1rem; }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 64px;
+    background: #f2f0ea;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+
+  .main { max-width: 920px; margin: 0 auto; padding: 48px 32px 80px; }
+  .section { margin-bottom: 56px; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .tag-cours { background: var(--tag-cours); }
+  .tag-methodo { background: var(--tag-methodo); }
+  .tag-oral { background: var(--tag-oral); }
+  .tag-critique { background: var(--tag-critique); }
+  .tag-alerte { background: var(--tag-alerte); }
+  .tag-orga { background: var(--tag-orga); }
+
+  .section-title { font-size: 1.25rem; font-weight: 500; color: var(--text); }
+
+  .block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin-bottom: 18px;
+  }
+  .block p { margin-bottom: 14px; }
+  .block p:last-child { margin-bottom: 0; }
+  .block ul { padding-left: 24px; margin: 12px 0; }
+  .block li { margin-bottom: 8px; }
+
+  .art-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--article);
+    font-weight: 500;
+  }
+  .juris { color: var(--juris); font-weight: 500; }
+  .loi-ref { color: var(--loi); font-weight: 500; }
+
+  .quote {
+    border-left: 4px solid var(--citation);
+    margin: 16px 0;
+    padding: 12px 20px;
+    background: #f0f4f8;
+    color: var(--citation);
+    font-size: 0.95em;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .alert-box {
+    border: 1px solid var(--tag-alerte);
+    border-left: 5px solid var(--tag-alerte);
+    background: #fff8f5;
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 16px 0;
+  }
+  .alert-box .alert-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--tag-alerte);
+    margin-bottom: 8px;
+  }
+
+  .sub-section {
+    border-top: 1px solid var(--border);
+    margin-top: 18px;
+    padding-top: 18px;
+  }
+  .sub-section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 12px;
+  }
+
+  h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 18px;
+    color: #222;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+    font-size: 0.95rem;
+  }
+  th {
+    background: #f2f0ea;
+    padding: 10px 14px;
+    text-align: left;
+    border: 1px solid var(--border);
+    font-weight: 600;
+  }
+  td { padding: 10px 14px; border: 1px solid var(--border); vertical-align: top; }
+  tr:nth-child(even) td { background: #faf9f6; }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    @page { size: A4; margin: 15mm 14mm 18mm 14mm; }
+    body { font-size: 10.5pt; line-height: 1.55; background: #faf9f6 !important; color: #1a1a1a !important; }
+    .page-header { background: #ffffff !important; color: #1a1a1a !important; padding: 14pt 20pt 10pt !important; border-bottom: 3pt solid #c0392b !important; margin-bottom: 8pt; }
+    .page-header .label { color: #888 !important; font-size: 7pt !important; }
+    .page-header h1 { font-size: 15pt !important; margin-bottom: 3pt !important; color: #1a1a1a !important; }
+    .page-header .subtitle { color: #555 !important; font-size: 9pt !important; }
+    .legend { background: #f2f0ea !important; padding: 6pt 20pt !important; font-size: 7.5pt !important; gap: 10pt !important; border-bottom: 1pt solid #e8e4dc !important; margin-bottom: 8pt; }
+    .main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+    .section { margin-bottom: 16pt !important; }
+    .section-header { padding-bottom: 5pt !important; margin-bottom: 8pt !important; border-bottom: 1.5pt solid #e8e4dc !important; page-break-after: avoid; }
+    .section-tag { font-size: 6.5pt !important; padding: 2pt 6pt !important; color: #fff !important; }
+    .tag-cours    { background: #2c6e49 !important; }
+    .tag-methodo  { background: #1565c0 !important; }
+    .tag-oral     { background: #6a0f49 !important; }
+    .tag-critique { background: #b71c1c !important; }
+    .tag-orga     { background: #4a4a4a !important; }
+    .tag-alerte   { background: #e65100 !important; }
+    .section-title { font-size: 11pt !important; }
+    .subsection { margin-bottom: 10pt !important; }
+    .subsection-title { font-size: 9.5pt !important; margin-bottom: 5pt !important; }
+    .block { background: #ffffff !important; border: 0.75pt solid #e8e4dc !important; padding: 8pt 10pt !important; margin-bottom: 6pt !important; page-break-inside: avoid; }
+    .block p { margin-bottom: 5pt !important; font-size: 10pt !important; }
+    .block ul { padding-left: 14pt !important; margin: 4pt 0 !important; }
+    .block li { margin-bottom: 3pt !important; font-size: 10pt !important; }
+    h3 { font-size: 10.5pt !important; margin-top: 7pt !important; margin-bottom: 4pt !important; page-break-after: avoid; }
+    .alert-box { border: 0.75pt solid #e65100 !important; border-left: 3pt solid #e65100 !important; background: #fff8f5 !important; padding: 7pt 10pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .alert-box .alert-title { font-size: 6.5pt !important; color: #e65100 !important; margin-bottom: 4pt !important; }
+    .alert-box p, .alert-box li { font-size: 9.5pt !important; }
+    .quote { border-left: 3pt solid #1a5276 !important; background: #f0f4f8 !important; color: #1a5276 !important; padding: 7pt 10pt !important; font-size: 9.5pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .sub-section { border-top: 0.5pt solid #e8e4dc !important; margin-top: 8pt !important; padding-top: 8pt !important; }
+    .art-num { color: #c0392b !important; }
+    .art-txt { color: #1a5276 !important; }
+    .juris   { color: #6c3483 !important; }
+    .loi     { color: #7b5e3a !important; }
+    table { font-size: 9pt !important; border-collapse: collapse !important; width: 100% !important; }
+    th { background: #f2f0ea !important; padding: 5pt 7pt !important; border: 0.75pt solid #e8e4dc !important; }
+    td { padding: 5pt 7pt !important; border: 0.75pt solid #e8e4dc !important; }
+    a[href]:after { content: none !important; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="label">Droit de la preuve — Cours 4</div>
+  <h1>Fin section 1 (écrits) · Sections 2–5 : témoignage, présomptions judiciaires, aveu, serment</h1>
+  <div class="subtitle">Suite directe du cours 3 — Parties 1 assemblée</div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-cours)"></div> Cours / Doctrine</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-methodo)"></div> Méthodologie</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-alerte)"></div> Alerte examen</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-oral)"></div> Grand oral</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-critique)"></div> Erreurs fréquentes</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-orga)"></div> Organisation</div>
+</div>
+
+<div class="main">
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- I. ACTE D'AVOCAT — SUITE -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section" id="acte-avocat">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1374</span>
+      <span class="section-title">Acte d'avocat (suite) — Date quasi-certaine &amp; mentions manuscrites</span>
+    </div>
+
+    <div class="block">
+      <h3>Date quasi-certaine — la querelle notariat / barreau</h3>
+      <p>L'acte d'avocat n'a pas de date <em>certaine</em> au sens de l'acte authentique. Seul l'acte authentique bénéficie d'une date certaine opposable aux tiers de plein droit. Mais l'acte contresigné par avocat a une date <strong>quasi-certaine</strong> : pour la contester, il faut démontrer que l'avocat lui-même a commis un faux en contre-signant un acte dont la date était incorrecte, ce qui suppose de mettre en cause l'honnêteté et les obligations professionnelles de l'avocat.</p>
+      <p>Ce n'est pas la procédure d'inscription de faux (réservée aux actes authentiques), mais c'est presque aussi lourd moralement et pratiquement. D'où la position du CNB : même sans date certaine formelle, l'acte d'avocat offre une sécurité très proche sur ce point.</p>
+      <p>La position du notariat : l'acte d'avocat n'est pas un acte authentique, il n'a pas de date certaine. Les deux positions ont leur part de vérité.</p>
+
+      <h3>Mentions manuscrites — dispense équivalente à l'acte authentique</h3>
+      <p>L'acte contresigné par avocat est dispensé des mentions manuscrites exigées par la loi (ex. mentions du cautionnement), au même titre que l'acte authentique. La logique est identique : l'avocat a une obligation d'information et de conseil à l'égard de son client, ce qui remplace la fonction pédagogique des mentions manuscrites.</p>
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Point discriminant en consultation</div>
+        <p>Comparer les avantages respectifs de l'acte sous signature privée simple, de l'acte d'avocat et de l'acte authentique est un sujet classique. Les trois différences majeures : (1) date certaine/quasi-certaine/pas certaine, (2) force exécutoire directe/non directe, (3) mentions manuscrites dispensées ou non. L'acte d'avocat se place entre les deux autres sur tous ces critères.</p>
+      </div>
+
+      <h3>Caractère exécutoire de l'acte d'avocat</h3>
+      <p>L'acte d'avocat <strong>n'a pas de caractère exécutoire direct</strong>. Il faut passer par une procédure d'homologation judiciaire ou un dépôt au rang des minutes d'un notaire pour lui conférer force exécutoire. Cette voie existe mais elle est plus lourde qu'un acte authentique (qui est exécutoire de plein droit). Le CNB souligne que cette procédure reste allégée — mais elle existe, contrairement à l'acte authentique qui se suffit à lui-même.</p>
+
+      <h3>Procédure de faux applicable</h3>
+      <p>La procédure de faux prévue par le Code de procédure civile est applicable à l'acte sous signature privée contresigné par avocat comme à tout acte sous signature privée. Ce n'est pas la procédure d'inscription de faux (réservée aux actes authentiques).</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- II. ART. 1375 — DOUBLE ORIGINAL -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section" id="art1375">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1375</span>
+      <span class="section-title">Formalité du double original pour les contrats synallagmatiques</span>
+    </div>
+
+    <div class="block">
+      <div class="quote">« L'acte sous signature privée qui constate un contrat synallagmatique ne fait preuve que s'il a été fait en autant d'originaux qu'il y a de parties ayant un intérêt distinct, à moins que les parties ne soient convenues de remettre à un tiers l'unique exemplaire dressé. »</div>
+
+      <h3>Logique du texte</h3>
+      <p>Pour qu'un acte sous signature privée constituant l'instrumentum d'un contrat synallagmatique (contrat qui crée des obligations réciproques et interdépendantes à la charge des deux parties, ex. vente, bail) ait pleine force probante, il faut autant d'originaux qu'il y a d'<strong>intérêts distincts</strong> — et non pas autant qu'il y a de parties au sens strict.</p>
+      <p>Si deux parties ont un intérêt identique (ex. deux cocontractants dans un groupement répondant ensemble à une offre), un seul original peut suffire pour elles. Si trois parties ont trois intérêts distincts, trois originaux sont nécessaires.</p>
+
+      <h3>Alinéa 2 — Mention du nombre d'originaux</h3>
+      <p>Chaque original doit mentionner le nombre de tous les originaux qui ont été dressés. Objectif : interdire à une partie de dissimuler l'existence d'un original dont elle a la possession et éviter toute contestation sur le nombre.</p>
+
+      <h3>Alinéa 3 — Exception : exécution du contrat</h3>
+      <p><strong>Règle pratique essentielle :</strong> celui qui a exécuté le contrat, même partiellement, ne peut opposer le défaut de pluralité d'originaux ou l'absence de la mention de leur nombre. L'exécution partielle ou totale vaut aveu de l'existence et du contenu du contrat — le débat probatoire n'a plus d'objet. C'est du bon sens. Une partie qui a exécuté son obligation ne peut pas invoquer un défaut formel pour nier l'existence du contrat qu'elle vient d'exécuter.</p>
+
+      <h3>Alinéa 4 — Adaptation au contrat électronique</h3>
+      <p>L'exigence de pluralité d'originaux est réputée satisfaite pour les contrats conclus électroniquement dès lors que l'acte est établi et conservé conformément aux <span class="art-num">art. 1366 et 1367</span> et que chaque partie peut disposer d'un exemplaire sur support durable. Logique : dans le monde numérique, la distinction original/copie n'a plus de sens — un fichier numérique peut être indéfiniment reproduit à l'identique.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Interaction avec les conventions sur la preuve</div>
+        <p>La formalité du double original est-elle d'ordre public ? En principe non — les parties peuvent y déroger (par ex. convenir qu'un seul original sera détenu par un tiers séquestre). Mais si cette dérogation figure dans un contrat d'adhésion et réserve à l'une des parties la détention exclusive de l'unique original avec accès rendu délibérément difficile pour l'autre, la clause pourrait constituer un déséquilibre significatif au sens de l'<span class="art-num">art. 1171</span>. Sujet parfaitement concevable.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- III. ART. 1376 — MENTION PERSONNELLE -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section" id="art1376">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1376</span>
+      <span class="section-title">Mention personnelle — contrats unilatéraux portant obligation de payer</span>
+    </div>
+
+    <div class="block">
+      <div class="quote">« L'acte sous signature privée par lequel une seule partie s'engage envers une autre à lui payer une somme d'argent ou à lui livrer un bien fongible ne fait preuve que s'il comporte la signature de celui qui souscrit cet engagement ainsi que la mention, écrite par lui-même, de la somme ou de la quantité en toutes lettres et en chiffres. »</div>
+
+      <h3>Champ d'application</h3>
+      <p>Ce texte (ancien art. 1326 C. civ.) s'applique aux <strong>contrats unilatéraux</strong> (et actes unilatéraux créateurs d'obligations) portant sur :</p>
+      <ul>
+        <li>L'obligation de payer une <strong>somme d'argent</strong> — ex. : cautionnement (exemple historique par excellence).</li>
+        <li>L'obligation de livrer un <strong>bien fongible</strong> (chose de genre, susceptible d'être substituée par une autre du même genre) — ex. : quantité de céréales, de matières premières. ≠ corps certain (immeuble, œuvre d'art unique) : pas de bien fongible → texte inapplicable.</li>
+      </ul>
+      <p>Le texte ne vise pas que les contrats — il s'étend à tout acte juridique portant obligation de payer ou de livrer une chose fongible, qu'il soit contractuel ou unilatéral. Cela inclut potentiellement l'engagement unilatéral de volonté portant sur une telle obligation.</p>
+
+      <h3>Pourquoi la mention en lettres ET en chiffres ?</h3>
+      <p>Protection contre les erreurs matérielles : écrire « deux cent mille euros » en lettres (200 000 €) et « 200 000 € » en chiffres oblige à la double vérification. L'ajout d'un zéro en chiffres (confondre 200 000 et 2 000 000) est une erreur beaucoup moins probable en lettres. En cas de discordance, la somme en <strong>lettres prime</strong> — car l'erreur matérielle sur les chiffres est statistiquement plus fréquente.</p>
+
+      <h3>Cautionnement — exemple historique et actuel</h3>
+      <p>Le cautionnement est un contrat unilatéral par excellence (la caution s'engage à payer, le créancier ne s'engage à rien). L'art. 1376 lui est donc applicable dans son principe. Cependant, depuis la réforme du droit des sûretés (<span class="loi-ref">ordonnance du 15 septembre 2021</span>, entrée en vigueur le 1er janvier 2022), le cautionnement est désormais soumis à son propre formalisme probatoire sous l'<span class="art-num">art. 2297 C. civ.</span>, qui remplace les mentions manuscrites par une mention personnelle standardisée. Les règles spéciales priment.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Bien fongible vs. corps certain — distinction fondamentale</div>
+        <p>La chose fongible est substituable au sein de son genre (de l'argent, des céréales, des matières premières standardisées). Le corps certain est individualisé et non substituable (un appartement, une voiture précise, une œuvre d'art). L'immeuble n'est jamais fongible — sa localisation géographique en fait toujours un corps certain, même si deux appartements sont identiques au centimètre carré. Art. 1376 inapplicable à toute obligation portant sur un corps certain. Ce point est une question de grand oral : ne pas savoir ce qu'est une chose fongible devant un jury de praticiens est éliminatoire.</p>
+      </div>
+
+      <h3>Application à l'engagement unilatéral de volonté</h3>
+      <p>La lettre du texte ne visant pas exclusivement les contrats mais tout acte par lequel une seule partie s'engage, l'art. 1376 est susceptible d'être appliqué à un engagement unilatéral de volonté portant sur le paiement d'une somme d'argent ou la livraison d'une chose fongible. Toutefois, comme la qualification d'engagement unilatéral de volonté intervient souvent a posteriori (la personne n'avait pas conscience de s'engager), il est pratiquement impossible de préconstituer la mention. La preuve sera donc souvent libre (impossibilité matérielle ou morale) — ce qui évacue le débat sur l'application formelle du texte.</p>
+
+      <h3>Reconnaissance de dette — acte récognitif</h3>
+      <p>L'art. 1376 s'applique également aux actes récognitifs portant sur une somme d'argent ou une chose fongible. La reconnaissance de dette est un acte récognitif (non constitutif, non créateur) qui constate l'existence d'une créance et en précise le montant. Elle inverse la charge de la preuve en faveur du créancier. Son régime est lacunaire dans le Code (pas de texte spécifique, jurisprudence contradictoire sur sa nature contractuelle ou unilatérale) — mais l'exigence de la mention personnelle de l'art. 1376 lui est applicable dès lors qu'elle porte sur une obligation de payer.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- IV. ART. 1377 — DATE CERTAINE -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section" id="art1377">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1377</span>
+      <span class="section-title">Date certaine de l'acte sous signature privée à l'égard des tiers</span>
+    </div>
+
+    <div class="block">
+      <div class="quote">« L'acte sous signature privée n'a date certaine à l'égard des tiers que du jour où il a été enregistré, du jour de la mort du signataire, ou du jour où sa substance est constatée dans un acte authentique. »</div>
+
+      <p>Entre les parties, la date portée sur l'acte est présumée exacte (jusqu'à preuve contraire). Mais les tiers ne sont pas liés par cette date — ils peuvent la contester librement, notamment pour démontrer une manœuvre d'antidatage ou de postdatage (très courant pour des raisons fiscales, comptables, ou pour trancher des conflits de droits concurrents sur un même bien).</p>
+
+      <h3>Trois hypothèses de date certaine opposable aux tiers</h3>
+      <ul>
+        <li><strong>Enregistrement</strong> : la date de l'enregistrement de l'acte dans un service officiel (ex. service des impôts) fige la date de manière incontestable pour les tiers. Attention : c'est la date de l'enregistrement qui compte, pas nécessairement la date portée sur l'acte (qui peut avoir été antidatée avant l'enregistrement).</li>
+        <li><strong>Mort d'un signataire</strong> : à partir du décès de l'un des signataires, l'acte ne peut pas avoir été signé postérieurement. La date du décès constitue donc un terminus ante quem pour la date de l'acte.</li>
+        <li><strong>Constatation dans un acte authentique</strong> : si le notaire relate, dans un acte authentique, l'existence et la substance d'un acte sous signature privée (qu'il a lui-même eu entre les mains), la date de l'acte authentique fige indirectement la date de l'acte sous signature privée — qui est nécessairement antérieur. Nuance : cela ne vaut que pour ce que le notaire a personnellement constaté (il avait l'acte sous les yeux), non pour ce qu'on lui a simplement narré.</li>
+      </ul>
+
+      <div class="alert-box">
+        <div class="alert-title">Nuance — acte d'avocat</div>
+        <p>L'acte contresigné par avocat n'a pas de date certaine au sens strict. Mais sa date est <em>quasi-certaine</em> : la contester suppose de démontrer que l'avocat a lui-même commis un faux, ce qui est moralement et juridiquement très lourd. Cette distinction est attendue dans une consultation comparative entre les trois types d'actes.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- V. ART. 1378 — REGISTRES ET PAPIERS PROFESSIONNELS -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section" id="art1378">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1378 &amp; 1378-1</span>
+      <span class="section-title">Registres professionnels et papiers domestiques</span>
+    </div>
+
+    <div class="block">
+      <h3><span class="art-num">Art. 1378</span> — Registres et documents professionnels</h3>
+      <div class="quote">« Les registres et documents que les professionnels doivent tenir ou établir ont, contre leur auteur, la même force que l'acte sous signature privée. Celui qui s'en prévaut ne peut en diviser les mentions pour n'en retenir que celles qui lui sont favorables. »</div>
+
+      <p>Les registres et livres que la loi impose aux professionnels de tenir (ex. livre de comptabilité, registre d'un hôtelier, registres commerciaux) ont, <strong>contre leur auteur</strong>, la même force probante qu'un acte sous signature privée. L'adversaire peut donc s'en prévaloir comme d'un titre.</p>
+
+      <p><strong>Limite cruciale :</strong> la règle de l'indivisibilité — celui qui se prévaut du registre doit en subir l'intégralité, y compris les mentions défavorables. Il ne peut pas choisir de n'extraire que les éléments qui lui sont favorables.</p>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Exemple — Comptabilité de l'adversaire</div>
+        <p>Un créancier prétend qu'un contrat a été conclu. Le débiteur nie. Si la comptabilité du débiteur fait apparaître un paiement au titre de ce contrat, le créancier peut s'en prévaloir pour démontrer l'existence du contrat. Mais si cette même comptabilité montre que le paiement ne représentait que 20 % du montant total dû, le débiteur pourra opposer cette mention défavorable au créancier — le créancier ne peut pas diviser le document.</p>
+        <p>Obtention déloyale de la comptabilité adverse : si elle est indispensable et proportionnée à la défense des droits, elle peut être admise en vertu de la jurisprudence AP décembre 2023 sur la preuve déloyale.</p>
+      </div>
+
+      <h3><span class="art-num">Art. 1378-1</span> — Papiers domestiques</h3>
+      <p>Les registres et papiers domestiques (journaux personnels, lettres, carnets de comptes personnels) font preuve contre leur auteur dans deux cas :</p>
+      <ul>
+        <li>Lorsqu'ils énoncent formellement un paiement reçu.</li>
+        <li>Lorsqu'ils contiennent la mention expresse que l'écrit a été dressé pour suppléer le défaut de titre en faveur de celui au profit duquel ils énoncent une obligation.</li>
+      </ul>
+      <p>Ils ne font pas preuve contre l'auteur dans les autres cas — notamment s'il ne s'agit que de notes personnelles sans lien direct avec la prétention du demandeur. Le juge apprécie souverainement.</p>
+
+      <h3><span class="art-num">Art. 1378-2</span> — Mention de libération sur un titre</h3>
+      <p>La mention d'un acquit ou d'un autre libératoire portée par le créancier sur un titre original toujours resté en sa possession présomption simple de libération du débiteur. De même pour la mention portée sur le double d'un titre ou d'une quittance, pourvu que ce double soit entre les mains du débiteur.</p>
+      <p>Ces présomptions sont <em>simples</em> : le créancier peut les renverser (ex. en prouvant une erreur de son comptable). Mais elles placent la charge de la preuve contraire sur le créancier.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- VI. ART. 1379 — COPIES -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section" id="art1379">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1379</span>
+      <span class="section-title">Les copies — Innovation majeure de l'ordonnance</span>
+    </div>
+
+    <div class="block">
+      <div class="quote">« La copie fiable a la même force probante que l'original. »</div>
+
+      <p>C'est l'une des innovations les plus importantes de l'ordonnance de 2016 en matière de preuve. Avant 2016, la copie n'avait pas, en principe, la même force probante que l'original — le juge appréciait souverainement selon les espèces. Désormais, la loi pose le principe d'équivalence dès lors que la copie est <strong>fiable</strong>.</p>
+
+      <h3>Pourquoi cette évolution ?</h3>
+      <p>Dans le monde numérique, la distinction original/copie est devenue absurde : un fichier numérique dupliqué est strictement identique à l'original, bit à bit. Aucun expert ne peut distinguer « l'original » de la « copie » d'un fichier numérique. La loi tire enfin les conséquences de cette réalité technique.</p>
+
+      <h3>La fiabilité — critères</h3>
+      <p>La fiabilité est laissée à l'appréciation du juge en principe. Mais le texte prévoit deux présomptions :</p>
+
+      <div class="sub-section">
+        <div class="sub-section-title">1. Présomption quasi-irréfragable — copie par officier authentificateur</div>
+        <p>La copie exécutée par un officier authentificateur (ex. copie d'un acte notarié établie par le notaire lui-même) est réputée fiable de manière quasi irréfragable. Le notaire est soumis à ses obligations professionnelles — il ne peut pas fournir une copie inexacte sans commettre une faute grave.</p>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-section-title">2. Présomption légale simple — décret du 5 décembre 2016</div>
+        <p>Une copie est présumée fiable (présomption simple) lorsqu'elle résulte d'un procédé répondant aux exigences du <span class="loi-ref">décret du 5 décembre 2016</span> :</p>
+        <ul>
+          <li><strong>Copie non électronique :</strong> procédé entraînant une modification irréversible du support (ex. papier à encre laser dont la destruction laisserait des traces détectables).</li>
+          <li><strong>Copie électronique :</strong> procédé garantissant l'intégrité du fichier par une empreinte électronique (signature électronique qualifiée au sens du règlement eIDAS). La conservation doit se faire sur un support sécurisé empêchant toute altération non détectable.</li>
+        </ul>
+        <p>Si ces conditions ne sont pas remplies, il n'y a pas de présomption de fiabilité — c'est à celui qui se prévaut de la copie de prouver sa fiabilité.</p>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Interaction avec les conventions sur la preuve — sujet déjà tombé</div>
+        <p>Deux hypothèses de clauses conventionnelles sur la fiabilité des copies :</p>
+        <p><strong>Cas 1 :</strong> clause instaurant une présomption conventionnelle de fiabilité pour une copie réalisée par un procédé non reconnu (ne bénéficiant pas de la présomption légale). Valable si la présomption n'est pas irréfragable (art. 1356 al. 2 interdit les présomptions irréfragables contractuelles). À vérifier en outre au regard de l'art. 1171 (déséquilibre significatif en contrat d'adhésion).</p>
+        <p><strong>Cas 2 :</strong> clause écartant la présomption légale de fiabilité pour une copie réalisée par un procédé reconnu. Problème : la présomption légale découle d'un règlement européen (eIDAS) → ordre public communautaire → clause contraire à l'ordre public au sens de l'art. 6 et 1162 C. civ. (les parties ne peuvent pas déroger à l'ordre public). Ce sujet a déjà été traité dans des annales.</p>
+      </div>
+
+      <h3>Si l'original subsiste</h3>
+      <p>Si l'original existe encore, sa présentation peut toujours être exigée. La copie fiable ne supplante l'original que lorsque celui-ci a disparu ou n'est pas accessible.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- VII. ART. 1380 — ACTES RÉCOGNITIFS -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section" id="art1380">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1380</span>
+      <span class="section-title">Actes récognitifs</span>
+    </div>
+
+    <div class="block">
+      <div class="quote">« L'acte récognitif ne dispense pas de la représentation du titre original, à moins que sa teneur n'y soit spécialement relatée. »</div>
+
+      <p>L'acte récognitif est un acte probatoire — il <strong>reconnaît</strong> l'existence d'une créance préexistante, sans la créer. Ce n'est ni un contrat constitutif, ni un acte unilatéral créateur d'obligation. Il ne fait que constater une obligation déjà née.</p>
+
+      <p><strong>Principe :</strong> l'acte récognitif ne dispense pas de produire le titre original (l'acte qui a donné naissance à la créance). Il ne peut pas remplacer cet original à lui seul.</p>
+
+      <p><strong>Exception :</strong> si l'acte récognitif relate spécialement la teneur du titre original — c'est-à-dire s'il en reproduit le contenu de manière substantielle — alors il peut valoir comme équivalent à l'original. Dans ce cas seulement, l'acte récognitif se suffit à lui-même.</p>
+
+      <p><strong>Raison :</strong> un acte récognitif qui se contente de reconnaître l'existence d'une dette sans en relater l'origine pourrait masquer une modification frauduleuse de l'obligation initiale. En exigeant que le titre original soit produit (ou son contenu relaté), on empêche de créer de toutes pièces une dette inexistante ou d'en modifier le montant.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">Lacune du Code — pas d'arrêts cités</div>
+        <p>Le Code civil ne cite aucun arrêt sur la reconnaissance de dette et les actes récognitifs — lacune regrettable signalée en cours. Il existe pourtant une jurisprudence abondante sur la nature (contractuelle ou unilatérale) de la reconnaissance de dette, sur son incidence sur le point de départ de la prescription, et sur ses conditions de validité. Les études doctrinales récentes sur ce sujet font plusieurs centaines de pages. En cas pratique, se rappeler que : (1) la reconnaissance de dette n'est pas créatrice d'obligation, (2) elle doit être soumise à l'art. 1376 si elle porte sur une somme d'argent, (3) son incidence sur la prescription dépend de l'interprétation de la volonté des parties.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- VIII. SECTION 2 — TÉMOIGNAGE -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section" id="temoignage">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1381</span>
+      <span class="section-title">Section 2 — Preuve par témoignage</span>
+    </div>
+
+    <div class="block">
+      <div class="quote">« La valeur probante des déclarations faites par un tiers dans les conditions du Code de procédure civile est laissée à l'appréciation du juge. »</div>
+
+      <p>Un seul texte, un seul principe : <strong>appréciation souveraine du juge du fond</strong>. Le témoignage est le mode de preuve le plus faible — le juge n'est jamais lié par un témoignage. Il peut l'écarter, le relativiser, le retenir en partie.</p>
+
+      <p>Les témoignages sont regardés avec suspicion car les témoignages de complaisance (faux témoignages) existent et sont sanctionnés pénalement — mais la sanction n'efface pas le risque. En pratique, le témoignage est souvent utilisé en appoint d'un autre élément de preuve (CPE + témoignage, par exemple).</p>
+
+      <p>Le CPC prévoit des formalités pour les attestations témoignantes (identification, signature accompagnée d'une pièce d'identité, formule de connaissance des sanctions du faux témoignage).</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- IX. SECTION 3 — PRÉSOMPTIONS JUDICIAIRES -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section" id="presomptions-judiciaires">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1382</span>
+      <span class="section-title">Section 3 — Présomptions judiciaires (rappel et approfondissement)</span>
+    </div>
+
+    <div class="block">
+      <div class="quote">« Les présomptions qui ne sont pas établies par la loi sont laissées à l'appréciation du juge, qui ne doit les admettre que si elles sont graves, précises et concordantes, et dans les cas seulement où la loi admet la preuve par tout moyen. »</div>
+
+      <h3>Mécanisme</h3>
+      <p>Le juge part de faits <em>connus</em> (les indices) pour en déduire un fait <em>inconnu</em>. Les indices doivent être graves, précis et concordants. C'est un raisonnement souverain du juge du fond : la Cour de cassation contrôle uniquement que la motivation est cohérente (qu'il y avait bien des indices graves, précis et concordants) — elle ne rejuge pas les faits.</p>
+
+      <h3>Vérité judiciaire ≠ vérité scientifique</h3>
+      <p>La présomption judiciaire est une <em>vérité judiciaire</em> qui peut se détacher de la vérité scientifique. Exemple emblématique : le vaccin contre l'hépatite B et la sclérose en plaques. La science ne peut pas établir de lien causal certain. Mais le juge, sur la base d'indices graves, précis et concordants (proximité temporelle entre vaccination et apparition des symptômes, absence d'autre facteur explicatif...), peut <em>présumer</em> la causalité et la défectuosité du produit.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Conséquence en cas pratique — ne jamais être catégorique</div>
+        <p>Sur une présomption judiciaire, on ne peut jamais donner une réponse mathématique en cas pratique ou consultation. Le juge <em>peut</em> retenir la présomption — il n'y est pas obligé. La stratégie d'un avocat est d'<em>inciter</em> le juge à retenir la présomption en rassemblant et présentant les indices les plus convaincants. La formule en consultation : « Sur la base des éléments dont dispose notre client, qui constituent des indices graves, précis et concordants, on peut espérer que le juge du fond retiendra une présomption de [causalité / défectuosité / intentionnalité]. »</p>
+      </div>
+
+      <h3>Applications en droit des contrats</h3>
+      <ul>
+        <li><strong>Élément intentionnel du dol :</strong> en présence de manœuvres (mensonge, artifices), le juge peut présumer l'intention de tromper. Plus difficile en cas de simple réticence (silence ambigu).</li>
+        <li><strong>Défectuosité d'un produit</strong> (<span class="art-num">art. 1245 et s.</span>) : la victime doit prouver le défaut — mais peut le faire par présomption judiciaire lorsque la preuve directe est impossible.</li>
+        <li><strong>Lien de causalité</strong> entre un produit et un dommage : même logique.</li>
+      </ul>
+
+      <h3>Limite procédurale</h3>
+      <p>La présomption judiciaire n'est pas une présomption simple ou irréfragable au sens classique — elle appartient à une catégorie propre. Une fois retenue par le juge du fond, elle constitue la vérité judiciaire et a l'autorité de la chose jugée. La contester nécessite un appel sur les faits (devant la cour d'appel), non un pourvoi en cassation (la Cour de cassation ne rejuge pas les faits). La Cour de cassation contrôle seulement la motivation : s'il y avait bien des indices graves, précis et concordants, et si la décision n'est pas contradictoire.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- X. SECTION 4 — AVEU -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section" id="aveu">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1383 à 1383-2</span>
+      <span class="section-title">Section 4 — L'aveu</span>
+    </div>
+
+    <div class="block">
+      <div class="quote">« L'aveu est la déclaration par laquelle une personne reconnaît pour vrai un fait de nature à produire contre elle des conséquences juridiques. »</div>
+
+      <h3>Division fondamentale : aveu extrajudiciaire / judiciaire</h3>
+
+      <table>
+        <tr>
+          <th>Critère</th>
+          <th>Aveu extrajudiciaire (<span class="art-num">art. 1383-1</span>)</th>
+          <th>Aveu judiciaire (<span class="art-num">art. 1383-2</span>)</th>
+        </tr>
+        <tr>
+          <td>Contexte</td>
+          <td>Hors procédure judiciaire</td>
+          <td>Fait en justice par la partie ou son représentant spécialement mandaté</td>
+        </tr>
+        <tr>
+          <td>Force probante</td>
+          <td>Laissé à l'appréciation souveraine du juge (même si verbal) — simple élément parmi d'autres</td>
+          <td>Fait foi contre son auteur — le juge ne peut pas en apprécier librement la portée</td>
+        </tr>
+        <tr>
+          <td>Divisibilité</td>
+          <td>Le juge apprécie librement</td>
+          <td>Indivisible contre son auteur — on ne peut pas extraire seulement les éléments défavorables à l'adversaire</td>
+        </tr>
+        <tr>
+          <td>Révocabilité</td>
+          <td>Pas de règle spécifique</td>
+          <td>Irrévocable — sauf erreur de fait (ex. s'être trompé sur ce que l'on avouait)</td>
+        </tr>
+        <tr>
+          <td>Supplétif de l'écrit</td>
+          <td>Non</td>
+          <td>Oui — peut suppléer à l'exigence de l'écrit (<span class="art-num">art. 1361</span>)</td>
+        </tr>
+      </table>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Aveu judiciaire — supplétif de l'écrit et arme stratégique</div>
+        <p>L'aveu judiciaire peut suppléer à la preuve littérale exigée pour les actes juridiques au-delà de 1 500 € en matière civile. En pratique : si votre adversaire avoue en justice l'existence du contrat et son contenu, le défaut d'écrit n'a plus d'importance. La stratégie consiste parfois à amener l'adversaire à avouer dans le cadre de la procédure (interrogation des parties, écritures qui reconnaissent implicitement des faits). L'aveu est irrévocable — sauf erreur de fait démontrée — ce qui en fait un élément décisif une fois obtenu.</p>
+      </div>
+
+      <h3>Aveu extrajudiciaire verbal</h3>
+      <p>L'aveu extrajudiciaire purement verbal n'est reçu que dans les cas où la loi admet la preuve par témoins (c'est-à-dire dans les domaines de preuve libre). Sa valeur est laissée à l'appréciation souveraine du juge. Il peut constituer un indice susceptible d'alimenter un raisonnement de présomption judiciaire — mais ce n'est pas un aveu au sens technique.</p>
+
+      <h3>Aveu et libertés fondamentales — grand oral</h3>
+      <p>L'aveu en droit pénal est fondamentalement différent : en matière pénale, l'aveu doit être librement consenti et n'est qu'un élément parmi d'autres (pas de valeur absolue). L'aveu civil fait foi contre son auteur de manière quasi absolue — ce qui pose des questions de libertés fondamentales (droit à un procès équitable, protection contre la faiblesse ou la pression). Ce sujet a été posé au grand oral — notamment l'articulation entre aveu et droits fondamentaux, aveu et serment.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- XI. MÉTHODOLOGIE -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section" id="methodo">
+    <div class="section-header">
+      <span class="section-tag tag-methodo">🎯 Méthodologie</span>
+      <span class="section-title">Raisonnement en cascade — le cœur de la consultation</span>
+    </div>
+
+    <div class="block">
+      <p>Le cours illustre de façon répétée la même logique de raisonnement en consultation : un fait ou une clause donne lieu à plusieurs angles d'attaque successifs, chacun relevant de corps de normes distincts. Les candidats qui ne voient qu'un seul angle ratent les points discriminants.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">Exemple type — copie numérique et présomption de fiabilité</div>
+        <p>Étape 1 : la copie bénéficie-t-elle de la présomption de fiabilité de l'art. 1379 ? → vérifier si le procédé respecte le décret du 5 décembre 2016.<br>
+        Étape 2 : si oui, l'adversaire peut-il renverser la présomption ? → démontrer une faille technique (intrusion, altération).<br>
+        Étape 3 : s'il y a une clause conventionnelle sur la fiabilité, est-elle valable au regard de l'art. 1356 (présomption irréfragable interdite) ?<br>
+        Étape 4 : la clause est-elle valable au regard de l'art. 1171 (déséquilibre significatif en contrat d'adhésion) ?<br>
+        Étape 5 : la clause est-elle valable au regard de l'art. 6 et 1162 (ordre public, notamment ordre public communautaire si le règlement eIDAS est en jeu) ?</p>
+      </div>
+
+      <p>Ce type de raisonnement multi-niveaux est la signature des copies qui obtiennent 15–18. Les candidats qui s'arrêtent à l'étape 1 ou 2 sont dans la moyenne basse. Les 17–18 sont ceux qui ont vu tous les niveaux et les ont articulés clairement, sans se perdre.</p>
+
+      <p><strong>Sur la preuve déloyale :</strong> depuis AP décembre 2023, une preuve obtenue de manière déloyale peut être admise si elle était indispensable à la défense des droits du demandeur et proportionnée à l'intérêt en jeu. Cela ouvre une voie pour la production de documents obtenus de façon contestable (ex. comptabilité obtenue via un salarié qui a quitté l'entreprise, copies de fichiers informatiques). Toujours à combiner avec le raisonnement sur les modes de preuve admissibles.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- XII. ORGANISATION -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section" id="orga">
+    <div class="section-header">
+      <span class="section-tag tag-orga">🗓️ Organisation</span>
+      <span class="section-title">Informations pratiques</span>
+    </div>
+
+    <div class="block">
+      <p><strong>Prochain cours :</strong> fin du cours sur la preuve (serment) puis passage au Régime Général des Obligations.</p>
+      <p><strong>Rappel général :</strong> le travail jusqu'au dernier moment est la norme parmi les candidats qui réussissent — ne pas se laisser déstabiliser par les rumeurs sur les « bonnes pratiques » de révision. Le mois de mai sera chargé. La régularité des compositions est indispensable pour maintenir le rythme de rédaction. Composer imparfaitement vaut mieux que ne pas composer.</p>
+      <p><strong>Attention à l'effet matière :</strong> ne pas sacrifier une matière au profit d'une autre, même si l'on se sent fort quelque part. Un 9 en procédure pénale peut anéantir un 15 en obligations. L'équilibre entre les matières est aussi important que la performance sur chacune.</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

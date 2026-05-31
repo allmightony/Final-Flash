@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preuve — Cours 1 — 17 mars</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #faf9f6;
+    --surface: #ffffff;
+    --border: #e8e4dc;
+    --text: #1a1a1a;
+    --text-light: #555;
+    --article: #c0392b;
+    --juris: #6c3483;
+    --loi: #7b5e3a;
+    --citation: #1a5276;
+    --tag-cours: #2c6e49;
+    --tag-methodo: #1565c0;
+    --tag-oral: #6a0f49;
+    --tag-critique: #b71c1c;
+    --tag-orga: #4a4a4a;
+    --tag-alerte: #e65100;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; font-style: normal; }
+
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .page-header {
+    background: #ffffff;
+    color: #1a1a1a;
+    padding: 48px 64px 40px;
+    border-bottom: 4px solid var(--article);
+  }
+  .page-header .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 12px;
+  }
+  .page-header h1 { font-size: 2rem; font-weight: 500; margin-bottom: 8px; }
+  .page-header .subtitle { color: #ccc; font-size: 1rem; }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 64px;
+    background: #f2f0ea;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+
+  .main { max-width: 920px; margin: 0 auto; padding: 48px 32px 80px; }
+  .section { margin-bottom: 56px; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .tag-cours { background: var(--tag-cours); }
+  .tag-methodo { background: var(--tag-methodo); }
+  .tag-oral { background: var(--tag-oral); }
+  .tag-critique { background: var(--tag-critique); }
+  .tag-orga { background: var(--tag-orga); }
+  .tag-alerte { background: var(--tag-alerte); }
+
+  .section-title { font-size: 1.25rem; font-weight: 500; color: var(--text); }
+
+  .block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin-bottom: 18px;
+  }
+  .block p { margin-bottom: 14px; }
+  .block p:last-child { margin-bottom: 0; }
+  .block ul { padding-left: 24px; margin: 12px 0; }
+  .block li { margin-bottom: 8px; }
+
+  .art-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--article);
+    font-weight: 500;
+  }
+  .juris { color: var(--juris); font-weight: 500; }
+  .loi-ref { color: var(--loi); font-weight: 500; }
+
+  .quote {
+    border-left: 4px solid var(--citation);
+    margin: 16px 0;
+    padding: 12px 20px;
+    background: #f0f4f8;
+    color: var(--citation);
+    font-size: 0.95em;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .alert-box {
+    border: 1px solid var(--tag-alerte);
+    border-left: 5px solid var(--tag-alerte);
+    background: #fff8f5;
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 16px 0;
+  }
+  .alert-box .alert-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--tag-alerte);
+    margin-bottom: 8px;
+  }
+
+  .sub-section {
+    border-top: 1px solid var(--border);
+    margin-top: 18px;
+    padding-top: 18px;
+  }
+  .sub-section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 12px;
+  }
+
+  h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 18px;
+    color: #222;
+  }
+
+  .separator { border: none; border-top: 3px solid var(--border); margin: 48px 0; }
+  .part-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 28px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    @page { size: A4; margin: 15mm 14mm 18mm 14mm; }
+    body { font-size: 10.5pt; line-height: 1.55; background: #faf9f6 !important; color: #1a1a1a !important; }
+    .page-header { background: #1a1a1a !important; color: #fff !important; padding: 18pt 20pt 14pt !important; border-bottom: 3pt solid #c0392b !important; margin-bottom: 10pt; }
+    .page-header .label { color: #aaa !important; font-size: 7pt !important; }
+    .page-header h1 { font-size: 15pt !important; margin-bottom: 3pt !important; }
+    .page-header .subtitle { color: #ccc !important; font-size: 9pt !important; }
+    .legend { background: #f2f0ea !important; padding: 6pt 20pt !important; font-size: 7.5pt !important; gap: 10pt !important; border-bottom: 1pt solid #e8e4dc !important; margin-bottom: 8pt; }
+    .main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+    .section { margin-bottom: 16pt !important; page-break-inside: avoid; }
+    .section-header { padding-bottom: 5pt !important; margin-bottom: 8pt !important; border-bottom: 1.5pt solid #e8e4dc !important; display: flex !important; align-items: baseline !important; gap: 8pt !important; }
+    .section-tag { font-size: 6.5pt !important; padding: 2pt 6pt !important; border-radius: 2pt !important; color: #fff !important; }
+    .tag-cours    { background: #2c6e49 !important; }
+    .tag-methodo  { background: #1565c0 !important; }
+    .tag-oral     { background: #6a0f49 !important; }
+    .tag-critique { background: #b71c1c !important; }
+    .tag-orga     { background: #4a4a4a !important; }
+    .tag-alerte   { background: #e65100 !important; }
+    .tag-commission { background: #6d4c41 !important; }
+    .section-title { font-size: 11pt !important; }
+    .block { background: #ffffff !important; border: 0.75pt solid #e8e4dc !important; border-radius: 3pt !important; padding: 10pt 12pt !important; margin-bottom: 8pt !important; page-break-inside: avoid; }
+    .block p { margin-bottom: 6pt !important; font-size: 10pt !important; }
+    .block ul { padding-left: 14pt !important; margin: 5pt 0 !important; }
+    .block li { margin-bottom: 4pt !important; font-size: 10pt !important; }
+    h3 { font-size: 10.5pt !important; margin-top: 8pt !important; margin-bottom: 4pt !important; }
+    .alert-box { border: 0.75pt solid #e65100 !important; border-left: 3pt solid #e65100 !important; background: #fff8f5 !important; padding: 7pt 10pt !important; border-radius: 2pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .alert-box .alert-title { font-size: 6.5pt !important; color: #e65100 !important; margin-bottom: 4pt !important; }
+    .alert-box p { font-size: 9.5pt !important; }
+    .alert-box ul { font-size: 9.5pt !important; }
+    .quote { border-left: 3pt solid #1a5276 !important; background: #f0f4f8 !important; color: #1a5276 !important; padding: 7pt 10pt !important; font-size: 9.5pt !important; margin: 6pt 0 !important; }
+    .sub-section { border-top: 0.5pt solid #e8e4dc !important; margin-top: 8pt !important; padding-top: 8pt !important; }
+    .sub-section-title { font-size: 7pt !important; color: #555 !important; margin-bottom: 5pt !important; }
+    .art-num { color: #c0392b !important; font-size: 9pt !important; }
+    .juris   { color: #6c3483 !important; }
+    .loi-ref { color: #7b5e3a !important; }
+    .separator { border-top: 1.5pt solid #e8e4dc !important; margin: 12pt 0 !important; }
+    .part-title { font-size: 7.5pt !important; color: #555 !important; padding: 6pt 0 !important; border-bottom: 0.75pt solid #e8e4dc !important; margin-bottom: 10pt !important; }
+    table { font-size: 9pt !important; border-collapse: collapse !important; width: 100% !important; margin: 6pt 0 !important; }
+    th { background: #f2f0ea !important; padding: 5pt 7pt !important; border: 0.75pt solid #e8e4dc !important; }
+    td { padding: 5pt 7pt !important; border: 0.75pt solid #e8e4dc !important; }
+    .section-header { page-break-after: avoid; }
+    h3 { page-break-after: avoid; }
+    a[href]:after { content: none !important; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="label">Cours 1 — 17 mars</div>
+  <h1>Quasi-contrats (suite &amp; fin) &amp; Introduction au droit de la preuve</h1>
+  <div class="subtitle">Art. 1352-6 / 1352-7 · Application de la loi dans le temps · Loteries publicitaires · Art. 1353–1354</div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-cours)"></div> Cours / Doctrine</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-methodo)"></div> Méthodologie</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-alerte)"></div> Alerte examen</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-oral)"></div> Grand oral</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-critique)"></div> Erreurs fréquentes</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-orga)"></div> Organisation</div>
+</div>
+
+<div class="main">
+
+  <!-- ═══════════════════ PARTIE I — QUASI-CONTRATS ═══════════════════ -->
+  <div class="part-title">── Partie 1 — Quasi-contrats (suite &amp; fin) ──────────────────────</div>
+
+  <!-- I. ART. 1352-6 ET 1352-7 -->
+  <div class="section" id="1352">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1352-6 &amp; 1352-7</span>
+      <span class="section-title">Restitution d'une somme d'argent — rôle de la mauvaise foi</span>
+    </div>
+
+    <div class="block">
+      <h3>Précision sur la combinaison des deux textes</h3>
+      <p>L'<span class="art-num">art. 1352-7</span> (mauvaise foi) a été conçu comme le reflet de l'<span class="art-num">art. 1352-3</span> (fruits civils), pour les obligations <em>non</em> monétaires. L'intérêt visé à l'art. 1352-7 n'est pas l'intérêt légal — c'est l'intérêt en tant que fruit civil, issu de la mise en situation fructifère d'un bien (ex. loyer d'un immeuble). Ces deux textes ne portent donc pas sur les obligations de somme d'argent.</p>
+
+      <p>Pour les <strong>obligations de somme d'argent</strong>, il existe un régime distinct centré sur l'<span class="art-num">art. 1352-6</span> : la restitution inclut les intérêts au taux légal et les taxes acquittées. L'intérêt légal n'est pas un fruit civil — c'est une technique de valorisme monétaire pour lutter contre la dépréciation de la monnaie (nominalisme vs. valorisme).</p>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Combinaison possible — à la marge</div>
+        <p>La mauvaise foi peut néanmoins jouer un rôle dans le cadre de l'art. 1352-6, mais de façon différente : si celui qui a reçu le paiement indu était de mauvaise foi, on peut envisager, en s'appuyant sur la jurisprudence antérieure à l'ordonnance, de le <strong>déchoir de son droit à l'intérêt légal</strong>. Ce n'est pas une logique de fruits (comme dans 1352-3 + 1352-7), c'est une logique de sanction : la mauvaise foi prive de la prime que constitue l'intérêt légal. La combinaison art. 1352-6 + art. 1352-7 est donc techniquement possible mais avec un sens différent.</p>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Mal rédigé dans le Code</div>
+        <p>La distribution des textes sur les restitutions est désastreuse pédagogiquement. Les rédacteurs de l'ordonnance ont tout fondu ensemble au lieu de distinguer le régime de l'obligation monétaire et celui de l'obligation non monétaire. Il faut construire soi-même les articulations entre les textes — c'est ce que verra le correcteur exigeant.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- II. APPLICATION DE LA LOI DANS LE TEMPS — QUASI-CONTRATS -->
+  <div class="section" id="application-loi-temps">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 2 C. civ. &amp; Roubier</span>
+      <span class="section-title">Application de la loi dans le temps — quasi-contrats</span>
+    </div>
+
+    <div class="block">
+      <h3>Principe : pas de survie de la loi ancienne pour les faits juridiques</h3>
+      <p>Les trois quasi-contrats (gestion d'affaires, paiement de l'indu, enrichissement injustifié) sont des <strong>faits juridiques</strong>. L'<span class="art-num">art. 9 de l'ordonnance du 10 février 2016</span>, qui pose le principe de survie de la loi ancienne en matière contractuelle, est <strong>sans aucun intérêt</strong> pour les quasi-contrats. Ce texte concerne les actes juridiques, non les faits juridiques.</p>
+      <p>La règle applicable est celle de l'<span class="art-num">art. 2 C. civ.</span>, tel qu'interprété par la jurisprudence inspirée de <strong>Paul Roubier</strong> : la loi nouvelle s'applique immédiatement aux faits juridiques qui se constituent après son entrée en vigueur.</p>
+
+      <h3>Distinction constitution / effets (Roubier)</h3>
+      <p>Roubier a établi la distinction fondamentale entre :</p>
+      <ul>
+        <li><strong>La constitution de la situation juridique</strong> : gouvernée par la loi en vigueur au jour où les conditions du quasi-contrat sont réunies.</li>
+        <li><strong>Les effets de cette situation</strong> : gouvernés par la loi nouvelle, applicable immédiatement, même si la situation s'est constituée sous l'empire de la loi ancienne.</li>
+      </ul>
+      <p>En matière de quasi-contrats, l'effet principal est le versement d'une indemnité. Si un enrichissement injustifié s'est constitué sous le droit ancien, la loi nouvelle s'applique immédiatement au <em>calcul</em> de l'indemnité.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Arrêt à connaître — <span class="juris">Cass. civ. 1ère, 3 mars 2021, n° 19-19000</span></div>
+        <p>Numéro de pourvoi remarquable par sa symétrie (19-19000). La Cour de cassation approuve la cour d'appel d'avoir appliqué les dispositions nouvelles de l'art. 1303 C. civ. pour calculer l'indemnité d'un enrichissement injustifié constitué sous le droit ancien, au visa de l'art. 2 C. civ. La Cour précise que les règles de conflit de loi dans le temps des quasi-contrats sont celles du droit commun, en l'absence de dispositions transitoires spécifiques dans l'ordonnance.</p>
+        <p>Ce raisonnement est transposable à la gestion d'affaires et au paiement de l'indu par la même logique.</p>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Erreur grave à éviter</div>
+        <p>Affirmer qu'on ne peut pas appliquer les dispositions nouvelles à une situation constituée avant l'ordonnance est <strong>faux</strong> pour les quasi-contrats. C'est méconnaître l'art. 2 C. civ. et la distinction constitution/effets de Roubier. Un adversaire qui vous oppose cet argument ne connaît pas les bases de l'application de la loi dans le temps (niveau L1, intro au droit). L'art. 9 de l'ordonnance ne règle pas la question des quasi-contrats.</p>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">Grand oral — sujet récurrent</div>
+        <p>Ce point est parfaitement adapté au grand oral pour tester la maîtrise des fondamentaux. Savoir articuler : quasi-contrats = faits juridiques → principe d'application immédiate de la loi nouvelle (art. 2 C. civ.) → distinction constitution/effets → arrêt 2021. Ne pas connaître Roubier est éliminatoire.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- III. QUASI-CONTRAT DE CRÉATION D'APPARENCE TROMPEUSE -->
+  <div class="section" id="loterie">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Ch. mixte 6 sept. 2002</span>
+      <span class="section-title">Le quasi-contrat de création d'apparence trompeuse — loteries publicitaires</span>
+    </div>
+
+    <div class="block">
+      <h3>Genèse — une proposition doctrinale transformée</h3>
+      <p>Alain <strong>Bénabent</strong> avait proposé la consécration d'un quasi-contrat général de création d'apparence trompeuse pour donner une assise positive à la théorie de l'apparence, dispersée en droit français. Son collègue <strong>Jean-Pierre Gridel</strong> (ancien directeur de l'IEJ de Paris 5, puis conseiller à la Cour de cassation) avait repris cette proposition dans son rapport pour les arrêts du 6 septembre 2002. La Cour a retenu l'idée mais l'a limitée aux seules loteries publicitaires — décepcion doctrinale majeure selon les auteurs qui espéraient un arrêt historique.</p>
+
+      <h3>Conditions du quasi-contrat (<span class="juris">Ch. mixte 6 sept. 2002</span>)</h3>
+      <ul>
+        <li><strong>Annonce de gain faite à personne dénommée</strong> : il faut un courrier nominatif, adressé individuellement, pas une distribution en masse. Un courriel générique à une adresse e-mail ne suffit pas — une adresse e-mail n'est qu'une boîte aux lettres, comme une distribution dans des enveloppes blanches.</li>
+        <li><strong>Absence d'aléas perceptibles à première lecture</strong> : aucune réserve apparente sur l'attribution du lot ne doit figurer à première lecture du courrier. La Cour de cassation contrôle la motivation des juges du fond sur ce point.</li>
+      </ul>
+      <p>Effet : <strong>exécution forcée</strong> de la délivrance du lot — non une simple réparation du préjudice. C'est là l'anomalie technique de ce quasi-contrat : il conduit à une exécution forcée, effet normalement réservé aux actes juridiques, alors que le quasi-contrat est un fait juridique.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Verrue juridique — à connaître et à critiquer</div>
+        <p>Ce quasi-contrat est une verrue parce qu'il viole la logique des quasi-contrats : pas d'exécution forcée, pas de correction d'une commutation patrimoniale injustifiée. La Cour a bricolé une solution faute de texte adapté. Ne pas remettre en cause ce caractère atypique dans une copie = signal d'un candidat qui ne maîtrise pas la matière.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Articulation des deux arrêts du 6 septembre 2002</h3>
+      <ul>
+        <li><strong>1er arrêt :</strong> lorsque les deux conditions sont réunies → quasi-contrat → exécution forcée du lot. Engagement unilatéral de volonté et responsabilité civile délictuelle sont exclus.</li>
+        <li><strong>2e arrêt :</strong> lorsque les conditions du quasi-contrat ne sont <em>pas</em> réunies (faute de l'une ou l'autre condition) → responsabilité civile délictuelle possible, comme pisaller. Mais le préjudice réparable sera limité à un espoir déçu (préjudice moral + éventuellement perte de temps). Aucune exécution forcée.</li>
+      </ul>
+      <p>L'écart pratique est colossal : exécution forcée pour 100 000 € promis vs. quelques centaines d'euros de réparation d'un espoir déçu. C'est l'illustration concrète de la différence acte juridique/fait juridique.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Erreur fatale — hésiter entre les deux fondements</div>
+        <p>Une fois le quasi-contrat consacré comme fait juridique, il est impossible de recourir à un acte juridique (engagement unilatéral de volonté, contrat). Un quasi-contrat est un fait — il exclut tout acte. Toute copie qui hésite entre les deux fondements révèle une méconnaissance des sources d'obligations.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>État du droit après l'ordonnance de 2016</h3>
+      <p>L'ordonnance n'a pas codifié ce quasi-contrat de loterie publicitaire. L'<span class="art-num">art. 1300 al. 2</span> C. civ. énumère les quasi-contrats (gestion d'affaires, paiement de l'indu, enrichissement injustifié) sans les qualifier de limitatifs. Or ce n'est pas parce que la loi énumère des quasi-contrats que la jurisprudence ne peut pas en créer — la preuve en est l'enrichissement sans cause lui-même, création prétorienne codifiée en 2016.</p>
+
+      <p>Deux scénarios possibles après l'ordonnance :</p>
+      <ul>
+        <li><strong>Maintien de la jurisprudence du 6 sept. 2002 :</strong> la Cour de cassation affirme sa fonction normative en maintenant ce quasi-contrat malgré le silence de la loi.</li>
+        <li><strong>Abandon et retour à l'engagement unilatéral de volonté :</strong> désormais consacré par le Code civil, l'engagement unilatéral de volonté pourrait jouer le même rôle avec les mêmes conditions (courrier à personne dénommée + absence d'aléa perceptible). Le droit positif ne changerait pas — seul le fondement changerait.</li>
+      </ul>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Erreur dans certains corrigés CRFPA en circulation</div>
+        <p>Affirmer que « le quasi-contrat de loterie publicitaire a été abandonné parce que les quasi-contrats sont désormais limitativement énumérés par la loi » est doublement faux : (1) le code ne pose pas une énumération limitative ; (2) même si c'était le cas, un abandon de jurisprudence ne découle pas automatiquement du silence de la loi. Une copie qui écrit cela révèle une ignorance totale de la théorie des sources.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="separator">
+
+  <!-- ═══════════════════ PARTIE II — DROIT DE LA PREUVE ═══════════════════ -->
+  <div class="part-title">── Partie 2 — Introduction au droit de la preuve ──────────────────</div>
+
+  <!-- IV. CADRAGE GÉNÉRAL -->
+  <div class="section" id="cadrage-preuve">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Cadrage</span>
+      <span class="section-title">Le droit de la preuve des obligations = quasi tout le droit de la preuve civile</span>
+    </div>
+
+    <div class="block">
+      <h3>Anomalie française</h3>
+      <p>Il n'existe pas en droit français de régime probatoire général d'application universelle. Tout le droit de la preuve civile a été conçu autour de la preuve des obligations. Par extrapolation, ces règles s'appliquent en droit des biens, en droit de la famille (sauf dispositions spéciales), en droit de la responsabilité. Il n'y a pas un seul texte dans le Code civil sur la preuve de la propriété — celle-ci se prouve par tous moyens.</p>
+
+      <h3>Adages fondamentaux</h3>
+      <p><strong>Idem est non esse aut non probari</strong> : il est identique de ne pas être ou de ne pas être prouvé. Si votre droit subjectif est contesté et que vous ne le prouvez pas, l'ordre juridique ne le reconnaîtra pas.</p>
+      <p><strong>La preuve est la rançon des droits</strong> (Rudolf von Ihering) : tout droit subjectif contesté suppose d'être prouvé pour être reconnu.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">Grand oral — question quasi-systématique</div>
+        <p>Le droit de la preuve tombe à peu près toujours au grand oral. Ces adages sont connus de tous les candidats — ils sont attendus en introduction de dissertation. Ce qui fait la différence, c'est savoir les exploiter et les articuler avec la jurisprudence contemporaine (droit à la preuve, assemblée plénière 2023).</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Plan du titre IV bis — Art. 1353 et suivants</h3>
+      <ul>
+        <li><strong>Chapitre 1 — Dispositions générales</strong> (art. 1353 et s.) : charge de la preuve, présomptions légales, autorité de la chose jugée, conventions sur la preuve.</li>
+        <li><strong>Chapitre 2 — Admissibilité des modes de preuve</strong> : principe général de liberté de la preuve, exception de la preuve littérale pour les actes juridiques en matière civile.</li>
+        <li><strong>Chapitre 3 — Les différents modes de preuve</strong> : écrit (actes authentiques, sous signature privée, écrit électronique), témoignage, présomptions judiciaires, aveu, serment.</li>
+      </ul>
+      <p>Plan discutable : les modes de preuve relatifs à l'écrit sont abordés deux fois (ch. 2 et ch. 3), ce qui impose des recoupements. Il faut connaître les textes pour sauter d'un numéro à l'autre avec dextérité.</p>
+
+      <h3>Réforme de 2016 — portée limitée</h3>
+      <p>L'ordonnance du 10 février 2016 n'est pas une réforme de grande ampleur en droit de la preuve. Elle consiste principalement en une recodification et une codification de jurisprudence antérieure. Toute la jurisprudence rendue sur les textes anciens reste mobilisable pour interpréter les textes nouveaux qui n'en sont souvent que le décalque exact.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Erreur à ne jamais commettre</div>
+        <p>Refuser de citer la jurisprudence antérieure à l'ordonnance au prétexte que le texte est nouveau = faute grave. Lorsque le texte nouveau est la codification d'une jurisprudence ancienne, cette jurisprudence est indispensable pour interpréter le texte. Un correcteur de bon niveau vous demandera sur quel fondement vous interprétez le texte si vous ne citez pas les arrêts qui l'éclairent.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- V. PREUVE vs. FOND DU DROIT -->
+  <div class="section" id="preuve-fond">
+    <div class="section-header">
+      <span class="section-tag tag-methodo">🎯 Méthodologie</span>
+      <span class="section-title">Ne pas inventer une question probatoire là où il n'y en a pas</span>
+    </div>
+
+    <div class="block">
+      <p>Les règles du droit de la preuve ne régissent pas le fond du droit. Elles administrent la preuve d'une prétention lorsque celle-ci est <strong>contestée</strong>. Si l'adversaire ne conteste pas l'existence d'un fait ou d'un acte, la question probatoire n'existe pas.</p>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Exemples</div>
+        <ul>
+          <li>L'adversaire reconnaît l'existence du contrat mais en conteste la validité → pas de question probatoire sur l'existence du contrat. La question est de fond (validité). Le mettre en cause sur le droit de la preuve serait hors sujet.</li>
+          <li>L'adversaire invoque la nullité → il reconnaît implicitement l'existence du contrat → question de fond uniquement.</li>
+          <li>L'adversaire conteste l'existence même du contrat → question probatoire centrale.</li>
+          <li>Le dol est admis par l'auteur → pas besoin de prouver l'intention de tromper. Ne pas s'y attarder.</li>
+        </ul>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Double piège en consultation</div>
+        <p>Ne pas voir une question probatoire quand elle est présente = perdre 4 à 5 points (il y a 3 ans, 40 à 50 % des candidats ont raté une question probatoire évidente sur 5 points). Inventer une question probatoire qui n'existe pas = copie hors sujet, correcteur exaspéré. Les deux erreurs sont également fréquentes et également sanctionnées.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VI. DROIT À LA PREUVE — AP 22 DÉC. 2023 -->
+  <div class="section" id="droit-a-la-preuve">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 AP 22 déc. 2023</span>
+      <span class="section-title">Droit à la preuve — Preuve déloyale et illicite admissible</span>
+    </div>
+
+    <div class="block">
+      <h3>Distinction droit de la preuve / droit à la preuve</h3>
+      <p><strong>Droit de la preuve</strong> : les règles qui administrent la charge, l'objet et les modes de preuve. C'est ce que codifie l'ordonnance de 2016 (art. 1353 et s.).</p>
+      <p><strong>Droit à la preuve</strong> : le droit pour un plaideur de se procurer des éléments de preuve propres à établir le bien-fondé de ses prétentions. Ce droit résulte de la jurisprudence de la CEDH (droit au procès équitable) et de la Cour de cassation. Il n'est pas codifié dans le Code civil — les arrêts qui y figurent sont placés par les éditeurs sous des textes qui ne les concernent pas.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Erreur technique grave</div>
+        <p>Fonder le droit à la preuve (y compris déloyale) sur un texte du Code civil dans une majeure = erreur flagrante. Ce droit est purement jurisprudentiel. Il n'a pas été codifié par l'ordonnance. Un correcteur avocat, juge ou processualiste vous demolira sur ce point.</p>
+      </div>
+
+      <h3><span class="juris">Ass. plén. 22 décembre 2023</span> — Deux conditions cumulatives</h3>
+      <p>L'Assemblée plénière a ouvert la voie à la production en justice d'une preuve obtenue de façon déloyale ou illicite, sous deux conditions :</p>
+      <ul>
+        <li><strong>Indispensabilité</strong> : la preuve doit être indispensable à l'exercice des droits du demandeur (ou du défendeur) — il n'existe pas d'autre moyen de prouver.</li>
+        <li><strong>Proportionnalité</strong> : l'atteinte aux droits d'autrui doit être proportionnée au but poursuivi (établir le bien-fondé des prétentions).</li>
+      </ul>
+      <p>Sanction en cas de non-respect : <strong>irrecevabilité</strong> de la pièce.</p>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Nature du contrôle — casuistique total</div>
+        <p>Les deux critères sont d'appréciation très malléable. Le juge conserve une marge d'appréciation phénoménale. C'est la logique du contrôle de proportionnalité de la CEDH, redoutée par certains civilistes (dont Pierre-Yves Gautier qui dénonçait depuis des années le relativisme probatoire que cela engendrerait) : pas de solution prévisible, résultat variable selon l'espèce. Jean Carbonnier l'avait prédit dès l'adoption de la Convention européenne des droits de l'homme. En consultation, il faut prévenir le client que l'issue est incertaine.</p>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Distinction preuve déloyale / preuve illicite</div>
+        <p>La frontière est floue en doctrine. La preuve <em>déloyale</em> est recueillie par des méthodes non conformes à la loyauté (ex. enregistrement non autorisé), mais l'élément de preuve lui-même n'est pas intrinsèquement illicite. La preuve <em>illicite</em> est obtenue par un procédé constitutif d'une infraction (ex. cambriolage). Les deux sont soumises aux mêmes conditions depuis l'AP 2023 — la distinction n'a plus d'intérêt pratique, même si la doctrine continue de la relever.</p>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Illustrations en droit des affaires</div>
+        <p>En droit de la concurrence déloyale (fondé exclusivement sur l'art. 1240 C. civ.), les techniques de preuve de comportements parasitaires peuvent désormais inclure des méthodes borderline : achat du produit concurrent en se faisant passer pour un client, enregistrement de conversations avec un concurrent qui admet ses emprunts. Avant 2023, tout cela était irrecevable. Après 2023, admissible si indispensable et proportionné.</p>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">Grand oral — sujet très fréquent en 2024-2025</div>
+        <p>Plus de 150 candidats ont été interrogés sur ce thème l'année dernière (question principale ou secondaire au grand oral). Les angles : droit à la preuve et droits fondamentaux, sécurité juridique et preuve déloyale, compatibilité avec le procès équitable. L'arrêt AP 22 décembre 2023 est incontournable. Pierre-Yves Gautier (premier déterminant des sujets de la commission nationale) a publié une critique virulente de cette jurisprudence au Dalloz — à connaître.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VII. ART. 1353 — CHARGE DE LA PREUVE -->
+  <div class="section" id="art1353">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1353</span>
+      <span class="section-title">Charge de la preuve — Texte phare (anciennement art. 1315)</span>
+    </div>
+
+    <div class="block">
+      <div class="quote">
+        « Celui qui réclame l'exécution d'une obligation doit la prouver.<br>
+        Réciproquement, celui qui se prétend libéré doit justifier le paiement ou le fait qui a produit l'extinction de son obligation. »
+      </div>
+
+      <p>Décalque mot pour mot de l'ancien <span class="art-num">art. 1315</span>. Toute la jurisprudence rendue sur 1315 est transposable à 1353. Ignorer ce lien dans une copie = signal d'un candidat qui ne connaît pas la matière.</p>
+
+      <h3>Alinéa 1 — Charge sur le demandeur</h3>
+      <p>Celui qui se prétend créancier doit prouver la source de son droit de créance, quelle qu'elle soit : contractuelle, délictuelle (fait générateur de responsabilité civile), quasi-contractuelle (conditions du quasi-contrat). Si l'adversaire ne conteste pas l'existence de la créance, la question probatoire n'a pas lieu de se poser.</p>
+
+      <h3>Alinéa 2 — Charge sur le défendeur</h3>
+      <p>Une fois l'existence de l'obligation établie, la charge bascule : c'est au défendeur de prouver qu'il s'en est libéré, soit par le paiement (exécution volontaire), soit par un fait ayant produit l'extinction (prescription, remise de dette, confusion, novation).</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Erreur classique — « la charge pèse sur le demandeur »</div>
+        <p>Affirmer sans nuance que la charge de la preuve pèse sur le demandeur est <strong>faux</strong>. C'est la charge de la preuve de l'<em>existence</em> de l'obligation qui incombe au demandeur. La charge de la preuve de l'<em>extinction</em> de l'obligation incombe au défendeur. C'est la <strong>distributivité de la preuve</strong> — partie de ping-pong probatoire ou dialogue probatoire. Toute copie qui ne fait pas cette distinction trahit une incompréhension fondamentale.</p>
+      </div>
+
+      <h3>Application — obligation d'information</h3>
+      <p>On lit régulièrement dans des corrigés qu'il y aurait « un renversement de la charge de la preuve » en matière d'obligation d'information. C'est <strong>inexact</strong>. Il n'y a aucun renversement : l'art. 1353 s'applique normalement. Celui qui se prétend créancier de l'obligation d'information doit prouver qu'elle existe à son profit (al. 1). Une fois l'existence établie, c'est au professionnel tenu de cette obligation de prouver qu'il l'a bien exécutée (al. 2). L'art. 1112-1 al. 4 n'apporte rien de nouveau — il ne fait que rappeler le droit commun de l'art. 1353.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">Grand oral — question piège fréquente</div>
+        <p>« Y a-t-il un renversement de la charge de la preuve en matière d'obligation d'information médicale ? » — La réponse correcte est non, il n'y a aucune spécificité par rapport à l'art. 1353. Les correcteurs qui voient « renversement de la charge de la preuve » dans les copies sans nuance sont exaspérés. C'est l'application banale du dialogue probatoire entre les deux alinéas.</p>
+      </div>
+
+      <h3>La prescription — fin de non-recevoir</h3>
+      <p>La prescription est une fin de non-recevoir (procédure civile). Il appartient au défendeur qui s'en prévaut de l'établir : c'est la charge de la preuve de l'extinction de l'obligation par voie de prescription (al. 2). La prescription, en droit positif, éteint l'<em>action</em>, non le droit lui-même — ce que démontrent les textes sur l'exécution volontaire d'une obligation prescrite (elle n'est pas un indu).</p>
+    </div>
+  </div>
+
+  <!-- VIII. ART. 1354 — PRÉSOMPTIONS LÉGALES -->
+  <div class="section" id="art1354">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1354</span>
+      <span class="section-title">Présomptions légales — Trois types</span>
+    </div>
+
+    <div class="block">
+      <div class="quote">
+        « La présomption que la loi attache à certains actes ou à certains faits en les tenant pour certains dispense celui au profit duquel elle existe d'en rapporter la preuve.
+        Elle est dite simple lorsque la loi réserve la preuve contraire et peut alors être renversée par tout moyen de preuve.
+        Elle est dite mixte lorsque la loi limite les moyens par lesquels elle peut être renversée ou l'objet sur lequel elle peut être renversée.
+        Elle est dite irréfragable lorsqu'elle ne peut être renversée. »
+      </div>
+
+      <h3>Ce que le texte ne dit pas</h3>
+      <p>L'art. 1354 ne traite que des présomptions <em>légales</em>. Les présomptions judiciaires (anciennement « présomptions du fait de l'homme ») ne figurent pas ici — elles sont traitées à l'<span class="art-num">art. 1382</span>. Le placement de l'art. 1354 dans le chapitre sur la charge de la preuve est contestable, car les présomptions judiciaires ont aussi une incidence sur la charge de la preuve — mais les rédacteurs les ont isolées dans un chapitre distinct.</p>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Présomption simple</div>
+        <p>Renversable par tous moyens. Exemple : présomption de bonne foi (principe général, sans texte unique en droit civil — tirée du droit des biens, généralisée à l'ensemble du droit).</p>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Présomption mixte</div>
+        <p>Renversable mais selon des modalités limitées par la loi : soit les moyens de preuve admis pour le renversement sont limités (ex. uniquement par expertise), soit l'objet sur lequel le renversement est possible est limité. Point de sujet possible : identifier dans un énoncé une présomption mixte et expliquer ce qui peut être renversé et comment.</p>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Présomption irréfragable</div>
+        <p>Non renversable. Frontière avec la règle de fond quasi inexistante : une présomption irréfragable est en réalité une règle de droit substantielle contre laquelle le justiciable ne peut rien. Exemple classique : liste noire en droit de la consommation — clauses irréfragablement présumées abusives (décrets). Ce n'est pas du droit de la preuve, c'est du fond du droit déguisé en présomption.</p>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">Grand oral — présomption irréfragable et libertés fondamentales</div>
+        <p>Les présomptions irréfragables posent des problèmes de conventionnalité (CEDH — droits de la défense) et de constitutionnalité (égalité devant la loi, QPC). Un justiciable se voit privé de tout droit de discussion sur un point particulier. Le législateur doit les manier avec une extrême prudence. En droit des obligations, il en existe peu — et c'est heureux.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Présomptions judiciaires — Art. 1382 (rappel)</h3>
+      <p>Le juge peut, à partir d'un fait qu'il connaît, en inférer un fait qu'il ne connaît pas, dès lors que les indices sont <strong>graves, précis et concordants</strong>. C'est un raisonnement présomptif naturel (tous les êtres dotés d'intelligence raisonnent ainsi). Tout juriste compétent doit pouvoir utiliser cet outil en consultation.</p>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Exemples en droit des obligations</div>
+        <ul>
+          <li><strong>Bangs supersoniques et fissures</strong> (années 1960-70, Concorde) : absence de certitude scientifique → présomption judiciaire de lien de causalité en l'absence d'autre explication. Antécédent de la jurisprudence hépatite B.</li>
+          <li><strong>Vaccin hépatite B / sclérose en plaques</strong> : le juge peut présumer la défectuosité du vaccin et le lien de causalité par voie de présomption judiciaire, malgré l'absence de certitude scientifique. Résultat casuistique total — certains juges retiennent, d'autres non. La Cour de cassation contrôle uniquement la motivation (indices graves, précis et concordants) sans rejuger les faits. CJUE 2017 : le droit de la preuve est du droit national, pas du droit de l'UE.</li>
+          <li><strong>Dol — élément intentionnel</strong> : en présence de manœuvres caractérisées, le juge peut inférer par présomption judiciaire l'intention de tromper. Plus difficile pour la réticence dolosive (silence ambigu — incompétence ≠ malhonnêteté statistiquement).</li>
+        </ul>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ En consultation — ne jamais être catégorique sur la présomption judiciaire</div>
+        <p>La présomption judiciaire est souveraine pour le juge du fond. On ne peut qu'inciter — jamais garantir. Prévenir le client que l'issue dépend de l'appréciation du juge du fond. Garantir un résultat engage la responsabilité contractuelle de l'avocat.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- IX. ORGANISATION -->
+  <div class="section" id="orga">
+    <div class="section-header">
+      <span class="section-tag tag-orga">🗓️ Organisation</span>
+      <span class="section-title">Informations pratiques</span>
+    </div>
+
+    <div class="block">
+      <p><strong>DST disponibles cette semaine :</strong> sujet de procédure (blanc préliminaire — pour forcer une première approche avant démarrage officiel des cours) + DST 2 droit des obligations (tout ce qui a été vu jusqu'ici).</p>
+      <p><strong>Programme DST 2 :</strong> publié sur l'application. Inclut tout ce qui a été vu sur les sources des obligations.</p>
+      <p><strong>Cours suivant :</strong> horaire avancé d'une heure — confirmer sur l'application (probablement 15h-19h au lieu de 16h-20h30).</p>
+      <p><strong>Rappel général :</strong> RGO et quasi-contrats sont directement liés — ne pas maîtriser les sources rend impossible le traitement de nombreuses questions de RGO (droit du paiement, prescription, extinction des obligations). Composer régulièrement même imparfaitement.</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

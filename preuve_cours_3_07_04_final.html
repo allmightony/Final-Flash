@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preuve — Cours 3 — 7 avril</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #faf9f6;
+    --surface: #ffffff;
+    --border: #e8e4dc;
+    --text: #1a1a1a;
+    --text-light: #555;
+    --article: #c0392b;
+    --juris: #6c3483;
+    --loi: #7b5e3a;
+    --citation: #1a5276;
+    --tag-cours: #2c6e49;
+    --tag-methodo: #1565c0;
+    --tag-oral: #6a0f49;
+    --tag-critique: #b71c1c;
+    --tag-orga: #4a4a4a;
+    --tag-alerte: #e65100;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; font-style: normal; }
+
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .page-header {
+    background: #ffffff;
+    color: #1a1a1a;
+    padding: 48px 64px 40px;
+    border-bottom: 4px solid var(--article);
+  }
+  .page-header .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 12px;
+  }
+  .page-header h1 { font-size: 2rem; font-weight: 500; margin-bottom: 8px; }
+  .page-header .subtitle { color: #ccc; font-size: 1rem; }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 64px;
+    background: #f2f0ea;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+
+  .main { max-width: 920px; margin: 0 auto; padding: 48px 32px 80px; }
+  .section { margin-bottom: 56px; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .tag-cours { background: var(--tag-cours); }
+  .tag-methodo { background: var(--tag-methodo); }
+  .tag-oral { background: var(--tag-oral); }
+  .tag-critique { background: var(--tag-critique); }
+  .tag-orga { background: var(--tag-orga); }
+  .tag-alerte { background: var(--tag-alerte); }
+
+  .section-title { font-size: 1.25rem; font-weight: 500; color: var(--text); }
+
+  .block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin-bottom: 18px;
+  }
+  .block p { margin-bottom: 14px; }
+  .block p:last-child { margin-bottom: 0; }
+  .block ul { padding-left: 24px; margin: 12px 0; }
+  .block li { margin-bottom: 8px; }
+
+  .art-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--article);
+    font-weight: 500;
+  }
+  .juris { color: var(--juris); font-weight: 500; }
+  .loi-ref { color: var(--loi); font-weight: 500; }
+
+  .quote {
+    border-left: 4px solid var(--citation);
+    margin: 16px 0;
+    padding: 12px 20px;
+    background: #f0f4f8;
+    color: var(--citation);
+    font-size: 0.95em;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .alert-box {
+    border: 1px solid var(--tag-alerte);
+    border-left: 5px solid var(--tag-alerte);
+    background: #fff8f5;
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 16px 0;
+  }
+  .alert-box .alert-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--tag-alerte);
+    margin-bottom: 8px;
+  }
+
+  .sub-section {
+    border-top: 1px solid var(--border);
+    margin-top: 18px;
+    padding-top: 18px;
+  }
+  .sub-section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 12px;
+  }
+
+  h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 18px;
+    color: #222;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+    font-size: 0.95rem;
+  }
+  th {
+    background: #f2f0ea;
+    padding: 10px 14px;
+    text-align: left;
+    border: 1px solid var(--border);
+    font-weight: 600;
+  }
+  td {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #faf9f6; }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    @page { size: A4; margin: 15mm 14mm 18mm 14mm; }
+    body { font-size: 10.5pt; line-height: 1.55; background: #faf9f6 !important; color: #1a1a1a !important; }
+    .page-header { background: #ffffff !important; color: #1a1a1a !important; padding: 14pt 20pt 10pt !important; border-bottom: 3pt solid #c0392b !important; margin-bottom: 8pt; }
+    .page-header .label { color: #888 !important; font-size: 7pt !important; }
+    .page-header h1 { font-size: 15pt !important; margin-bottom: 3pt !important; color: #1a1a1a !important; }
+    .page-header .subtitle { color: #555 !important; font-size: 9pt !important; }
+    .legend { background: #f2f0ea !important; padding: 6pt 20pt !important; font-size: 7.5pt !important; gap: 10pt !important; border-bottom: 1pt solid #e8e4dc !important; margin-bottom: 8pt; }
+    .main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+    .section { margin-bottom: 16pt !important; }
+    .section-header { padding-bottom: 5pt !important; margin-bottom: 8pt !important; border-bottom: 1.5pt solid #e8e4dc !important; page-break-after: avoid; }
+    .section-tag { font-size: 6.5pt !important; padding: 2pt 6pt !important; color: #fff !important; }
+    .tag-cours    { background: #2c6e49 !important; }
+    .tag-methodo  { background: #1565c0 !important; }
+    .tag-oral     { background: #6a0f49 !important; }
+    .tag-critique { background: #b71c1c !important; }
+    .tag-orga     { background: #4a4a4a !important; }
+    .tag-alerte   { background: #e65100 !important; }
+    .section-title { font-size: 11pt !important; }
+    .subsection { margin-bottom: 10pt !important; }
+    .subsection-title { font-size: 9.5pt !important; margin-bottom: 5pt !important; }
+    .block { background: #ffffff !important; border: 0.75pt solid #e8e4dc !important; padding: 8pt 10pt !important; margin-bottom: 6pt !important; page-break-inside: avoid; }
+    .block p { margin-bottom: 5pt !important; font-size: 10pt !important; }
+    .block ul { padding-left: 14pt !important; margin: 4pt 0 !important; }
+    .block li { margin-bottom: 3pt !important; font-size: 10pt !important; }
+    h3 { font-size: 10.5pt !important; margin-top: 7pt !important; margin-bottom: 4pt !important; page-break-after: avoid; }
+    .alert-box { border: 0.75pt solid #e65100 !important; border-left: 3pt solid #e65100 !important; background: #fff8f5 !important; padding: 7pt 10pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .alert-box .alert-title { font-size: 6.5pt !important; color: #e65100 !important; margin-bottom: 4pt !important; }
+    .alert-box p, .alert-box li { font-size: 9.5pt !important; }
+    .quote { border-left: 3pt solid #1a5276 !important; background: #f0f4f8 !important; color: #1a5276 !important; padding: 7pt 10pt !important; font-size: 9.5pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .sub-section { border-top: 0.5pt solid #e8e4dc !important; margin-top: 8pt !important; padding-top: 8pt !important; }
+    .art-num { color: #c0392b !important; }
+    .art-txt { color: #1a5276 !important; }
+    .juris   { color: #6c3483 !important; }
+    .loi     { color: #7b5e3a !important; }
+    table { font-size: 9pt !important; border-collapse: collapse !important; width: 100% !important; }
+    th { background: #f2f0ea !important; padding: 5pt 7pt !important; border: 0.75pt solid #e8e4dc !important; }
+    td { padding: 5pt 7pt !important; border: 0.75pt solid #e8e4dc !important; }
+    a[href]:after { content: none !important; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="label">Droit de la preuve — Cours 3</div>
+  <h1>Les modes de preuve — Section 1 : la preuve par écrit</h1>
+  <div class="subtitle">Séance du 7 avril — Parties 1 &amp; 2 assemblées</div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-cours)"></div> Cours / Doctrine</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-methodo)"></div> Méthodologie</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-alerte)"></div> Alerte examen</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-oral)"></div> Grand oral</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-critique)"></div> Erreurs fréquentes</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-orga)"></div> Organisation</div>
+</div>
+
+<div class="main">
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- I. PLAN DU CHAPITRE 3 -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section" id="plan">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Chapitre 3</span>
+      <span class="section-title">Les différents modes de preuve — Plan général</span>
+    </div>
+
+    <div class="block">
+      <p>Le Code civil, chapitre 3, déroule les modes de preuve de manière successive :</p>
+      <ul>
+        <li><strong>Section 1</strong> — La preuve par écrit (dispositions générales, actes sous signature privée, actes authentiques). Section la plus longue et la plus dense — objet principal de ce cours.</li>
+        <li><strong>Section 2</strong> — Le témoignage (<span class="art-num">art. 1381</span>) — un seul texte, succinct.</li>
+        <li><strong>Section 3</strong> — La preuve par présomption judiciaire (<span class="art-num">art. 1382</span>) — un seul texte, renvoi à ce qui a déjà été étudié.</li>
+        <li><strong>Section 4</strong> — L'aveu — mode de preuve irréfutable dans les conditions de la loi.</li>
+        <li><strong>Section 5</strong> — Le serment — même logique.</li>
+      </ul>
+      <div class="alert-box">
+        <div class="alert-title">Rappel de méthode</div>
+        <p>Les dispositions sur l'écrit (sections actes authentiques, actes sous signature privée) sont avant tout utiles à la preuve des <em>actes juridiques</em>. Pour les faits juridiques, la preuve est libre — l'écrit peut être utilisé, mais n'est pas exigé et n'a pas à être parfait. Un écrit imparfait peut parfaitement servir à la preuve d'un fait juridique.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- II. COMMENCEMENT DE PREUVE PAR ÉCRIT -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section" id="cpe">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 CPE</span>
+      <span class="section-title">Commencement de preuve par écrit — Conditions &amp; assimilations légales</span>
+    </div>
+
+    <div class="block">
+      <h3>Trois conditions cumulatives</h3>
+      <p>Pour qu'un écrit imparfait soit qualifié de commencement de preuve par écrit (CPE) :</p>
+      <ul>
+        <li><strong>Condition 1 :</strong> L'écrit émane de celui qui conteste l'acte, ou de celui qui le représente.</li>
+        <li><strong>Condition 2 :</strong> L'écrit a été établi sous signature privée ou est émanant de celui-là.</li>
+        <li><strong>Condition 3 :</strong> L'écrit rend vraisemblable ce qui est allégué — corrélation logique entre l'écrit imparfait produit et le fait à prouver.</li>
+      </ul>
+      <p>La troisième condition est la plus délicate : le juge vérifie souverainement si l'élément produit rend effectivement vraisemblable la prétention. Un écrit qui ne présente aucune connexion logique avec ce qui doit être prouvé ne constitue pas un CPE. En cas pratique : il faut être prédictif sur la façon dont le juge appréciera la corrélation. Méfiez-vous des candidats qui voient des CPE partout — les correcteurs les identifient immédiatement.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Sujet possible — profil Hamelin</div>
+        <p>Un CPE d'origine commerciale (ex. un chèque, une lettre de change, un autre instrument) peut parfaitement servir de CPE. Le lien entre droit commercial et droit de la preuve est direct et attendu. Ne pas l'avoir en tête le jour J est une erreur de préparation.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Assimilations légales au CPE</h3>
+
+      <div class="sub-section">
+        <div class="sub-section-title">1. Déclarations lors de la comparution personnelle</div>
+        <p>Le juge civil peut convoquer une partie à comparaître personnellement (<em>comparution personnelle</em> — procédure civile). Les déclarations faites lors de cette comparution peuvent être assimilées légalement à un CPE. De même, le <strong>refus de répondre</strong> ou l'<strong>absence à la comparution</strong> peut valoir CPE au bénéfice de l'adversaire, permettant ainsi la preuve par tous moyens. Logique artificielle, mais codifiée.</p>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-section-title">2. Mention d'un écrit sur un registre public</div>
+        <p>La mention d'un écrit (authentique ou sous signature privée) sur un registre public vaut CPE, même si l'écrit lui-même n'est pas produit. Raisonnement : si la mention figure sur un registre public, l'écrit a nécessairement existé et son contenu était celui que le registre lui attribue.</p>
+        <p><strong>Exemples :</strong></p>
+        <ul>
+          <li><strong>Publicité foncière</strong> — le Service de Publicité Foncière (SPF, ex-conservation des hypothèques, décret du <span class="loi-ref">14 janvier 1955</span>) conserve non seulement la mention mais l'acte lui-même → force encore plus grande.</li>
+          <li><strong>Registres sociétaires</strong> — si la cession de titres sociaux figure sur un registre de la société (qui est public dans certains cas), la mention peut valoir CPE d'existence de l'acte de cession, même sans l'acte lui-même.</li>
+        </ul>
+        <div class="alert-box">
+          <div class="alert-title">⚠️ Attention — registres publics seulement</div>
+          <p>Le texte exige un <em>registre public</em>. Certains registres sociétaires sont privés → la mention sur un registre privé ne vaut pas CPE. En cas pratique, l'énoncé vous le signalera — il suffit d'appliquer le texte à la lettre. C'est ce genre de subtilité qui fait la différence entre un candidat préparé et un candidat qui panique devant un sujet à connotation commerciale.</p>
+          <p>Ce type de sujet a déjà été donné par Desaix à propos d'une cession de titres et d'une signature électronique dans un contrat de cautionnement. Les candidats non préparés ont cru être interrogés hors programme — ils n'appliquaient tout simplement pas les textes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- III. DISPOSITIONS GÉNÉRALES — ART. 1363 À 1368 -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section" id="art1363">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1363–1368</span>
+      <span class="section-title">Dispositions générales sur la preuve par écrit</span>
+    </div>
+
+    <div class="block">
+      <h3><span class="art-num">Art. 1363</span> — « Nul ne peut se constituer de titre à soi-même »</h3>
+      <p>Codification de l'adage, mais avec une <strong>portée technique précise</strong> : il s'agit uniquement de la preuve des actes juridiques. L'adage <em>tel quel</em> (« nul ne peut se constituer de preuve à soi-même ») n'a pas de sens absolu : dans le domaine de la preuve libre (faits juridiques), chacun peut parfaitement produire ses propres écrits.</p>
+      <p>Ce qui est interdit : se pré-constituer seul un <em>instrumentum</em> valant titre écrit pour la preuve d'un acte juridique. On ne peut établir un acte sous signature privée tout seul pour s'en prévaloir comme titre parfait.</p>
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Erreur très fréquente</div>
+        <p>Invoquer cet adage dans un contexte de preuve libre est une faute grave. Si la preuve est libre (fait juridique), cet adage est sans intérêt. Il ne joue que dans la preuve des actes juridiques par écrit.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="art-num">Art. 1364</span> — Préconstitution de l'écrit</h3>
+      <p>L'écrit peut être préconstitué sous signature privée ou en forme authentique. Rappel terminologique : l'acte « sous seing privé » de l'ancien droit s'appelle désormais <strong>acte sous signature privée</strong> (modernisation lexicale par l'ordonnance, pas de changement de fond — seing = signature en ancien français). Utiliser l'ancienne terminologie après le 1er octobre 2016 est une erreur que certains correcteurs sanctionneront.</p>
+    </div>
+
+    <div class="block">
+      <h3><span class="art-num">Art. 1365</span> — Définition de l'écrit</h3>
+      <div class="quote">« L'écrit consiste en une suite de lettres, de caractères, de chiffres ou de tous autres signes ou symboles dotés d'une signification intelligible, quel que soit leur support. »</div>
+      <p>Recodification de l'art. 1366 ancien, lui-même issu de la <span class="loi-ref">loi du 13 mars 2000</span> portant adaptation du droit de la preuve aux technologies de l'information. Fondement de l'<strong>équivalence entre écrit papier et écrit électronique</strong>. La référence aux lettres, chiffres, symboles vise notamment le langage binaire (0/1) de l'informatique. Le support est indifférent : papier, fichier informatique, support dématérialisé.</p>
+      <div class="alert-box">
+        <div class="alert-title">Grand oral — portée philosophique et pratique</div>
+        <p>Ce texte a permis l'alignement du monde numérique sur le monde réel en matière probatoire. Il est à la source de toutes les questions contemporaines sur la preuve électronique, les faux numériques, les deepfakes, et la sécurité des données. Savoir replacer l'art. 1365 dans ce contexte est attendu au grand oral.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="art-num">Art. 1366</span> — Force probante de l'écrit électronique</h3>
+      <div class="quote">« L'écrit électronique a la même force probante que l'écrit sur support papier, sous réserve que puisse être dûment identifiée la personne dont il émane et qu'il soit établi et conservé dans des conditions de nature à en garantir l'intégrité. »</div>
+      <p>Deux conditions cumulatives pour que l'écrit électronique soit assimilé à l'écrit papier :</p>
+      <ul>
+        <li><strong>Identification de l'auteur</strong> : possibilité d'identifier de façon fiable la personne dont émane le fichier.</li>
+        <li><strong>Intégrité</strong> : le fichier a été conservé dans des conditions garantissant qu'il n'a pas été altéré.</li>
+      </ul>
+      <p>Si ces conditions ne sont pas remplies, l'écrit électronique ne peut pas être assimilé à un écrit papier et ne bénéficie pas de la force probante correspondante.</p>
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Sujet possible — cas pratique sur un écrit électronique contesté</div>
+        <p>Un adversaire oppose un fichier électronique comme preuve. Pour le combattre : démontrer que l'auteur ne peut pas être identifié (défaut d'identification) ou que le fichier a pu être altéré (défaut d'intégrité — ex. intrusion d'un hacker dans les serveurs, modification du fichier en base de données). C'est l'application directe de l'art. 1366. Ce n'est pas du droit des nouvelles technologies — c'est du droit de la preuve.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="art-num">Art. 1367</span> — La signature électronique</h3>
+      <p>Rappel préalable : la signature, en droit commun, n'est qu'un élément de <em>preuve</em>, non un élément de <em>fond</em>. L'absence de signature n'empêche pas la formation d'un contrat consensuel. La signature atteste de l'identité du signataire et manifeste son consentement aux obligations découlant de l'acte — dans une logique probatoire uniquement, sauf contrats solennels.</p>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Signature électronique — Présomption légale de fiabilité</div>
+        <p>La fiabilité d'un procédé de signature électronique est présumée (présomption <em>légale simple</em>) lorsque la signature a été créée dans les conditions fixées par le décret du <span class="loi-ref">28 septembre 2017</span>, lequel transpose le règlement européen eIDAS du <span class="loi-ref">23 juillet 2014</span>.</p>
+        <p>Conditions techniques en synthèse (décret art. 1er) :</p>
+        <ul>
+          <li>Signature électronique <strong>qualifiée</strong> ou <strong>avancée</strong> conforme à l'art. 26 du règlement eIDAS.</li>
+          <li>Créée à l'aide d'un <strong>dispositif de création qualifié</strong> (art. 29 eIDAS).</li>
+          <li>Reposant sur un <strong>certificat qualifié</strong> de signature (art. 28 eIDAS).</li>
+        </ul>
+        <p>En pratique : seules les solutions de signature électronique proposées par des acteurs reconnus sur le marché européen (marché resserré en France — quelques acteurs principaux pour le notariat) bénéficient de la présomption légale de fiabilité.</p>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Conséquences en cas pratique</div>
+        <ul>
+          <li><strong>Solution reconnue utilisée :</strong> présomption simple de fiabilité → la charge de la preuve de la non-fiabilité pèse sur l'adversaire. Il peut tenter de la renverser en démontrant une faille (ex. intrusion de hacker dans les serveurs, même sécurisés).</li>
+          <li><strong>Solution non reconnue utilisée :</strong> pas de présomption. Celui qui se prévaut de la signature électronique doit démontrer sa fiabilité (identification de l'auteur + intégrité). C'est techniquement difficile.</li>
+        </ul>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Sujet 2021 — Boucherie nationale — connaître absolument</div>
+        <p>Le sujet du pire examen de l'histoire récente (2021, taux d'admissibilité divisé par deux dans certains IEJ) portait notamment sur un contrat de cautionnement signé électroniquement avec un procédé ne répondant pas aux exigences du droit de l'UE. La question : la clause du contrat instaurait-elle une présomption irréfragable de fiabilité (interdite par l'art. 1356 al. 2) ou seulement une présomption mixte ou simple (valable) ?</p>
+        <p>Erreur des candidats : qualifier trop vite la clause de présomption irréfragable. L'énoncé était ambigu → il fallait envisager les deux hypothèses. Ceux qui l'avaient vu ont eu 17–18. Ceux qui avaient foncé tête baissée ont eu 3–6.</p>
+        <p>Interactions à combiner : art. 1366 (conditions de l'écrit électronique) + art. 1367 (fiabilité de la signature) + art. 1356 al. 2 (présomption irréfragable contractuelle interdite) + art. 1170 ou 1171 (clauses abusives) + éventuellement prescription.</p>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Interaction avec les conventions sur la preuve (art. 1356)</div>
+        <p>Deux hypothèses de clause conventionnelle sur la fiabilité de la signature électronique :</p>
+        <p><strong>Cas 1 :</strong> les parties utilisent une solution reconnue (bénéficiant de la présomption légale) mais stipulent une clause écartant cette présomption légale. Valable ? La présomption légale est simple → en principe les parties pourraient y renoncer… mais si c'est dans un contrat d'adhésion, la clause pourrait constituer un déséquilibre significatif (<span class="art-num">art. 1171</span>).</p>
+        <p><strong>Cas 2 :</strong> les parties utilisent une solution <em>non</em> reconnue mais stipulent une présomption conventionnelle de fiabilité. Valable si la présomption n'est pas irréfragable. La clause devra en outre être vérifiée au regard de l'art. 1170 (atteinte à l'obligation essentielle) et 1171 (déséquilibre significatif dans un contrat d'adhésion).</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="art-num">Art. 1368</span> — Conflits entre écrits</h3>
+      <div class="quote">« À défaut de dispositions ou de conventions contraires, le juge règle les conflits de preuves par écrit en déterminant par tous moyens le titre le plus vraisemblable. »</div>
+      <p>Lorsque deux écrits s'affrontent (ex. deux versions d'un même acte sous signature privée, deux actes contradictoires), il n'existe pas de règle légale générale de hiérarchie entre actes sous signature privée. Le juge détermine souverainement lequel est le plus vraisemblable.</p>
+      <p><strong>Exceptions :</strong></p>
+      <ul>
+        <li><em>Dispositions légales</em> — ex. l'acte authentique l'emporte sur l'acte sous signature privée (par nature).</li>
+        <li><em>Conventions contraires</em> — les parties peuvent stipuler dans le contrat une hiérarchie entre les documents probatoires (ex. clause prévoyant que le document le plus récent l'emporte). C'est licite.</li>
+      </ul>
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Interaction avec l'art. 1171</div>
+        <p>Si la clause établissant une hiérarchie entre écrits est stipulée dans un contrat d'adhésion et favorise systématiquement l'une des parties, elle pourrait être réputée non écrite pour déséquilibre significatif. Avant l'ordonnance de 2016, ce raisonnement était impossible en dehors du droit de la consommation. Désormais, l'art. 1171 ouvre cette voie.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- IV. ACTES AUTHENTIQUES -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section" id="authentique">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1369–1371</span>
+      <span class="section-title">Actes authentiques — Régime, force probante, irrégularité</span>
+    </div>
+
+    <div class="block">
+      <h3>Qu'est-ce qu'un acte authentique ?</h3>
+      <p>Un acte établi et authentifié par un <strong>officier public authentificateur</strong>, investi par la loi du pouvoir d'authentifier les actes juridiques quant à leur date et à leur contenu.</p>
+      <p><strong>Officiers authentificateurs principaux :</strong></p>
+      <ul>
+        <li>Le <strong>notaire</strong> — principal acteur. Professionnel libéral exerçant une charge publique (survivance de l'Ancien Régime). Loi révolutionnaire du <span class="loi-ref">25 Ventôse an XI</span> (loi de base du notariat français).</li>
+        <li>Le <strong>commissaire de justice</strong> (ex-huissier de justice) — pouvoir d'authentification limité, notamment pour les copies.</li>
+        <li>Le <strong>juge lui-même</strong> — les décisions de justice (jugements, arrêts) sont des actes authentiques. Important pour la publicité foncière : un jugement constatant une vente peut se substituer à l'acte notarié pour la publication au SPF.</li>
+      </ul>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Caractère EXÉCUTOIRE — distinction fondamentale</div>
+        <p>L'acte authentique est exécutoire par lui-même. Il n'est pas besoin d'obtenir un titre exécutoire judiciaire pour mettre en œuvre des mesures d'exécution forcée. Il suffit de saisir un commissaire de justice muni de l'acte authentique pour faire procéder à des saisies sur les biens du débiteur. Ce caractère exécutoire est absent de l'acte sous signature privée et de l'acte d'avocat.</p>
+        <p>Ce point est une clé des cas pratiques et des sujets comparatifs (avantages comparés acte sous signature privée / acte authentique / acte d'avocat). Un candidat qui l'ignore perd des points essentiels.</p>
+        <p>Référence : <span class="loi-ref">loi du 25 Ventôse an XI</span>, art. 19 — « tous actes notariés auront foi en justice et seront exécutoires dans toutes les parties de la République ».</p>
+      </div>
+
+      <p><strong>Vente immobilière ≠ contrat solennel :</strong> erreur grave et récurrente dans certains manuels. La vente immobilière est un contrat <em>consensuel</em>. L'acte notarié n'est exigé que pour la publicité foncière (opposabilité aux tiers via le SPF — décret du 14 janvier 1955) et pour quelques exceptions légales (VFA, vente d'immeubles à construire). Le juge peut constater la vente par décision qui vaut acte authentique pour la publication au SPF. Ceux qui écrivent « la vente immobilière est un contrat solennel » ne connaissent pas le droit des contrats.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">Sujet 2016 (IEJ Paris 2, avant réforme nationale)</div>
+        <p>Un sujet avait demandé de comparer les vertus de l'acte sous signature privée, de l'acte authentique et de l'acte d'avocat. Le caractère exécutoire de l'acte authentique était l'une des trois réponses centrales. La plupart des candidats n'en avaient pas entendu parler — catastrophe nationale dans les résultats. Les correcteurs s'y attendaient car c'est de la culture juridique de base.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Force probante de l'acte authentique — <span class="art-num">Art. 1371</span></h3>
+      <div class="quote">« L'acte authentique fait foi jusqu'à inscription de faux de ce que l'officier public dit avoir personnellement accompli ou constaté. En cas d'inscription de faux, le juge peut suspendre l'exécution de l'acte. »</div>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Portée de la pleine foi : ce que l'officier a personnellement constaté</div>
+        <p>La force probante de l'acte authentique ne s'étend pas de manière uniforme. Elle est absolue (jusqu'à inscription de faux) uniquement pour ce que l'officier public a <em>lui-même</em> accompli ou constaté. En revanche, pour les énonciations que les parties lui ont simplement <em>relatées</em> et qu'il n'a pas pu vérifier personnellement, l'acte ne fait foi que jusqu'à preuve contraire (par tous moyens).</p>
+        <p><strong>Exemple :</strong> un notaire reçoit un contrat d'échange ; une partie lui déclare avoir reçu le paiement d'une « soulte ». Le notaire n'a pas constaté lui-même ce paiement. Cette déclaration ne fait foi que jusqu'à preuve contraire — on peut la contester sans passer par la procédure d'inscription de faux. (<span class="juris">CA Bordeaux, 3 juillet 1992</span>, cité dans la jurisprudence des codes.)</p>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Procédure d'inscription de faux</div>
+        <p>Pour contester ce que l'officier a personnellement constaté, il faut recourir à la <strong>procédure d'inscription de faux</strong>, prévue par le CPC. Procédure extrêmement lourde, qui implique de mettre en cause l'honnêteté et l'intégrité de l'officier public. Cette accusation est grave — l'officier a exercé une mission publique. La mettre en œuvre sans éléments sérieux expose à des sanctions pénales. En cas pratique, cette procédure sera mentionnée dans l'énoncé si elle est pertinente.</p>
+        <p><strong>Effet de l'inscription de faux en cours :</strong> le juge <em>peut</em> suspendre l'exécution de l'acte authentique (qui est normalement exécutoire de plein droit). Cela veut dire que les mesures d'exécution en cours peuvent être stoppées jusqu'au dénouement de la procédure.</p>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">Grand oral — Distinction pleine foi / preuve contraire</div>
+        <p>Savoir distinguer ce que l'officier a personnellement constaté (pleine foi, inscription de faux nécessaire) de ce qui lui a seulement été relaté par les parties (preuve contraire par tous moyens) est une question classique et discriminante au grand oral. L'exemple de la soulte ou d'une date de naissance simplement déclarée par un intéressé (que le notaire n'a pas pu vérifier sur pièce) est parlant.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="art-num">Art. 1369</span> &amp; <span class="art-num">Art. 1370</span> — Conditions de régularité et dégradation</h3>
+      <p>Pour que l'acte soit authentique et conserve sa force probante et son caractère exécutoire, il faut que :</p>
+      <ul>
+        <li>L'officier soit <strong>compétent</strong> (territorialement et matériellement).</li>
+        <li>L'officier ne soit pas frappé d'une <strong>incapacité</strong> professionnelle (ex. interdiction temporaire ou définitive d'exercer).</li>
+        <li>Les <strong>solennités requises</strong> aient été respectées — ex. l'obligation d'annexer les procurations données à l'officier.</li>
+      </ul>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Dégradation en acte sous signature privée (art. 1370)</div>
+        <div class="quote">« L'acte qui n'est pas authentique du fait de l'incompétence ou de l'incapacité de l'officier, ou par un défaut de forme, vaut comme acte sous signature privée s'il a été signé des parties. »</div>
+        <p>L'irrégularité de l'acte authentique n'entraîne pas sa nullité au sens du fond du droit. C'est uniquement une <strong>dégradation probatoire</strong> : l'acte ne vaut plus comme authentique mais peut encore valoir comme acte sous signature privée (si les parties l'ont signé). Cette dégradation n'affecte pas la validité du contrat (sauf si un acte authentique était exigé à peine de nullité).</p>
+        <div class="alert-box">
+          <div class="alert-title">⚠️ Abus de langage fréquent de la Cour de cassation</div>
+          <p>La Cour de cassation parle parfois de « nullité de l'acte authentique » lorsque celui-ci est irrégulier. C'est un abus de langage — il ne s'agit que de la nullité de l'acte en tant qu'acte authentique probatoire, pas de la nullité du contrat (négocium). L'instrumentum est dégradé ; le contrat reste valable. Lire ces formules sans en connaître le sens conduit à des erreurs graves en copie.</p>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Jurisprudence sur les annexes — <span class="juris">Cass. civ. 3, 21 décembre 2012</span></div>
+        <p>Gros contentieux en matière de prêts bancaires : les banques mandataient les notaires pour authentifier l'acte de prêt (procuration donnée au notaire). Ces procurations devaient être annexées à l'acte. De nombreux notaires oubliaient de les annexer. Les emprunteurs défaillants ont alors contesté le caractère exécutoire en arguant de l'irrégularité. La Cour de cassation a jugé que l'absence des procurations en annexe <em>ne fait pas obstacle</em> au caractère authentique et exécutoire de l'acte. La régularité des procurations n'est donc pas une condition de l'authenticité dans ce contexte.</p>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Mentions manuscrites et notaire</div>
+        <p>La loi impose parfois des mentions manuscrites (ex. en matière de cautionnement) pour s'assurer que la partie a bien compris la portée de son engagement. Lorsqu'un notaire intervient pour authentifier l'acte, ces mentions manuscrites sont dispensées — parce que le notaire a une obligation d'information et de conseil qui remplit la même fonction. Si le notaire manque à cette obligation, il engage sa responsabilité délictuelle (art. 1240) — non contractuelle. Si la mention était exigée à peine de nullité, l'absence de mention pourrait rendre l'acte nul en plus d'engager la responsabilité du notaire.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Responsabilité notariale — Principe incontournable</h3>
+      <p>La responsabilité du notaire dans l'exercice de sa mission d'authentificateur est <strong>délictuelle</strong> (<span class="art-num">art. 1240</span>), jamais contractuelle. Le notaire est lié à ses « clients » par un statut légal et réglementaire (charge publique), pas par un contrat. Exception rarissime : s'il délivre des conseils juridiques hors mission d'authentification, une relation contractuelle peut exceptionnellement naître.</p>
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Erreur colossale dans le Code Dalloz</div>
+        <p>Le Code Dalloz classe la responsabilité notariale dans les responsabilités professionnelles contractuelles — c'est une erreur reconnue. Les arrêts visés dans cette section sont tous rendus au visa de l'art. 1240 (délictuel). Ne reproduisez pas cette erreur en copie, d'autant plus que la jurisprudence est unanime sur ce point.</p>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Pourquoi délictuelle ? (Raisonnement)</div>
+        <p>Le notaire exerce une charge publique. Il est tenu à des obligations qui découlent de son statut légal et réglementaire, non d'un contrat avec ses clients. Dès lors que ces obligations sont méconnues, la responsabilité ne peut être que délictuelle — faute de lien contractuel qui les engendrerait. C'est le même raisonnement qui fonde la responsabilité médicale en délictuelle depuis la <span class="loi-ref">loi Kouchner de 2002</span> : le médecin participe d'une mission de service public (santé), payé par la Sécurité sociale → pas un simple prestataire commercial.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- V. ACTES SOUS SIGNATURE PRIVÉE -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section" id="signature-privee">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1362–1373</span>
+      <span class="section-title">Actes sous signature privée — Force probante &amp; ayants cause</span>
+    </div>
+
+    <div class="block">
+      <h3><span class="art-num">Art. 1362</span> — Force probante inter partes</h3>
+      <div class="quote">« L'acte sous signature privée, reconnu par la partie à laquelle on l'oppose, ou légalement tenu pour reconnu à son égard, fait foi entre ceux qui l'ont souscrit et à l'égard de leurs héritiers et ayants cause. »</div>
+      <p>L'acte sous signature privée fait foi entre les parties — mais cette foi peut être combattue par la <strong>procédure de faux en écriture</strong> (plus légère que l'inscription de faux réservée aux actes authentiques). Elle peut porter sur la signature (falsification, usurpation) ou sur le contenu (falsification postérieure).</p>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Absence de date certaine</div>
+        <p>Contrairement à l'acte authentique, l'acte sous signature privée n'a pas de <strong>date certaine</strong> opposable aux tiers. Entre les parties, la date portée est présumée exacte (jusqu'à démonstration contraire). Mais vis-à-vis des tiers, la date peut être contestée librement — risques de postdatage et d'antidatage extrêmement courants, notamment pour des raisons fiscales, comptables ou pour trancher des conflits de droits concurrents.</p>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Absence de caractère exécutoire</div>
+        <p>L'acte sous signature privée n'emporte pas de titre exécutoire direct. Pour mettre en œuvre une exécution forcée, il faut d'abord obtenir un jugement — à la différence de l'acte authentique.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Problème du texte — Ayants cause à titre particulier</h3>
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Erreur de rédaction de l'ordonnance — signalée par Desaix</div>
+        <p>L'art. 1362 vise « les héritiers et ayants cause » — formule trop large qui inclut maladroitement les ayants cause à titre particulier. Or :</p>
+        <ul>
+          <li><strong>Ayants cause universels ou à titre universel</strong> (héritiers, société absorbante lors d'une fusion) : ils continuent la personne du défunt → ils sont assimilés aux parties → la foi de l'acte leur est opposable comme aux signataires eux-mêmes.</li>
+          <li><strong>Ayants cause à titre particulier</strong> (acheteur, donataire, échangiste) : ils reçoivent un bien ou un droit, sans passif transmis → ils ne sont pas parties à l'acte → la foi de l'acte <em>ne leur est pas opposable</em>. Ils peuvent contester le contenu de l'acte par tous moyens, sans passer par la procédure de faux en écriture.</li>
+        </ul>
+        <p>La formule « et à l'égard de leurs héritiers et ayants cause » est donc erronée si on l'applique aux ayants cause à titre particulier. Desaix l'a relevé dès la parution de l'ordonnance. La doctrine s'accorde à lire le texte comme ne visant que les ayants cause universels et à titre universel. Les correcteurs pointilleux (Paris, Province) le savent.</p>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Application pratique — exemple du locataire</div>
+        <p>Un bien est vendu par un acte sous signature privée. Le locataire (ayant cause à titre particulier par cession légale de contrat) n'est pas partie à cet acte. Il peut contester le contenu de l'acte de vente par tous moyens. Il n'est pas tenu par la foi de cet acte et n'a pas à passer par la procédure de faux en écriture pour le contester.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="art-num">Art. 1373</span> — Désaveu de signature</h3>
+      <p>La partie à laquelle on oppose un acte sous signature privée peut <strong>désavouer son écriture ou sa signature</strong>. Ses héritiers et ayants cause (universels) peuvent pareillement désavouer l'écriture ou la signature de leur auteur — ou déclarer ne pas les reconnaître s'ils ne les connaissent pas.</p>
+      <p>En cas de désaveu : procédure de <strong>vérification d'écriture</strong> (CPC). Si le désaveu est fondé et qu'une tierce personne a usurpé la signature → bascule vers la <strong>procédure de faux</strong> (pénale ou civile). Ce n'est pas du programme en tant que tel — mais le principe doit être connu.</p>
+      <p><strong>Limite :</strong> les ayants cause à titre particulier ne peuvent pas désavouer la signature de leur auteur — ce n'est pas leur acte.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- VI. ACTE D'AVOCAT -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section" id="acte-avocat">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1374</span>
+      <span class="section-title">Acte sous signature privée contresigné par avocat — L'acte d'avocat</span>
+    </div>
+
+    <div class="block">
+      <p>Catégorie créée par l'ordonnance de 2016, à la demande du CNB (Conseil National des Barreaux). Classé parmi les actes sous signature privée, mais avec des effets renforcés. Compromis politique entre le notariat (qui voulait conserver le monopole de l'authentification) et le barreau (qui voulait concurrencer le notariat).</p>
+
+      <table>
+        <tr>
+          <th>Caractéristique</th>
+          <th>Acte sous signature privée</th>
+          <th>Acte d'avocat</th>
+          <th>Acte authentique</th>
+        </tr>
+        <tr>
+          <td>Date certaine</td>
+          <td>Non (entre les parties seulement)</td>
+          <td>Quasi-certaine (le contreseing de l'avocat rend l'antidatage très difficile)</td>
+          <td>Oui, absolue</td>
+        </tr>
+        <tr>
+          <td>Force probante</td>
+          <td>Foi inter partes, procédure de faux en écriture pour contester</td>
+          <td>Renforcée — contester le contreseing implique de mettre en cause l'avocat</td>
+          <td>Pleine foi jusqu'à inscription de faux</td>
+        </tr>
+        <tr>
+          <td>Caractère exécutoire</td>
+          <td>Non</td>
+          <td>Non (mais facilement conférable par apposition de la formule exécutoire)</td>
+          <td>Oui, de plein droit</td>
+        </tr>
+        <tr>
+          <td>Conseil juridique</td>
+          <td>Non</td>
+          <td>Oui — l'avocat engage sa responsabilité contractuelle</td>
+          <td>Oui — notaire engage sa responsabilité délictuelle</td>
+        </tr>
+      </table>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Guerre notariat / barreau — à connaître pour le grand oral</div>
+        <p>Le notariat souligne que l'acte d'avocat n'est pas un acte authentique (pas de force exécutoire directe, pas de pleine foi). Le barreau rétorque que la force exécutoire s'obtient facilement (apposition de la formule par le tribunal ou par un commissaire de justice). En pratique, la situation est intermédiaire : l'acte d'avocat a une valeur supérieure à l'acte sous signature privée simple, mais inférieure à l'authentique. Ce sera à l'étude lors de la séance suivante.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- VII. MÉTHODOLOGIE — PREUVE ET FOND -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section" id="methodo">
+    <div class="section-header">
+      <span class="section-tag tag-methodo">🎯 Méthodologie</span>
+      <span class="section-title">Négocium vs. instrumentum — Validité vs. preuve</span>
+    </div>
+
+    <div class="block">
+      <p>La distinction fondamentale entre le <strong>négocium</strong> (l'acte juridique lui-même, le contrat) et l'<strong>instrumentum</strong> (le support probatoire, l'écrit) est l'une des distinctions les plus discriminantes en copie.</p>
+      <ul>
+        <li>Un contrat peut parfaitement exister sans instrumentum — par le simple échange des consentements (consensualisme).</li>
+        <li>L'absence d'instrumentum ne rend pas le contrat nul — elle pose seulement des difficultés de preuve.</li>
+        <li>L'irrégularité d'un instrumentum authentique (dégradation en acte sous signature privée) n'affecte pas la validité du négocium — sauf si un acte authentique est exigé ad validitatem par la loi.</li>
+      </ul>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Confusions fréquentes à éviter absolument</div>
+        <ul>
+          <li>Confondre nullité de l'instrumentum (dégradation probatoire) et nullité du négocium (nullité du contrat).</li>
+          <li>Affirmer que l'acte authentique est nécessaire à la validité de la vente immobilière → FAUX.</li>
+          <li>Invoquer l'adage « nul ne peut se constituer de preuve à soi-même » dans un contexte de preuve libre → FAUX.</li>
+          <li>Qualifier une présomption de « irréfragable » sans analyse fine de la clause → ERREUR FATALE (sujet 2021).</li>
+          <li>Qualifier la responsabilité du notaire de contractuelle → ERREUR GRAVE signalée dans le Dalloz lui-même.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- VIII. ORGANISATION -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section" id="orga">
+    <div class="section-header">
+      <span class="section-tag tag-orga">🗓️ Organisation</span>
+      <span class="section-title">Informations pratiques</span>
+    </div>
+
+    <div class="block">
+      <p><strong>Prochain cours :</strong> Suite de la section 1 (actes sous signature privée — art. 1374 sur l'acte d'avocat à approfondir) et passage à l'aveu et au serment.</p>
+      <p><strong>DST :</strong> À rendre au plus vite. Les prochains DST d'obligation porteront sur la preuve — il faut s'entraîner régulièrement et ne pas perdre la main. La composition régulière est indispensable même si les premiers résultats sont imparfaits.</p>
+      <p><strong>Rappel général :</strong> Ne pas différer les compositions ni les vidéos. Le programme est immense. Une préparation étalée et régulière vaut infiniment mieux que l'abattage estival de rattrapage.</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

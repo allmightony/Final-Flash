@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours 5 — 21 avril — Fin preuve &amp; Début RGO</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg: #faf9f6; --surface: #ffffff; --border: #e8e4dc;
+    --text: #1a1a1a; --text-light: #555;
+    --article: #c0392b; --juris: #6c3483; --loi: #7b5e3a; --citation: #1a5276;
+    --tag-cours: #2c6e49; --tag-methodo: #1565c0; --tag-oral: #6a0f49;
+    --tag-critique: #b71c1c; --tag-orga: #4a4a4a; --tag-alerte: #e65100;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'EB Garamond', Georgia, serif; font-size: 18px; line-height: 1.75; background: var(--bg); color: var(--text); }
+  .page-header { background: #ffffff; color: #1a1a1a; padding: 48px 64px 40px; border-bottom: 4px solid var(--article); }
+  .page-header .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #aaa; margin-bottom: 12px; }
+  .page-header h1 { font-size: 2rem; font-weight: 500; margin-bottom: 8px; }
+  .page-header .subtitle { color: #ccc; font-size: 1rem; }
+  .legend { display: flex; flex-wrap: wrap; gap: 20px; padding: 20px 64px; background: #f2f0ea; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+  .main { max-width: 920px; margin: 0 auto; padding: 48px 32px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--border); }
+  .section-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; color: #fff; flex-shrink: 0; }
+  .tag-cours { background: var(--tag-cours); }
+  .tag-methodo { background: var(--tag-methodo); }
+  .tag-oral { background: var(--tag-oral); }
+  .tag-critique { background: var(--tag-critique); }
+  .tag-alerte { background: var(--tag-alerte); }
+  .tag-orga { background: var(--tag-orga); }
+  .section-title { font-size: 1.25rem; font-weight: 500; color: var(--text); }
+  .block { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px 28px; margin-bottom: 18px; }
+  .block p { margin-bottom: 14px; } .block p:last-child { margin-bottom: 0; }
+  .block ul { padding-left: 24px; margin: 12px 0; } .block li { margin-bottom: 8px; }
+  .art-num { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--article); font-weight: 500; }
+  .juris { color: var(--juris); font-weight: 500; }
+  .loi-ref { color: var(--loi); font-weight: 500; }
+  .quote { border-left: 4px solid var(--citation); margin: 16px 0; padding: 12px 20px; background: #f0f4f8; color: var(--citation); font-size: 0.95em; border-radius: 0 4px 4px 0; }
+  .alert-box { border: 1px solid var(--tag-alerte); border-left: 5px solid var(--tag-alerte); background: #fff8f5; padding: 16px 20px; border-radius: 4px; margin: 16px 0; }
+  .alert-box .alert-title { font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--tag-alerte); margin-bottom: 8px; }
+  .sub-section { border-top: 1px solid var(--border); margin-top: 18px; padding-top: 18px; }
+  .sub-section-title { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); margin-bottom: 12px; }
+  h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 10px; margin-top: 18px; color: #222; }
+  .separator { border: none; border-top: 3px solid var(--border); margin: 48px 0; }
+  .part-title { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-light); margin-bottom: 28px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    @page { size: A4; margin: 15mm 14mm 18mm 14mm; }
+    body { font-size: 10.5pt; line-height: 1.55; background: #faf9f6 !important; color: #1a1a1a !important; }
+    .page-header { background: #ffffff !important; color: #1a1a1a !important; padding: 14pt 20pt 10pt !important; border-bottom: 3pt solid #c0392b !important; margin-bottom: 8pt; }
+    .page-header .label { color: #888 !important; font-size: 7pt !important; }
+    .page-header h1 { font-size: 15pt !important; margin-bottom: 3pt !important; color: #1a1a1a !important; }
+    .page-header .subtitle { color: #555 !important; font-size: 9pt !important; }
+    .legend { background: #f2f0ea !important; padding: 6pt 20pt !important; font-size: 7.5pt !important; gap: 10pt !important; border-bottom: 1pt solid #e8e4dc !important; margin-bottom: 8pt; }
+    .main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+    .section { margin-bottom: 16pt !important; }
+    .section-header { padding-bottom: 5pt !important; margin-bottom: 8pt !important; border-bottom: 1.5pt solid #e8e4dc !important; page-break-after: avoid; }
+    .section-tag { font-size: 6.5pt !important; padding: 2pt 6pt !important; color: #fff !important; }
+    .tag-cours    { background: #2c6e49 !important; }
+    .tag-methodo  { background: #1565c0 !important; }
+    .tag-oral     { background: #6a0f49 !important; }
+    .tag-critique { background: #b71c1c !important; }
+    .tag-orga     { background: #4a4a4a !important; }
+    .tag-alerte   { background: #e65100 !important; }
+    .section-title { font-size: 11pt !important; }
+    .subsection { margin-bottom: 10pt !important; }
+    .subsection-title { font-size: 9.5pt !important; margin-bottom: 5pt !important; }
+    .block { background: #ffffff !important; border: 0.75pt solid #e8e4dc !important; padding: 8pt 10pt !important; margin-bottom: 6pt !important; page-break-inside: avoid; }
+    .block p { margin-bottom: 5pt !important; font-size: 10pt !important; }
+    .block ul { padding-left: 14pt !important; margin: 4pt 0 !important; }
+    .block li { margin-bottom: 3pt !important; font-size: 10pt !important; }
+    h3 { font-size: 10.5pt !important; margin-top: 7pt !important; margin-bottom: 4pt !important; page-break-after: avoid; }
+    .alert-box { border: 0.75pt solid #e65100 !important; border-left: 3pt solid #e65100 !important; background: #fff8f5 !important; padding: 7pt 10pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .alert-box .alert-title { font-size: 6.5pt !important; color: #e65100 !important; margin-bottom: 4pt !important; }
+    .alert-box p, .alert-box li { font-size: 9.5pt !important; }
+    .quote { border-left: 3pt solid #1a5276 !important; background: #f0f4f8 !important; color: #1a5276 !important; padding: 7pt 10pt !important; font-size: 9.5pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .sub-section { border-top: 0.5pt solid #e8e4dc !important; margin-top: 8pt !important; padding-top: 8pt !important; }
+    .separator { border-top: 1.5pt solid #e8e4dc !important; margin: 12pt 0 !important; }
+    .part-title { font-size: 7.5pt !important; color: #555 !important; padding: 6pt 0 !important; border-bottom: 0.75pt solid #e8e4dc !important; margin-bottom: 10pt !important; }
+    .art-num { color: #c0392b !important; }
+    .juris   { color: #6c3483 !important; }
+    .loi-ref { color: #7b5e3a !important; }
+    table { font-size: 9pt !important; border-collapse: collapse !important; width: 100% !important; }
+    th { background: #f2f0ea !important; padding: 5pt 7pt !important; border: 0.75pt solid #e8e4dc !important; }
+    td { padding: 5pt 7pt !important; border: 0.75pt solid #e8e4dc !important; }
+    a[href]:after { content: none !important; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="label">Cours 5 — 21 avril</div>
+  <h1>Fin du droit de la preuve &amp; Début du RGO</h1>
+  <div class="subtitle">Serment décisoire · Serment déféré d'office · Modalités des obligations · Condition</div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-cours)"></div> Cours / Doctrine</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-methodo)"></div> Méthodologie</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-alerte)"></div> Alerte examen</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-oral)"></div> Grand oral</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-critique)"></div> Erreurs fréquentes</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-orga)"></div> Organisation</div>
+</div>
+
+<div class="main">
+
+  <!-- ═══════════════════ PARTIE I — FIN PREUVE ═══════════════════ -->
+  <div class="part-title">── Partie 1 — Fin du droit de la preuve ──────────────────────────</div>
+
+  <!-- I. AVEU — RAPPELS ET COMPLEMENTS -->
+  <div class="section" id="aveu-suite">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1383</span>
+      <span class="section-title">Aveu — Rappels et compléments</span>
+    </div>
+
+    <div class="block">
+      <h3>Aveu extrajudiciaire vs. judiciaire — récapitulatif</h3>
+      <p><strong>Aveu extrajudiciaire</strong> (<span class="art-num">art. 1383-1</span>) : laissé à l'appréciation souveraine du juge du fond. Valeur relative — simple élément de fait parmi d'autres, même si verbal. Contre-intuitif : un aveu hors de la procédure judiciaire ne s'impose pas au juge.</p>
+      <p><strong>Aveu judiciaire</strong> (<span class="art-num">art. 1383-2</span>) : fait en justice par la partie ou son représentant <em>spécialement mandaté</em>. Mandat général de représentation de l'avocat ne suffit pas — il faut un mandat spécial exprès pour formuler l'aveu. L'aveu judiciaire : (1) fait foi contre son auteur, (2) est indivisible, (3) est irrévocable sauf erreur de fait.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Indivisibilité — arme à double tranchant</div>
+        <p>L'indivisibilité de l'aveu judiciaire signifie que celui qui s'en prévaut doit en subir toutes les mentions, y compris celles qui lui sont défavorables. Si l'aveu contient à la fois une reconnaissance favorable au demandeur et un élément défavorable, les deux doivent être pris en compte. Stratégiquement dangereux.</p>
+      </div>
+
+      <h3>Irrévocabilité — erreur de fait seulement</h3>
+      <p>L'aveu judiciaire est irrévocable sauf erreur de <em>fait</em>. On peut revenir sur l'aveu si l'on démontre une confusion factuelle sur ce que l'on avouait (ex. avoir confondu deux situations distinctes). Mais on ne peut pas simplement se dédire à périmètre constant : on ne peut pas dire que ce qu'on a avoué pour vrai est faux.</p>
+
+      <h3>Aveu judiciaire — supplétif de l'écrit (<span class="art-num">art. 1361</span>)</h3>
+      <p>C'est l'utilisation stratégique majeure : l'aveu judiciaire peut supplée à l'exigence de la preuve littérale pour les actes juridiques. Si l'adversaire avoue en justice l'existence et le contenu du contrat, le défaut d'écrit est sans importance. La stratégie consiste à amener l'adversaire à avouer dans le cadre de la procédure judiciaire — un aveu une fois fait ne peut être retiré (irrévocable).</p>
+    </div>
+  </div>
+
+  <!-- II. SERMENT DÉCISOIRE -->
+  <div class="section" id="serment-decisoire">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1384–1385-4</span>
+      <span class="section-title">Section 5 — Le serment décisoire</span>
+    </div>
+
+    <div class="block">
+      <h3>Nature et origines</h3>
+      <p>Le serment est un mode de preuve ancestral renvoyant aux racines judéo-chrétiennes du droit civil. Provoquer quelqu'un en serment, c'est le mettre en face du risque du parjure — sanction morale, voire dans certains esprits, sanction céleste. L'ordonnance de 2016 n'a pas modifié le régime du serment, qu'elle a simplement recodifié.</p>
+      <p>Le serment peut être <strong>décisoire</strong> (déféré par une partie à l'autre — le plus puissant) ou <strong>déféré d'office</strong> par le juge (portée plus relative).</p>
+
+      <div class="alert-box">
+        <div class="alert-title">Grand oral — question fréquente</div>
+        <p>Le serment et ses origines métajuridiques, son rapport à la morale, aux libertés fondamentales (CEDH, droit à un procès équitable), son inutilisation pratique et ses dangers stratégiques — tout cela est typiquement ce qu'un jury de praticiens posera sur « preuve et droits fondamentaux » ou « morale et droit ». Le succès à un procès du seul fait de refuser de jurer interroge fondamentalement l'accès au droit.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="art-num">Art. 1385</span> — Serment décisoire : portée générale</h3>
+      <p>Le serment décisoire peut être déféré sur <em>quelque espèce de contestation que ce soit</em> et <em>en tout état de cause</em>. Pas de limitation de matière ni de stade procédural.</p>
+
+      <h3><span class="art-num">Art. 1385-1</span> — Conditions de fond</h3>
+      <ul>
+        <li>Le serment ne peut être déféré que sur un <strong>fait personnel</strong> à la partie à laquelle on le défère. On ne peut pas demander à quelqu'un de jurer sur ce qu'il ne connaît pas personnellement.</li>
+        <li>Le serment peut être <strong>référé</strong> (renvoyé) par celui à qui il a été déféré — sauf si le fait est purement personnel à la partie qui l'a reçu (auquel cas il ne peut pas renvoyer la balle).</li>
+      </ul>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ La stratégie du poker — déférer le serment avec prudence</div>
+        <p>Déférer le serment expose à ce qu'il vous soit référé. Si le fait n'est pas purement personnel à l'adversaire, il peut vous provoquer à votre tour. Il faut donc s'assurer avant de déférer que soit le fait est purement personnel à l'adversaire (empêchant le renvoi), soit on est soi-même prêt à prêter serment si le serment est référé. Stratégie hyper-risquée, rarement utilisée en pratique pour cette raison.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="art-num">Art. 1385-2</span> — Effets du refus ou du non-renvoi</h3>
+      <div class="quote">« Celui à qui le serment est déféré et qui le refuse, ou ne veut pas le référer, ou celui à qui il a été référé et qui le refuse, succombe dans sa prétention. »</div>
+      <p>C'est la mécanique la plus archaïque du droit de la preuve : le simple refus de jurer entraîne la défaite judiciaire. La logique est moralo-juridique : pourquoi refuser de jurer si l'on a raison ? Le refus est lu comme un aveu implicite. C'est pour cela que le texte est dit « de bourrin » — il est d'une brutalité rare.</p>
+      <p>L'autre partie ne peut pas prouver la fausseté du serment une fois qu'il a été prêté — c'est du point de vue civil. Des poursuites pénales pour parjure restent théoriquement possibles (art. 434-13 C. pénal), mais le plan civil ne permet pas de remettre en cause le serment fait.</p>
+
+      <h3><span class="art-num">Art. 1385-3</span> — Irrétractabilité du déféré</h3>
+      <p>Une fois que la partie à qui le serment a été déféré a déclaré être prête à le prêter, le déférant ne peut plus se rétracter. C'est une partie de poker : si l'adversaire ne se « dégonfle » pas, le déférant est coincé et doit assumer les conséquences. D'où la rareté de cette pratique.</p>
+    </div>
+
+    <div class="block">
+      <h3><span class="art-num">Art. 1385-4</span> — Effets à l'égard des tiers (solidarité et cautionnement)</h3>
+      <p>Texte rédigé dans le désordre le plus total (solidarité active / cautionnement / solidarité passive / cautionnement à nouveau) — lacune légistique manifeste signalée en cours.</p>
+      <p>La logique sous-jacente est la suivante :</p>
+      <ul>
+        <li><strong>Al. 2 — Solidarité active :</strong> le serment déféré par <em>un créancier solidaire</em> au débiteur ne libère celui-ci que pour la part de ce créancier. Le risque pris par un créancier solidaire ne se répercute pas sur les autres.</li>
+        <li><strong>Al. 3 — Cautionnement :</strong> le serment déféré au <em>débiteur principal</em> libère également les cautions. Logique : si la dette principale est niée par le serment, il n'y a rien à garantir (caractère accessoire du cautionnement).</li>
+        <li><strong>Al. 4 — Solidarité passive :</strong> le serment déféré à <em>l'un des débiteurs solidaires</em> profite aux autres co-débiteurs. Si la dette est niée à l'égard de l'un, elle ne peut pas exister à l'égard des autres (même dette solidaire).</li>
+        <li><strong>Al. 5 — Précision essentielle :</strong> les règles des al. 3 et 4 ne jouent que si le serment portait sur <em>la dette elle-même</em> et non sur le simple fait de la solidarité ou du cautionnement. Si le serment ne porte que sur le principe du lien de garantie ou de solidarité, il n'a d'effet que pour celui qui l'a prêté.</li>
+      </ul>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Sujet possible — serment + solidarité ou cautionnement</div>
+        <p>Un cas pratique combinant serment décisoire et solidarité passive ou cautionnement est concevable. Pour le traiter correctement, il faut : (1) identifier sur quoi porte le serment (la dette ou le lien de garantie ?), (2) déterminer si les effets profitent aux co-débiteurs ou à la caution en conséquence de l'al. 5, (3) connaître le régime de la solidarité et du cautionnement (RGO). Sujet à l'intersection des deux matières — type Hamelin.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- III. SERMENT DÉFÉRÉ D'OFFICE -->
+  <div class="section" id="serment-office">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1386–1386-1</span>
+      <span class="section-title">Serment déféré d'office par le juge</span>
+    </div>
+
+    <div class="block">
+      <h3><span class="art-num">Art. 1386</span> — Régime et portée</h3>
+      <p>Le juge peut <em>d'office</em> déférer le serment à l'une des parties. Conséquences immédiates :</p>
+      <ul>
+        <li>Le serment ne peut pas être référé à l'autre partie (ce n'est pas une provocation de l'adversaire, mais du juge).</li>
+        <li>Sa valeur probante est <strong>laissée à l'appréciation souveraine du juge</strong> — portée bien inférieure au serment décisoire.</li>
+      </ul>
+      <p>Le serment déféré d'office est une technique psycho-judiciaire : le juge teste la solidité d'un plaideur dont il ne sait pas encore quoi penser. La réaction de la partie — refus ou acceptation sans hésitation — peut conforter ou ébranler la conviction du juge. C'est un outil subjectif par nature.</p>
+
+      <h3><span class="art-num">Art. 1386-1</span> — Encadrement (texte intercalé après coup)</h3>
+      <p>Le juge ne peut déférer d'office le serment que si la demande ou l'exception n'est <em>ni pleinement justifiée</em> (déjà prouvée), <em>ni totalement dénuée de preuves</em>. En d'autres termes :</p>
+      <ul>
+        <li>Si c'est déjà prouvé → inutile d'y recourir, ce serait arbitraire.</li>
+        <li>S'il n'y a aucun élément de preuve → même chose, le serment deviendrait trop subjectif.</li>
+        <li>Le serment d'office est réservé aux zones grises probatoires, là où le juge hésite.</li>
+      </ul>
+
+      <div class="alert-box">
+        <div class="alert-title">Grand oral — preuve et libertés fondamentales</div>
+        <p>Cet encadrement est directement lié à l'impartialité du juge et au droit à un procès équitable (art. 6 CEDH). Donner au juge un outil aussi subjectif que le serment déféré d'office sans le canaliser permettrait des abus judiciaires évidents. L'art. 1386-1 y répond. À articuler avec la présomption judiciaire : si le juge dispose d'indices graves, précis et concordants, il a déjà un outil moins subjectif — il n'a pas besoin du serment d'office.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- IV. PORTÉE GÉNÉRALE DU DROIT DE LA PREUVE -->
+  <div class="section" id="portee-preuve">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Bilan</span>
+      <span class="section-title">Portée générale du droit de la preuve des obligations</span>
+    </div>
+
+    <div class="block">
+      <p>Le droit de la preuve codifié aux art. 1353 à 1386-1 est conçu autour du droit des obligations, mais son application est <strong>universelle</strong> : il est transposé à toutes les matières du droit privé (famille, biens, responsabilité) en l'absence de dispositions spéciales. Le droit des obligations est le laboratoire du droit de la preuve en France — anomalie ou incurie française, selon les auteurs.</p>
+      <p>Deux exemples de lacunes : (1) pas un mot dans le Code civil sur la preuve de la propriété (preuve libre car fait juridique) ; (2) pas de régime probatoire général couvrant toutes les matières — seule l'extrapolation des règles obligationnelles permet d'avancer.</p>
+      <p>Une réforme plus ample du droit de la preuve reste attendue. L'ordonnance de 2016 est, sur ce point, une « réformette ».</p>
+    </div>
+  </div>
+
+  <hr class="separator">
+
+  <!-- ═══════════════════ PARTIE II — DÉBUT RGO ═══════════════════ -->
+  <div class="part-title">── Partie 2 — Début du Régime Général des Obligations (RGO) ──────</div>
+
+  <!-- V. PLAN DU RGO -->
+  <div class="section" id="plan-rgo">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 RGO — Plan</span>
+      <span class="section-title">Structure générale du RGO — Art. 1304 et suivants</span>
+    </div>
+
+    <div class="block">
+      <h3>Trois grands thèmes</h3>
+      <ul>
+        <li><strong>Thème 1 — Modalités des obligations</strong> : condition (art. 1304 à 1304-7) + terme (art. 1305 à 1305-5) + obligations plurales (pluralité de sujets ou d'objets). Le terme extinctif a été déporté dans le droit des contrats (durée du contrat) — le Code ne traite que le terme suspensif.</li>
+        <li><strong>Thème 2 — Transmission des obligations</strong> : cession de créances, cession de dettes, cession de position contractuelle, subrogation personnelle.</li>
+        <li><strong>Thème 3 — Extinction de l'obligation</strong> : paiement (volontaire, forcé, modifié), novation, délégation, remise de dettes, confusion, prescription. Inclut aussi la force majeure extinctive et l'imprévision.</li>
+      </ul>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Ambiguïté du classement en RGO</div>
+        <p>La condition et le terme sont classés en RGO, mais sont <em>quasi exclusivement</em> du droit des contrats (95 % des obligations conditionnelles ou à terme sont d'origine contractuelle). Le Code a fait ce choix par tradition. Ne jamais parler de « contrat conditionnel » : c'est le contrat qui engendre des obligations, lesquelles peuvent être conditionnelles. Confondre la source (le contrat) et l'effet (l'obligation) est l'erreur éliminatoire en RGO.</p>
+        <p>Métaphore de la poule et de l'œuf : la poule = le contrat (source), l'œuf = l'obligation (effet). L'œuf peut être conditionnel ; la poule ne peut pas l'être.</p>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Actualité — CJUE 26 mars 2026</div>
+        <p>Arrêt majeur : la Cour de Justice de l'UE s'est prononcée contre la Cour de cassation française sur le point de départ du délai de prescription du dommage corporel en matière de responsabilité du fait des produits défectueux. Sujet directement au cœur du RGO (prescription) et des sources (produits défectueux). À surveiller impérativement — sujet hautement probable à l'examen 2026.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Cession de créance vs. subrogation — distinction fondamentale</h3>
+      <p>Deux techniques de transmission de l'obligation distinctes et sans rapport l'une avec l'autre :</p>
+      <ul>
+        <li><strong>Cession de créance</strong> : opération spéculative, en vue de la mobilisation du crédit. Le cédant transfère sa créance à un cessionnaire qui en devient titulaire, souvent pour en obtenir un financement anticipé.</li>
+        <li><strong>Subrogation personnelle</strong> : mécanisme attaché au <em>paiement de la dette d'autrui</em>. Celui qui a payé sciemment la dette d'un tiers sans intention libérale acquiert, par subrogation légale ou conventionnelle, la créance du créancier qu'il a désintéressé, pour pouvoir recouvrer ce qu'il a payé.</li>
+      </ul>
+      <p>Confondre les deux après un an de prépa = signaler une préparation désastreuse. Ce type de question est posé oralement dans les cabinets. Ne pas savoir répondre = 3/20 en RGO de 2e année niveau.</p>
+    </div>
+  </div>
+
+  <!-- VI. ART. 1304 — CONDITION -->
+  <div class="section" id="art1304">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1304</span>
+      <span class="section-title">La condition — définition, condition suspensive et résolutoire</span>
+    </div>
+
+    <div class="block">
+      <div class="quote">« L'obligation est conditionnelle lorsqu'elle dépend d'un événement futur et incertain. La condition est suspensive lorsque son accomplissement rend l'obligation pure et simple. Elle est résolutoire lorsque son accomplissement entraîne l'anéantissement de l'obligation. »</div>
+
+      <h3>Choix de rédaction — débat doctrinal de 150 ans résolu</h3>
+      <p>L'ordonnance ne dit pas que la condition suspensive fait « naître » l'obligation — elle dit que son accomplissement « rend l'obligation pure et simple ». Ce choix est délibéré : il neutralise la querelle entre les auteurs qui soutenaient qu'avant réalisation de la condition il n'y avait « rien » et ceux qui estimaient qu'il existait déjà une obligation conditionnelle.</p>
+      <p>La réponse de bon sens : il ne peut pas y avoir « rien » avant réalisation de la condition, car s'il n'y avait rien, la condition ne pourrait pas « faire naître » quoi que ce soit — les parties auraient prévu une obligation conditionnelle, sinon le contrat n'aurait aucun sens. Il y a donc bien une obligation conditionnelle pendante, qui n'est pas encore pure et simple.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Erreur de vocabulaire fatale — fiches en circulation</div>
+        <p>7 fiches sur 10 en circulation écrivent encore : « la condition suspensive fait dépendre la naissance de l'obligation de la réalisation de l'événement ». Ce n'est plus le texte depuis 2016. Le code dit « rend pure et simple » — ce qui présuppose qu'elle existait déjà comme obligation conditionnelle. Écrire l'autre formule avec un correcteur pointilleux → déclassement immédiat.</p>
+      </div>
+
+      <h3>Condition suspensive vs. condition résolutoire</h3>
+      <ul>
+        <li><strong>Suspensive :</strong> l'obligation est déjà là comme obligation conditionnelle. La réalisation de l'événement la transforme en obligation pure et simple → elle devient exigible et le débiteur doit l'exécuter.</li>
+        <li><strong>Résolutoire :</strong> l'obligation est pure et simple dès l'origine et doit être exécutée immédiatement. La réalisation de l'événement futur et incertain l'anéantit rétroactivement (en principe — les parties peuvent stipuler le contraire).</li>
+      </ul>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Confusion mortelle — condition résolutoire ≠ résolution pour inexécution</div>
+        <p>La condition résolutoire est une MODALITÉ de l'obligation stipulée librement par les parties. Elle n'a aucun rapport avec la résolution sanction de l'inexécution (résolution judiciaire, résolution par notification, clause résolutoire). Dans la condition résolutoire, il n'y a aucune inexécution — c'est simplement la survenance d'un événement futur et incertain qui anéantit l'obligation. Confondre les deux = risque d'un 1/20. Cette confusion existait dans l'art. 1184 ancien du Code civil (qui parlait de « condition résolutoire sous-entendue dans les contrats synallagmatiques ») — elle a été expressément supprimée par l'ordonnance 2016. Ne plus la reproduire.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VII. ART. 1304-1 — LICÉITÉ DE LA CONDITION -->
+  <div class="section" id="art1304-1">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1304-1</span>
+      <span class="section-title">Validité de la condition — Licéité</span>
+    </div>
+
+    <div class="block">
+      <div class="quote">« La condition doit être licite. À défaut, l'obligation est nulle. »</div>
+
+      <h3>Suppression de l'exigence de possibilité</h3>
+      <p>Avant l'ordonnance de 2016, la condition devait être à la fois licite et possible. Désormais, l'exigence de possibilité a été <strong>supprimée</strong>. Une condition impossible n'est plus frappée de nullité : si les parties ont voulu stipuler une obligation conditionnelle à la réalisation d'un événement impossible, c'est leur affaire. L'obligation restera simplement pendante sans jamais devenir pure et simple.</p>
+      <p>En pratique, l'impossibilité se confond souvent avec l'illicéité (une condition impossible est souvent aussi illicite) — donc la suppression a une portée limitée.</p>
+
+      <h3>Conséquence de l'illicéité — nullité de l'obligation, pas du contrat</h3>
+      <p>Si la condition est illicite, c'est <strong>l'obligation</strong> (l'œuf) qui est nulle — pas le contrat (la poule). Le contrat survit si d'autres obligations licites existent. <em>Exception</em> : si l'obligation conditionnelle illicite était impulsive et déterminante du consentement au contrat, la nullité peut être étendue au contrat entier (<span class="art-num">art. 1184 al. 1</span>). C'est le droit des nullités qui s'applique, non le droit des conditions seul.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Nullité relative — conséquence importante</div>
+        <p>La nullité de l'obligation affectée d'une condition illicite est une <strong>nullité relative</strong> (protection d'un intérêt privé — le créancier). Preuve : le texte admet la confirmation tacite par exécution volontaire de l'obligation en connaissance de cause (art. 1304-1 al. 2), ce qui est impossible en cas de nullité absolue. Conséquence directe : seul le créancier (personne protégée) peut invoquer cette nullité — pas le débiteur. Sujet de grande finesse, rarement vu en copie, très valorisé par les correcteurs exigeants.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIII. ART. 1304-2 — CONDITION DÉPENDANT DE LA VOLONTÉ DU DÉBITEUR -->
+  <div class="section" id="art1304-2">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1304-2</span>
+      <span class="section-title">Condition dont la réalisation dépend de la seule volonté du débiteur</span>
+    </div>
+
+    <div class="block">
+      <div class="quote">« Est nulle l'obligation contractée sous une condition dont la réalisation dépend de la seule volonté du débiteur. Cette nullité ne peut être invoquée lorsque l'obligation a été exécutée en connaissance de cause. »</div>
+
+      <h3>Vocabulaire — suppression délibérée de « potestativité »</h3>
+      <p>L'ordonnance a expressément abandonné le vocabulaire de « condition potestative » — trop flou, source de confusions interminables entre conditions <em>purement potestatives</em> (seules frappées de nullité auparavant) et conditions <em>simplement potestatives ou mixtes</em> (valables). Le code utilise désormais une formule directe et explicite.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Erreur à bannir absolument</div>
+        <p>Écrire « ce texte consacre la prohibition des conditions potestatives » → FAUX. Ce n'est pas le vocabulaire du code. Et en droit antérieur, seules les conditions <em>purement</em> potestatives étaient nulles. Utiliser « potestatives » sans qualification dans une copie = signal d'un candidat qui n'a pas compris la réforme → déclassement immédiat chez un correcteur de bon niveau.</p>
+      </div>
+
+      <h3>Logique de la prohibition</h3>
+      <p>Si la réalisation de la condition ne dépend que de la volonté du débiteur, celui-ci peut choisir d'être tenu ou non. Il contrôle la force obligatoire du contrat. Le contrat ne l'engage pas réellement — il ne s'engage qu'à ce qu'il veut. C'est contraire à la force obligatoire des conventions.</p>
+      <p><strong>A contrario</strong> : si la condition dépend en partie d'éléments extérieurs à la volonté du débiteur (ex. réaction du marché, décision d'une autorité publique), elle n'est pas prohibée. C'est ce qu'on appelait avant une condition mixte ou simplement potestative.</p>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Exemples classiques</div>
+        <ul>
+          <li><strong>Octroi d'un permis de construire :</strong> condition mixte valable — le débiteur dépose la demande, mais c'est l'autorité publique qui décide. La réalisation ne dépend pas de la seule volonté du débiteur.</li>
+          <li><strong>Obtention d'un prêt immobilier :</strong> même raisonnement — le débiteur dépose le meilleur dossier possible, mais la banque décide souverainement selon les conditions du marché du crédit (conjoncture, politique des établissements).</li>
+          <li><strong>Vente effective de son bien :</strong> si c'est la réalisation effective de la vente sur un marché ouvert (pas la simple décision de mettre en vente), c'est un événement — la décision de mise en vente est dans la dépendance du débiteur, mais pas la réaction du marché.</li>
+          <li><strong>Décision de mettre en vente :</strong> PAS une condition — c'est une réserve affectant le vouloir, pas le voulo. Aucun rapport avec le droit des conditions → droit des contrats (offre et acceptation).</li>
+        </ul>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Distinction réserve / condition — erreur omniprésente chez les praticiens</div>
+        <p>La réserve affecte la formation du contrat (il n'y a pas d'acceptation ferme). La condition affecte l'obligation qui découle d'un contrat déjà conclu. Si le contrat n'est pas conclu, on ne peut pas parler de condition — il n'y a pas d'obligation à affecter. Ce distinguo est fondamental et méconnu. Des avocats expérimentés le confondent régulièrement. C'est une erreur qui peut faire perdre le procès à un client.</p>
+      </div>
+
+      <h3>Condition et volonté des parties — quelle liberté pour qualifier ?</h3>
+      <p>Les parties peuvent-elles qualifier elles-mêmes un événement de certain (terme) ou d'incertain (condition) pour verrouiller l'interprétation ?</p>
+      <ul>
+        <li><strong>Oui</strong>, dans les limites de l'incertitude objective : si l'événement est objectivement ambigu (on ne sait pas s'il est certain ou incertain), les parties peuvent le qualifier librement.</li>
+        <li><strong>Non</strong>, si la qualification contredit la réalité objective : on ne peut pas qualifier d'incertain ce qui est objectivement certain, ni de certain ce qui est objectivement incertain.</li>
+      </ul>
+      <p>Jurisprudence : <span class="juris">Cass. civ. 1ère, 13 avril 1999</span> et <span class="juris">Cass. civ. 1ère, 13 juillet 2004</span> — la volonté des parties ne peut pas contrarier la nature objective de l'événement. Si l'événement est objectivement incertain, on ne peut pas le qualifier de terme. Si c'est objectivement certain, on ne peut pas en faire une condition.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Applicationaux crises géopolitiques — sujet chaud</div>
+        <p>Dans certains contextes (tensions russo-ukrainiennes avant l'invasion de 2022, par exemple), l'événement pouvait paraître incertain pour certains observateurs (bluff ou réel ?) et quasi-certain pour d'autres. Si l'événement était objectivement ambigu au moment de contracter, les parties auraient pu le qualifier de terme ou de condition selon leur analyse. Si c'était objectivement incertain malgré l'accumulation des indices, la qualification de condition s'imposait. Le juge interpréterait souverainement. Sujet parfaitement concevable en consultation — crises géopolitiques, imprévision, force majeure, condition.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- IX. MÉTHODOLOGIE -->
+  <div class="section" id="methodo">
+    <div class="section-header">
+      <span class="section-tag tag-methodo">🎯 Méthodologie</span>
+      <span class="section-title">Stratégie générale — copie et valeur ajoutée</span>
+    </div>
+
+    <div class="block">
+      <h3>La majeure ne doit pas être un recopiage</h3>
+      <p>L'erreur la plus fréquente identifiée dans les copies du DST 3 : la majeure se limite à recopier le texte brut sans valeur ajoutée. La différence entre une copie à 8 et une copie à 14 avec le même contenu, c'est l'appropriation personnelle. Le correcteur doit avoir le sentiment que le candidat a digéré le texte et peut l'expliquer et l'appliquer.</p>
+      <p>La valeur ajoutée se crée : (1) en explicitant pourquoi le texte dit ce qu'il dit (la logique du texte), (2) en signalant ce que le texte ne dit pas et qui doit venir de la culture juridique générale (ex. nullité relative → confirmation possible → titularité du droit de critique), (3) en combinant les textes entre eux.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">Stratégie des coefficients — note de synthèse + obligations = 5/9</div>
+        <p>Les deux premières épreuves (note de synthèse + droit des obligations) représentent 5 coefficients sur 9 — plus de la moitié. C'est là que se joue l'admissibilité. La stratégie gagnante : être blindé sur ces deux épreuves, ce qui permet d'aborder les deux dernières en confiance. La stratégie perdante : sous-investir les deux premières en espérant se rattraper sur les spécialités. La commission nationale a tous les outils pour moduler les résultats sur ces deux épreuves communes.</p>
+      </div>
+
+      <h3>Points discriminants à 15–18</h3>
+      <ul>
+        <li>Voir que la nullité d'une condition illicite est une nullité relative (pas absolue) → confirmation possible → titularité réservée au créancier.</li>
+        <li>Distinguer la condition résolutoire de la résolution pour inexécution — et expliquer pourquoi.</li>
+        <li>Ne pas parler de « contrat conditionnel » mais d' « obligation conditionnelle ».</li>
+        <li>Distinguer réserve (formation du contrat) et condition (modalité de l'obligation née d'un contrat conclu).</li>
+        <li>Signaler le changement de vocabulaire opéré par l'ordonnance (abandon de « potestativité ») et en expliquer la raison.</li>
+        <li>Combiner condition et droit des nullités, et condition et droit des contrats (promesse synallagmatique sous condition ≠ avant-contrat).</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- X. ORGANISATION -->
+  <div class="section" id="orga">
+    <div class="section-header">
+      <span class="section-tag tag-orga">🗓️ Organisation</span>
+      <span class="section-title">Informations pratiques</span>
+    </div>
+
+    <div class="block">
+      <p><strong>Prochain cours :</strong> contrats préparatoires (avant-contrats, promesses synallagmatiques sous condition), puis vices du consentement.</p>
+      <p><strong>DST 3 — droit de la preuve :</strong> sujet volontairement haché, ingrat, technique. Ne pas se laisser intimider par la forme. Composer même imparfaitement vaut mieux que ne pas composer. Délai cible : 3h15–3h30 maximum — il faut impérativement réduire si on est encore à 6h.</p>
+      <p><strong>DST procédure :</strong> premier sujet disponible en fin de semaine ou début de semaine suivante.</p>
+      <p><strong>Conseil général :</strong> ne pas fêter Pâques ni les week-ends du mois de mai. Accélérer maintenant. Les vidéos de spécialité déboulent — ne pas prendre de retard qui s'accumulerait. Le mois de mai sera chargé.</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

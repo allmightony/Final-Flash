@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preuve — Cours 2 — 24 mars</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #faf9f6;
+    --surface: #ffffff;
+    --border: #e8e4dc;
+    --text: #1a1a1a;
+    --text-light: #555;
+    --article: #c0392b;
+    --juris: #6c3483;
+    --loi: #7b5e3a;
+    --citation: #1a5276;
+    --tag-cours: #2c6e49;
+    --tag-methodo: #1565c0;
+    --tag-oral: #6a0f49;
+    --tag-critique: #b71c1c;
+    --tag-orga: #4a4a4a;
+    --tag-alerte: #e65100;
+    --tag-commission: #6d4c41;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; font-style: normal; }
+
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .page-header {
+    background: #ffffff;
+    color: #1a1a1a;
+    padding: 48px 64px 40px;
+    border-bottom: 4px solid var(--article);
+  }
+  .page-header .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 12px;
+  }
+  .page-header h1 { font-size: 2rem; font-weight: 500; margin-bottom: 8px; }
+  .page-header .subtitle { color: #ccc; font-size: 1rem; }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 64px;
+    background: #f2f0ea;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+
+  .main { max-width: 920px; margin: 0 auto; padding: 48px 32px 80px; }
+
+  .section { margin-bottom: 56px; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .tag-commission { background: var(--tag-commission); }
+  .tag-cours { background: var(--tag-cours); }
+  .tag-methodo { background: var(--tag-methodo); }
+  .tag-oral { background: var(--tag-oral); }
+  .tag-critique { background: var(--tag-critique); }
+  .tag-orga { background: var(--tag-orga); }
+  .tag-alerte { background: var(--tag-alerte); }
+
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin-bottom: 18px;
+  }
+
+  .block p { margin-bottom: 14px; }
+  .block p:last-child { margin-bottom: 0; }
+
+  .block ul { padding-left: 24px; margin: 12px 0; }
+  .block li { margin-bottom: 8px; }
+
+  .art-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--article);
+    font-weight: 500;
+  }
+
+  .juris {
+    color: var(--juris);
+    font-weight: 500;
+  }
+
+  .loi-ref {
+    color: var(--loi);
+    font-weight: 500;
+  }
+
+  .quote {
+    border-left: 4px solid var(--citation);
+    margin: 16px 0;
+    padding: 12px 20px;
+    background: #f0f4f8;
+    color: var(--citation);
+    font-size: 0.95em;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .alert-box {
+    border: 1px solid var(--tag-alerte);
+    border-left: 5px solid var(--tag-alerte);
+    background: #fff8f5;
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 16px 0;
+  }
+  .alert-box .alert-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--tag-alerte);
+    margin-bottom: 8px;
+  }
+
+  .sub-section {
+    border-top: 1px solid var(--border);
+    margin-top: 18px;
+    padding-top: 18px;
+  }
+  .sub-section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 12px;
+  }
+
+  h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 18px;
+    color: #222;
+  }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    @page { size: A4; margin: 15mm 14mm 18mm 14mm; }
+    body { font-size: 10.5pt; line-height: 1.55; background: #faf9f6 !important; color: #1a1a1a !important; }
+    .page-header { background: #ffffff !important; color: #1a1a1a !important; padding: 14pt 20pt 10pt !important; border-bottom: 3pt solid #c0392b !important; margin-bottom: 8pt; }
+    .page-header .label { color: #888 !important; font-size: 7pt !important; }
+    .page-header h1 { font-size: 15pt !important; margin-bottom: 3pt !important; color: #1a1a1a !important; }
+    .page-header .subtitle { color: #555 !important; font-size: 9pt !important; }
+    .legend { background: #f2f0ea !important; padding: 6pt 20pt !important; font-size: 7.5pt !important; gap: 10pt !important; border-bottom: 1pt solid #e8e4dc !important; margin-bottom: 8pt; }
+    .main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+    .section { margin-bottom: 16pt !important; }
+    .section-header { padding-bottom: 5pt !important; margin-bottom: 8pt !important; border-bottom: 1.5pt solid #e8e4dc !important; page-break-after: avoid; }
+    .section-tag { font-size: 6.5pt !important; padding: 2pt 6pt !important; color: #fff !important; }
+    .tag-cours    { background: #2c6e49 !important; }
+    .tag-methodo  { background: #1565c0 !important; }
+    .tag-oral     { background: #6a0f49 !important; }
+    .tag-critique { background: #b71c1c !important; }
+    .tag-orga     { background: #4a4a4a !important; }
+    .tag-alerte   { background: #e65100 !important; }
+    .tag-commission { background: #6d4c41 !important; }
+    .section-title { font-size: 11pt !important; }
+    .subsection { margin-bottom: 10pt !important; }
+    .subsection-title { font-size: 9.5pt !important; margin-bottom: 5pt !important; }
+    .block { background: #ffffff !important; border: 0.75pt solid #e8e4dc !important; padding: 8pt 10pt !important; margin-bottom: 6pt !important; page-break-inside: avoid; }
+    .block p { margin-bottom: 5pt !important; font-size: 10pt !important; }
+    .block ul { padding-left: 14pt !important; margin: 4pt 0 !important; }
+    .block li { margin-bottom: 3pt !important; font-size: 10pt !important; }
+    h3 { font-size: 10.5pt !important; margin-top: 7pt !important; margin-bottom: 4pt !important; page-break-after: avoid; }
+    .alert-box { border: 0.75pt solid #e65100 !important; border-left: 3pt solid #e65100 !important; background: #fff8f5 !important; padding: 7pt 10pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .alert-box .alert-title { font-size: 6.5pt !important; color: #e65100 !important; margin-bottom: 4pt !important; }
+    .alert-box p, .alert-box li { font-size: 9.5pt !important; }
+    .quote { border-left: 3pt solid #1a5276 !important; background: #f0f4f8 !important; color: #1a5276 !important; padding: 7pt 10pt !important; font-size: 9.5pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .sub-section { border-top: 0.5pt solid #e8e4dc !important; margin-top: 8pt !important; padding-top: 8pt !important; }
+    .art-num { color: #c0392b !important; }
+    .art-txt { color: #1a5276 !important; }
+    .juris   { color: #6c3483 !important; }
+    .loi     { color: #7b5e3a !important; }
+    a[href]:after { content: none !important; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="label">Droit de la preuve — Cours 2</div>
+  <h1>Admissibilité des modes de preuve &amp; Conventions probatoires</h1>
+  <div class="subtitle">Séance du 24 mars — Parties 1 &amp; 2 assemblées</div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-commission)"></div> Commission nationale</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-cours)"></div> Cours / Doctrine</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-methodo)"></div> Méthodologie</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-alerte)"></div> Alerte examen</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-oral)"></div> Grand oral</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-critique)"></div> Erreurs fréquentes</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-orga)"></div> Organisation</div>
+</div>
+
+<div class="main">
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- I. COMMISSION NATIONALE — ANALYSE TACTIQUE -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="section" id="commission">
+    <div class="section-header">
+      <span class="section-tag tag-commission">⚖️ Commission nationale</span>
+      <span class="section-title">Analyse tactique — Jean-François Hamelin</span>
+    </div>
+
+    <div class="block">
+      <p><strong>Nouveau président :</strong> Jean-François Hamelin — professeur à l'Université de Bourgogne (Dijon), spécialiste de droit commercial et du financement. Ancien collègue de Julien Aynès. Le prof. le connaît personnellement et bien.</p>
+
+      <p><strong>Profil :</strong> commercialiste-civiliste. Même discipline que Julien Aynès, mais sensibilité très différente. Très technique, très positiviste et textualiste. Moderne sur les questions numériques (signature électronique, preuve électronique). Grande culture doctrinale, notamment auteurs anciens.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Impact direct sur la préparation</div>
+        <p>La preuve et le RGO seront particulièrement surveillés : Hamelin est spécialiste du droit du financement, qui repose quasi intégralement sur le RGO. Il pourrait sans problème donner un sujet sur la preuve ou la preuve électronique.</p>
+        <p>Arrêts à la frontière droit des obligations / droit commercial seront massivement abordés. Tendance aux cas pratiques inspirés d'arrêts d'espèce pointus.</p>
+        <p>Le prof. oriente tous les enseignants de la prépa en conséquence.</p>
+      </div>
+
+      <p><strong>Autres membres :</strong> deux membres de l'ancienne commission maintenues, dont une spécialiste de responsabilité civile (frontière régimes de droit commun / droit spécial) et préjudice corporel. Une nouvelle membre très spécialisée dommage corporel et produits défectueux. → Combo possible : droit des contrats + préjudice corporel + produits défectueux.</p>
+
+      <p><strong>Note de synthèse :</strong> probable sujet centré sur une notion technique transversale (ex. imprescriptibilité, immunité) illustrée dans plusieurs pans du droit — public, privé, international.</p>
+    </div>
+
+    <div class="block">
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Risque CRFPA — tout le programme en obligation</div>
+        <p>Zéro possibilité de faire l'impasse. Preuve, RGO, contrats, responsabilité civile : tout doit être vu. Première année de cette commission, donc pas d'historique de sujets donnés. Contexte non défavorable statistiquement (pas de resserrement demandé par le CNB).</p>
+        <p>Pas de risque d'appel à des personnalités extérieures en droit des obligations : la commission est complète.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- II. RAPPELS — ART. 1354 / 1355 -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="section" id="rappels">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Rappels</span>
+      <span class="section-title">Art. 1354 et 1355 — Présomptions légales &amp; chose jugée</span>
+    </div>
+
+    <div class="block">
+      <h3><span class="art-num">Art. 1354</span> — Présomptions légales (rappel)</h3>
+      <p>Trois types :</p>
+      <ul>
+        <li><strong>Présomptions irréfragables</strong> : assimilables à des règles de fond — ne peuvent être renversées. Confondues avec la règle de fond elle-même.</li>
+        <li><strong>Présomptions mixtes</strong> : renversables selon des modalités prédéterminées par la loi (ni simples, ni irréfragables).</li>
+        <li><strong>Présomptions simples</strong> : renversables par tous moyens.</li>
+      </ul>
+      <p>→ À compléter par les <strong>présomptions judiciaires</strong> (<span class="art-num">art. 1382</span>), anciennement « présomptions du fait de l'homme » : le juge raisonne d'éléments connus vers des éléments inconnus, sur la base d'indices graves, précis et concordants. Le juge <em>peut</em> mais ne <em>doit</em> pas — d'où l'incertitude en cas pratique.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">Exemple clé — Vaccin hépatite B / sclérose en plaques</div>
+        <p>La jurisprudence admet une présomption de causalité, même en l'absence de certitude scientifique. Même raisonnement jadis pour les bangs supersoniques et les fissures d'immeubles. Ce raisonnement présomptif se retrouve aussi en droit des contrats (dol : on peut présumer l'élément intentionnel lorsque l'auteur a menti ou mystifié).</p>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Erreur rédactionnelle fréquente</div>
+        <p>Écrire « le dol se prouve par tous moyens » sans développer est insuffisant. Il faut préciser que c'est un fait juridique, que parmi tous les moyens figure la présomption judiciaire (<span class="art-num">art. 1382</span>), et citer le texte. La copie n'a de valeur que si elle montre la maîtrise du droit de la preuve.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="art-num">Art. 1355</span> — Autorité de la chose jugée</h3>
+      <div class="quote">
+        « L'autorité de la chose jugée n'a lieu qu'à l'égard de ce qui a fait l'objet du jugement. Il faut que la chose demandée soit la même ; que la demande soit fondée sur la même cause ; que la demande soit entre les mêmes parties, et formée par elles et contre elles en la même qualité. »
+      </div>
+      <p>Historiquement présenté comme une <strong>présomption légale irréfragable de vérité</strong> (<em>res judicata pro veritate habetur</em>). C'est pour cela que ce texte figure dans le Code civil et non dans le Code de procédure civile. Valeur relative : ne s'impose qu'entre les parties et pour ce qui a été jugé.</p>
+
+      <p><strong>Enjeu grand oral :</strong> savoir expliquer pourquoi l'autorité de chose jugée est une présomption irréfragable de vérité qui fait obstacle à ce qu'un autre juge statue sur la même question entre les mêmes parties. Risque de sujet faible en droit des obligations — mais connaissance indispensable.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- III. ART. 1356 — CONVENTIONS SUR LA PREUVE -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="section" id="art1356">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1356</span>
+      <span class="section-title">Conventions sur la preuve — Texte capital</span>
+    </div>
+
+    <div class="block">
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Sujet potentiel majeur — Hamelin adorera</div>
+        <p>L'art. 1356 est à la frontière droit de la preuve / droit des contrats. Sujet au cœur du profil du président de commission. Un candidat qui ne connaît pas ce texte et ses interactions avec le droit des clauses abusives ne peut pas traiter correctement un cas pratique de ce type.</p>
+      </div>
+
+      <h3>Alinéa 1 — Principe de validité</h3>
+      <div class="quote">« Les contrats sur la preuve sont valables lorsqu'ils portent sur des droits dont les parties ont la libre disposition. »</div>
+      <p>Trois questions du droit de la preuve visées : <strong>charge de la preuve</strong>, <strong>objet de la preuve</strong>, <strong>modes de preuve</strong>. Les conventions sur la preuve peuvent porter sur chacune d'elles, séparément ou combinées.</p>
+      <p>Principe : liberté contractuelle + droit de la preuve non impératif dans son intégralité. → Affirmer que les conventions sur la preuve sont illicites par principe ou contraires à un « ordre public probatoire » est une erreur grave.</p>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Exemples concrets</div>
+        <ul>
+          <li><strong>Charge de la preuve :</strong> inversion contractuelle de la charge (ex. consommation d'énergie, eau, téléphonie : le client doit prouver l'erreur de consommation, non le prestataire). Admis en droit de la consommation si non déséquilibré.</li>
+          <li><strong>Modes de preuve :</strong> restriction des modes admissibles → peut aboutir à une présomption mixte contractuelle.</li>
+          <li><strong>Objet de la preuve :</strong> délimitation des faits devant être prouvés → peut priver une partie d'éléments essentiels.</li>
+          <li><strong>Combo abusif :</strong> imputer la charge + restreindre l'objet + imposer des modes de preuve spécifiques → paralysie totale des droits de l'adversaire.</li>
+        </ul>
+      </div>
+
+      <h3>Limites de droit interne à la validité (al. 2)</h3>
+      <p>Les conventions sur la preuve <strong>ne peuvent pas</strong> :</p>
+      <ul>
+        <li><strong>Contredire les présomptions irréfragables établies par la loi</strong> — puisque ces présomptions sont assimilables à des règles de fond d'ordre public. Ex. : liste noire de clauses irréfragablement abusives en droit de la consommation.</li>
+        <li><strong>Contredire la foi attachée à l'aveu ou au serment</strong> — dans les conditions prévues par la loi, aveu et serment sont irréfutables.</li>
+        <li><strong>Établir au profit de l'une des parties une présomption irréfragable</strong> — seule la loi peut instaurer une présomption irréfragable. Le contrat est inférieur à la loi. Admettre le contraire permettrait aux parties de faire œuvre de législateur et porterait atteinte aux droits fondamentaux (interdire à un plaideur de prouver contre la présomption).</li>
+      </ul>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Distinction cruciale en copie</div>
+        <p>Une présomption <em>simple</em> ou <em>mixte</em> établie contractuellement est valable. Seule la présomption <em>irréfragable</em> contractuelle est interdite par l'art. 1356 al. 2. Une clause instaurant une présomption mixte n'est pas contraire à l'ordre public probatoire — mais peut l'être au regard du droit des clauses abusives (1171).</p>
+        <p>Erreur fatale : qualifier de présomption irréfragable ce qui n'en est pas une. Cela a fait rater l'examen à une candidate brillante (major de master 2) : elle a eu 9/20 au lieu de 12 sur ce seul point, et a manqué l'admissibilité. L'année suivante en deuxième candidature : 14 de moyenne aux écrits, 18 au grand oral.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Première limite : la libre disposition des droits</h3>
+      <p>Les conventions sur la preuve sont valables <em>seulement</em> si les parties ont la libre disposition de leurs droits. À contrario : invalides dans les matières d'ordre public.</p>
+      <p><strong>Matières sans libre disposition :</strong></p>
+      <ul>
+        <li>Droit des personnes et de la famille — statut légal, non contractuel.</li>
+        <li><strong>Filiation</strong> : on ne dispose pas du lien de filiation d'autrui. Fondement véritable de la prohibition de la GPA en France (<span class="juris">Ass. plén. 31 mai 1991</span> — indisponibilité du lien de filiation, non du corps humain). Arrêt tombant souvent en commentaire d'arrêt dans les IEJ. Un arrêt d'Assemblée plénière sur la GPA est très vraisemblablement attendu cette année.</li>
+        <li>Autorité parentale, statut d'époux — le mariage est une institution, non un contrat ordinaire. L'article 212 interdit de déroger au devoir de fidélité par convention.</li>
+        <li><strong>Droit de la concurrence :</strong> matière d'ordre public — on ne peut pas contractualiser la preuve de comportements anticoncurrentiels de manière à paralyser l'application des règles impératives.</li>
+      </ul>
+
+      <div class="alert-box">
+        <div class="alert-title">Grand oral — question directe possible</div>
+        <p>Expliquer ce qu'est « la libre disposition des droits » et donner des exemples (famille, concurrence) est une question fréquente au grand oral. Ne pas savoir répondre est catastrophique devant un jury d'avocats et de magistrats.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Double encadrement des conventions probatoires</h3>
+      <p>Il existe deux corps de normes indépendants pour contrôler les conventions sur la preuve :</p>
+
+      <div class="sub-section">
+        <div class="sub-section-title">1. Encadrement par le droit de la preuve lui-même (art. 1356)</div>
+        <ul>
+          <li>Limite de la libre disposition des droits.</li>
+          <li>Interdiction de contredire présomptions irréfragables légales.</li>
+          <li>Interdiction de contredire l'aveu et le serment.</li>
+          <li>Interdiction d'établir une présomption irréfragable contractuelle.</li>
+          <li><strong>Sanction :</strong> nullité de la clause (nullité partielle — la clause est divisible du reste du contrat). Prescription : <span class="art-num">art. 2224</span> — 5 ans à compter du jour de la connaissance des faits. → Risque d'extinction par prescription si contrat ancien.</li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-section-title">2. Encadrement par le droit des clauses abusives (fond du droit)</div>
+        <p>Le support de la convention probatoire étant contractuel, le droit des clauses abusives peut s'appliquer <em>indépendamment</em> du droit de la preuve. Les deux angles sont autonomes et cumulables.</p>
+        <ul>
+          <li><strong>Art. 1170</strong> (tout contrat, négocié ou d'adhésion) : clause probatoire qui prive une partie de prouver l'inexécution de l'obligation essentielle = atteinte à l'obligation essentielle. Équivalent voire supérieur à une clause exclusive de responsabilité (la clause limitative porte sur les dommages-intérêts ; la clause probatoire peut bloquer même l'exécution forcée et la résolution). Très rare car condition exigeante.</li>
+          <li><strong>Art. 1171</strong> (contrat d'adhésion uniquement, depuis 1er oct. 2018) : clause probatoire créant un déséquilibre significatif entre droits et obligations = réputation non écrite. Beaucoup plus fréquent. Limité aux contrats d'adhésion.</li>
+        </ul>
+
+        <div class="alert-box">
+          <div class="alert-title">⚠️ Différence de sanction fondamentale</div>
+          <p><strong>Nullité</strong> (droit de la preuve) : prescriptible — art. 2224, 5 ans.<br>
+          <strong>Réputation non écrite</strong> (clauses abusives) : imprescriptible selon la Cour de cassation.<br><br>
+          → Si les deux qualifications sont cumulables, l'enjeu peut être précisément la prescription : la nullité peut être prescrite alors que la réputation non écrite ne l'est pas.</p>
+          <p>Question ouverte non tranchée : peut-on appliquer la réputation non écrite là où la loi ne la prévoit pas ? Des arrêts récents en matière de prescription l'ont fait sans que les commentateurs le remarquent. À surveiller.</p>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-section-title">3. Possible troisième angle : clauses abrégatives de prescription</div>
+        <p>Une clause qui impose un délai très court pour prouver une inexécution (ex. 72h) peut aussi être attaquée comme clause raccourcissant abusivement le délai de prescription. Ce troisième angle sera étudié dans le cadre du RGO.</p>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Champ d'application de l'art. 1171 — Arrêt à connaître absolument</div>
+        <p><span class="juris">Cass. com. 26 janvier 2022</span> : l'art. 1171 n'est pas applicable lorsque s'applique le droit des pratiques restrictives de concurrence (<span class="art-num">art. L. 442-1 C. com.</span>). Ce droit s'applique aux contrats de production, distribution et services entre professionnels. Exceptions notables : <strong>les contrats de financement</strong> (crédit-bail, location financière) et <strong>les baux commerciaux</strong> n'entrent pas dans ce champ → 1171 reste applicable. Ce sujet est déjà tombé deux fois à l'examen. Il peut tomber une troisième fois.</p>
+        <p>Le sujet sera toujours conçu pour faire appliquer 1171 (pas le droit des pratiques restrictives) : le concepteur évitera les actes de commerce purs.</p>
+        <p>Ne pas connaître cet arrêt avec un président de commission commercialiste = erreur impardonnable.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- IV. ART. 1357 -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="section" id="art1357">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1357</span>
+      <span class="section-title">Renvoi au Code de procédure civile</span>
+    </div>
+
+    <div class="block">
+      <div class="quote">« L'administration judiciaire de la preuve et les contestations qui s'y rapportent sont régies par le code de procédure civile. »</div>
+      <p>Ce texte ne vaut qu'en matière civile et commerciale — pas pour la preuve pénale (logique différente : preuve de la culpabilité contre une présomption d'innocence, charge sur l'État) ni pour la preuve administrative (régie par le CJA, très lacunaire, raisonnement par analogie avec les principes civils).</p>
+
+      <div class="alert-box">
+        <div class="alert-title">Grand oral — Piège fréquent</div>
+        <p>Ne jamais dire « la preuve est la rançon des droits » dans un contexte pénal : la formule de Lhoring s'applique à la preuve des droits subjectifs, non à la preuve de la culpabilité. En pénal, mieux vaut parler de « bastion de la liberté » (Roubier). Les jurys de magistrats et d'avocats réagissent très mal à ces amalgames.</p>
+      </div>
+
+      <p><strong>En cas pratique d'obligations :</strong> on ne vous demandera pas d'appliquer des textes spécifiques du CPC. Connaissance générique suffisante : savoir qu'il existe un droit à la preuve, un droit à la production forcée d'éléments de preuve, et que l'administration judiciaire relève du CPC.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- V. CHAPITRE 2 — ADMISSIBILITÉ DES MODES DE PREUVE -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="section" id="chap2">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Chapitre 2</span>
+      <span class="section-title">Admissibilité des modes de preuve — Architecture générale</span>
+    </div>
+
+    <div class="block">
+      <h3>Les trois grandes questions du droit de la preuve</h3>
+      <ul>
+        <li><strong>Qui doit prouver ?</strong> → La charge de la preuve.</li>
+        <li><strong>Que doit-on prouver ?</strong> → L'objet de la preuve : le fait.</li>
+        <li><strong>Comment doit-on prouver ?</strong> → Les modes de preuve admissibles.</li>
+      </ul>
+      <p>L'adage <em>Da mihi factum, dabo tibi jus</em> (Préteur romain) : donne-moi le fait, je te donnerai le droit. Le juge applique seul la règle de droit au fait. Mais cela est nuancé aujourd'hui : le juge a des pouvoirs d'instruction en matière civile, et la concentration des demandes (arrêt Césareo) oblige les parties à présenter leurs moyens de droit dès la première instance.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">Grand oral — Sujet déjà tombé</div>
+        <p>L'adage <em>Da mihi factum, dabo tibi jus</em> a été donné en sujet principal dans un IEJ, déguisé en problématique « preuves et droits fondamentaux ». Il tombe souvent en question secondaire. Savoir en discuter la portée contemporaine (rôle actif du juge, pouvoirs d'instruction, concentration des moyens) est indispensable.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Distinction fondamentale : acte juridique vs. fait juridique (au sens du droit de la preuve)</h3>
+      <p>Ce que l'on doit prouver est un <em>fait</em> au sens du droit de la preuve. Mais ce fait peut être, au fond du droit, un <strong>acte juridique</strong> ou un <strong>fait juridique</strong>. Ce sont deux plans distincts.</p>
+      <ul>
+        <li><strong>Acte juridique</strong> à prouver (ex. : existence d'un contrat, contenu d'une obligation) → règles spécifiques, prédominance de l'écrit en matière civile.</li>
+        <li><strong>Fait juridique</strong> à prouver (ex. : vice du consentement, manquement à une obligation d'information précontractuelle, fait générateur de responsabilité, quasi-contrat, fait d'inexécution d'un contrat) → principe de liberté de la preuve.</li>
+      </ul>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Exemples de faits juridiques dans un contexte contractuel</div>
+        <ul>
+          <li>Le vice du consentement (erreur, dol, violence) est un <em>fait juridique</em> : preuve libre en matière civile, même si le contrat lui-même exige un écrit.</li>
+          <li>L'offre et l'acceptation sont des <em>faits juridiques</em> : preuve libre. Mais le contrat formé par leur rencontre reste soumis aux règles de preuve des actes juridiques.</li>
+          <li>Le <em>fait d'inexécution</em> : preuve libre. En revanche, l'existence et le contenu du contrat inexécuté doivent être prouvés par écrit (en matière civile, au-delà de 1 500 €).</li>
+          <li>Le manquement à une obligation précontractuelle d'information est une faute (fait juridique) : preuve libre.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- VI. ART. 1358 — PRINCIPE DE LIBERTÉ -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="section" id="art1358">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1358</span>
+      <span class="section-title">Principe général de liberté de la preuve</span>
+    </div>
+
+    <div class="block">
+      <div class="quote">« Hors les cas où la loi en dispose autrement, la preuve peut être apportée par tous moyens. »</div>
+
+      <p><strong>Inversion de présentation par rapport au droit antérieur :</strong> Avant l'ordonnance de 2016, les art. 1341 et 1348 anciens visaient directement la distinction actes juridiques / faits juridiques, en disant que pour les actes juridiques s'impose la preuve littérale et pour les faits juridiques s'applique la liberté. <strong>Désormais, le code pose d'abord le principe général de liberté</strong>, et les exceptions viennent ensuite pour les actes juridiques en matière civile. Ce n'est pas la même présentation — les correcteurs pointilleux le remarqueront.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Erreur dans de nombreux corrigés CRFPA en circulation</div>
+        <p>7 corrigés sur 10 rédigent encore : « le code dispose que pour les faits juridiques s'applique la liberté de la preuve ». C'est faux depuis l'ordonnance. Le code pose un principe général de liberté, dont les faits juridiques bénéficient parce qu'aucune exception n'y déroge. Le raisonnement est un syllogisme, pas une règle catégorique sur les faits juridiques. Hamelin, textualiste, déclassera une copie qui ne fait pas cette distinction.</p>
+      </div>
+
+      <h3>Application en matière commerciale — <span class="art-num">Art. L. 110-3 C. com.</span></h3>
+      <p>Les actes de commerce peuvent se prouver par tous moyens, à moins qu'il n'en soit autrement disposé par la loi. En matière commerciale, <strong>aucune des exceptions civiles à la liberté de la preuve ne s'applique</strong>. Peu importe le montant de l'acte — même à 1 million d'euros, il se prouve par tous moyens.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Piège majeur en cas pratique — Hamelin le posera sûrement</div>
+        <p>Si les parties sont des commerçants ou concluent un acte de commerce, l'exigence de l'écrit en matière civile (art. 1359) est totalement inopérante. Un candidat qui applique les règles civiles de la preuve à un acte commercial perd la moitié du sujet. Pour éviter ce piège, les sujets placeront souvent des professionnels libéraux non commerçants (expert-comptable, artiste, agriculteur en structure civile). L'indice dans l'énoncé sera la mention « profession libérale » ou « société civile ».</p>
+        <p>L'art. L. 110-3 doit être dans votre code surligné. S'il n'y est pas, notez-le immédiatement dans les annexes.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- VII. ART. 1359 — EXCEPTION DE L'ÉCRIT -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="section" id="art1359">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1359</span>
+      <span class="section-title">Exception — Preuve des actes juridiques par écrit (matière civile)</span>
+    </div>
+
+    <div class="block">
+      <h3>Alinéa 1 — Principe de l'exigence de l'écrit</h3>
+      <p><strong>Seuil :</strong> 1 500 € (fixé par décret de 1980, inchangé depuis 46 ans — seuil économiquement déprécié par l'inflation).</p>
+      <p>Au-delà de 1 500 € en matière civile : l'acte juridique doit être prouvé par <strong>écrit sous signature privée</strong> (anciennement « sous seing privé » — terminologie à éviter depuis l'ordonnance) ou <strong>authentique</strong>.</p>
+
+      <div class="sub-section">
+        <div class="sub-section-title">Deux types d'écrits</div>
+        <ul>
+          <li><strong>Acte sous signature privée</strong> : porte seulement la signature des parties. Ancienne dénomination « sous seing privé » (vieux français : seing = signature) — la modernisation terminologique opérée par l'ordonnance doit être respectée sous peine de déclassement.</li>
+          <li><strong>Acte authentique</strong> : authentifié par un <em>officier public</em> (= officier authentificateur) qui lui confère date certaine et force probante renforcée.
+            <ul>
+              <li>Principal : le <strong>notaire</strong> (professionnel libéral titulaire d'une charge publique — survivance de l'Ancien Régime, loi Macron a libéralisé l'accès en créant de nouveaux offices).</li>
+              <li>Également : le <strong>commissaire de justice</strong> (ex-huissier) — pouvoir d'authentification limité, notamment pour les copies.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Responsabilité notariale — Erreur classique et fatale</div>
+        <p>La responsabilité du notaire dans l'exercice de sa mission d'authentificateur est <strong>délictuelle</strong> (<span class="art-num">art. 1240</span>), non contractuelle. Le notaire est lié à ses clients par un statut légal et réglementaire (charge publique), non par un contrat. Exception rarissime : s'il donne un conseil juridique hors mission d'authentification, une relation contractuelle peut naître.<br><br>
+        Le Code Dalloz classe la responsabilité notariale dans les responsabilités professionnelles contractuelles — c'est une erreur reconnue par les éditeurs. Ne pas reproduire cette erreur.</p>
+        <p>Ce point a été testé dans un sujet d'annales (2017) — deux points perdus par ceux qui ont qualifié la responsabilité de contractuelle. En outre : si le client ne veut pas mettre en cause la responsabilité de son ami notaire, il faut quand même conseiller d'agir — faute de quoi c'est l'avocat qui engage sa propre responsabilité contractuelle. Deux pièges dans la même question.</p>
+      </div>
+
+      <h3>Alinéa 2 — Symétrie probatoire</h3>
+      <p>Si un écrit (même non obligatoire, montant ≤ 1 500 €) est produit, il ne peut être prouvé contre cet écrit ou au-delà que par un autre écrit. L'écrit produit impose une symétrie probatoire dès lors qu'il existe.</p>
+
+      <h3>Alinéa 3 — Interdiction de contournement par restriction de la demande</h3>
+      <p>Si l'acte juridique dépasse 1 500 € dans son enjeu global, on ne peut pas restreindre artificiellement le montant de la demande pour passer sous le seuil. L'enjeu est celui du contrat, non du quantum réclamé.</p>
+
+      <h3>Alinéa 4 — Inexécution partielle</h3>
+      <p>De même, si l'on ne réclame qu'une inexécution partielle (ex. 500 € sur un contrat de 5 000 €), l'exigence de l'écrit continue à s'appliquer — l'enjeu est celui du contrat pris dans sa globalité. Jurisprudence constante antérieure à l'ordonnance, codifiée ici.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Distinction fondamentale — preuve de l'acte vs. preuve de l'inexécution</div>
+        <p>L'<em>inexécution</em> d'un acte juridique est un fait juridique : preuve libre. Mais l'<em>existence et le contenu</em> du contrat restent soumis à la preuve par écrit si le seuil est dépassé en matière civile. Ces deux questions ne doivent jamais être confondues. L'art. 1359 al. 4 ne vise pas la preuve de l'inexécution mais la preuve du contrat dont on réclame l'exécution partielle.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- VIII. ART. 1360 — EXCEPTIONS À L'EXIGENCE DE L'ÉCRIT -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="section" id="art1360">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1360</span>
+      <span class="section-title">Exceptions à l'exigence de l'écrit</span>
+    </div>
+
+    <div class="block">
+      <p>Recodification de l'ancien art. 1348, avec ajustements. Deux catégories : <strong>dispenses totales</strong> d'écrit et <strong>supplétifs / équipollants</strong>.</p>
+
+      <h3>1. Impossibilité matérielle de se procurer un écrit</h3>
+      <p>Circonstances objectives rendant la préconstitution impossible. Exemple classique : contrat conclu dans la jungle lors d'une émission de télé-réalité (pas de papier, pas de stylo). La partie peut alors prouver par tous moyens : témoignages, SMS ultérieurs, etc.</p>
+      <p>Distinction fondamentale : le <em>négocium</em> (l'acte juridique) existe par le seul échange des consentements (consensualisme). Ce qui pose problème, c'est l'<em>instrumentum</em> (le support probatoire). L'absence d'instrumentum n'affecte pas la validité de l'acte.</p>
+
+      <h3>2. Impossibilité morale de se procurer un écrit</h3>
+      <p>Situations dans lesquelles demander un écrit serait moralement incongru ou marquerait une défiance choquante (contrat avec un conjoint, un parent proche).</p>
+
+      <h3>3. Usages professionnels (désormais exception autonome)</h3>
+      <p>Avant l'ordonnance : assimilés à une impossibilité morale. Désormais, exception distincte. Logique : certains milieux professionnels (diamantaires, jadis fourreurs) fonctionnent sur la confiance et l'écrit y paraîtrait saugrenu. La Cour de cassation en tenait compte via l'impossibilité morale.</p>
+
+      <h3>4. Disparition fortuite de l'écrit</h3>
+      <p>L'écrit avait été préconstitué mais a disparu fortuitement (incendie, dégâts des eaux, destruction de serveurs numériques). La destruction volontaire ne bénéficie évidemment pas de l'exception. En pareil cas : preuve par tous moyens.</p>
+
+      <h3>5. Commencement de preuve par écrit (CPE)</h3>
+      <p>Il ne s'agit pas d'une dispense totale mais d'un équipollant : un écrit imparfait, qui ne remplit pas à lui seul les conditions légales, peut néanmoins être pris en compte s'il répond aux exigences du CPE. Dans ce cas, il rouvre la voie à la preuve par tous moyens pour le compléter. Tout écrit imparfait n'est pas un CPE — des conditions légales s'y attachent, qui seront étudiées ultérieurement.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Engagement unilatéral de volonté — question probatoire ouverte</div>
+        <p>L'engagement unilatéral de volonté est un acte juridique soumis en principe à l'exigence de l'écrit. Mais il est quasiment impossible d'en préconstituer la preuve : au moment de l'émission de la volonté, personne n'a conscience de l'engagement juridique qui naît. En pratique : on admet la preuve par tous moyens, par analogie avec les exceptions à l'écrit (impossibilité morale, CPE). Question au programme du prochain colloque sur l'engagement unilatéral de volonté.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- IX. MÉTHODOLOGIE — PREUVE vs. FOND DU DROIT -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="section" id="methodo">
+    <div class="section-header">
+      <span class="section-tag tag-methodo">🎯 Méthodologie</span>
+      <span class="section-title">Droit de la preuve vs. fond du droit — Confusion fatale</span>
+    </div>
+
+    <div class="block">
+      <p>La confusion entre les questions probatoires et les questions de fond est <strong>l'erreur la plus fréquente et la plus sanctionnée</strong> en droit des obligations. Elle trahit immédiatement un candidat non prêt.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">Règle d'or — Articulation preuve / fond</div>
+        <ul>
+          <li><strong>Si l'adversaire conteste l'existence ou le contenu du contrat :</strong> question probatoire d'abord. Prouver l'existence du contrat, puis son contenu.</li>
+          <li><strong>Si l'adversaire invoque la nullité :</strong> il reconnaît implicitement l'existence du contrat — la question probatoire est évacuée, on passe au fond (validité).</li>
+          <li><strong>Si l'existence est prouvée :</strong> on peut encore demander l'annulation (nullité, vices du consentement, défaut de contrepartie). L'arroseur arrosé.</li>
+          <li><strong>Idem est non esse et non probari :</strong> ne pas être prouvé équivaut à ne pas exister. Si la preuve échoue, le fond ne compte plus.</li>
+        </ul>
+      </div>
+
+      <p><strong>En consultation :</strong> les sujets d'obligations ont plusieurs angles d'attaque. Ne pas traiter les conventions probatoires <em>puis</em> le droit des clauses abusives séparément et cumulativement est une erreur rédhibitoire. Ce sont deux corps de normes indépendants qui s'appliquent chacun à leur niveau. Le bon candidat voit les deux et les articule.</p>
+
+      <p>L'année du sujet d'Olivier Desaix sur ce point : taux d'admissibilité à Paris divisé par deux (51 % → 25 %) à cause du seul droit des obligations. Moyenne nationale : 6/20.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- X. ORGANISATION -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="section" id="orga">
+    <div class="section-header">
+      <span class="section-tag tag-orga">🗓️ Organisation</span>
+      <span class="section-title">Informations pratiques</span>
+    </div>
+
+    <div class="block">
+      <p><strong>Semaine prochaine :</strong> semaine spéciale note de synthèse et procédure. Correction du DST préliminaire programmée jeudi ou vendredi.</p>
+      <p><strong>DST préliminaire :</strong> rendre les copies au plus vite. Procédure pénale : accessible. Procédure civile : limité aux cinq premières thématiques. Obligation : les prochains DST porteront sur la preuve.</p>
+      <p><strong>Conseil général :</strong> ne pas différer les compositions — perdre le rythme de rédaction coûte plusieurs points. Composer régulièrement même imparfaitement est préférable à l'attente.</p>
+      <p><strong>Vidéos :</strong> à regarder en amont des cours pour déblayer et rendre les séances plus digestes.</p>
+      <p><strong>Préparation étudiants à profil international :</strong> envisager une préparation sur deux ans si nécessaire — pas de jugement sur l'âge ou le profil. La profession est ouverte à la diversité des parcours.</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
