@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours 2 — Sources des Obligations — 21 janvier</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #faf9f6;
+    --surface: #ffffff;
+    --border: #e8e4dc;
+    --text: #1a1a1a;
+    --text-light: #555;
+    --article: #c0392b;
+    --juris: #6c3483;
+    --loi: #7b5e3a;
+    --citation: #1a5276;
+    --tag-cours: #2c6e49;
+    --tag-methodo: #1565c0;
+    --tag-oral: #6a0f49;
+    --tag-critique: #b71c1c;
+    --tag-orga: #4a4a4a;
+    --tag-alerte: #e65100;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; font-style: normal; }
+
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    background: var(--bg);
+    color: var(--text);
+    padding: 0;
+  }
+
+  .page-header {
+    background: #ffffff;
+    color: #1a1a1a;
+    padding: 48px 64px 40px;
+    border-bottom: 4px solid var(--article);
+  }
+
+  .page-header .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 12px;
+  }
+
+  .page-header h1 {
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+
+  .page-header .subtitle { color: #ccc; font-size: 1rem; }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 64px;
+    background: #f2f0ea;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+
+  .main { max-width: 900px; margin: 0 auto; padding: 48px 32px 80px; }
+
+  .section { margin-bottom: 56px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .section-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    color: #fff;
+    white-space: nowrap;
+  }
+
+  .tag-cours    { background: var(--tag-cours); }
+  .tag-methodo  { background: var(--tag-methodo); }
+  .tag-oral     { background: var(--tag-oral); }
+  .tag-critique { background: var(--tag-critique); }
+  .tag-orga     { background: var(--tag-orga); }
+  .tag-alerte   { background: var(--tag-alerte); }
+
+  .section-title { font-size: 1.25rem; font-weight: 600; color: var(--text); }
+
+  .subsection { margin-bottom: 36px; }
+
+  .subsection-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 16px;
+    padding-left: 16px;
+    border-left: 3px solid var(--border);
+  }
+
+  .block { margin-bottom: 20px; }
+  .block p { margin-bottom: 12px; color: var(--text); }
+
+  .quote {
+    background: var(--surface);
+    border-left: 3px solid #ccc;
+    padding: 14px 20px;
+    margin: 12px 0;
+    border-radius: 0 4px 4px 0;
+    color: #333;
+    font-size: 0.97em;
+  }
+
+  .art-num { color: var(--article); font-weight: 700; }
+  .art-txt { color: var(--citation); font-weight: 400; }
+  .juris   { color: var(--juris); font-weight: 700; }
+  .loi     { color: var(--loi); font-weight: 700; }
+  .cit     { color: var(--citation); font-weight: 400; }
+
+  .alert-box {
+    background: #fff8f0;
+    border: 1px solid #e65100;
+    border-left: 4px solid #e65100;
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 12px 0;
+    font-size: 0.95em;
+  }
+
+  .alert-box .alert-title {
+    font-weight: 700;
+    color: #e65100;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin-bottom: 48px;
+  }
+
+  .toc-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 16px;
+  }
+
+  .toc ul { list-style: none; padding: 0; }
+  .toc li { padding: 4px 0; font-size: 0.95em; }
+  .toc a { color: var(--text); text-decoration: none; }
+  .toc a:hover { color: var(--article); }
+  .toc .toc-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-light); margin-left: 6px; }
+
+  .note {
+    background: #f0f4ff;
+    border: 1px solid #c5cee0;
+    border-left: 4px solid var(--citation);
+    padding: 14px 18px;
+    border-radius: 4px;
+    margin-bottom: 32px;
+    font-size: 0.9em;
+    color: #333;
+  }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    @page { size: A4; margin: 15mm 14mm 18mm 14mm; }
+    body { font-size: 10.5pt; line-height: 1.55; background: #faf9f6 !important; color: #1a1a1a !important; }
+    .page-header { background: #ffffff !important; color: #1a1a1a !important; padding: 14pt 20pt 10pt !important; border-bottom: 3pt solid #c0392b !important; margin-bottom: 8pt; }
+    .page-header .label { color: #888 !important; font-size: 7pt !important; }
+    .page-header h1 { font-size: 15pt !important; margin-bottom: 3pt !important; color: #1a1a1a !important; }
+    .page-header .subtitle { color: #555 !important; font-size: 9pt !important; }
+    .legend { background: #f2f0ea !important; padding: 6pt 20pt !important; font-size: 7.5pt !important; gap: 10pt !important; border-bottom: 1pt solid #e8e4dc !important; margin-bottom: 8pt; }
+    .main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+    .section { margin-bottom: 16pt !important; }
+    .section-header { padding-bottom: 5pt !important; margin-bottom: 8pt !important; border-bottom: 1.5pt solid #e8e4dc !important; page-break-after: avoid; }
+    .section-tag { font-size: 6.5pt !important; padding: 2pt 6pt !important; color: #fff !important; }
+    .tag-cours    { background: #2c6e49 !important; }
+    .tag-methodo  { background: #1565c0 !important; }
+    .tag-oral     { background: #6a0f49 !important; }
+    .tag-critique { background: #b71c1c !important; }
+    .tag-orga     { background: #4a4a4a !important; }
+    .tag-alerte   { background: #e65100 !important; }
+    .section-title { font-size: 11pt !important; }
+    .subsection { margin-bottom: 10pt !important; }
+    .subsection-title { font-size: 9.5pt !important; margin-bottom: 5pt !important; }
+    .block { background: #ffffff !important; border: 0.75pt solid #e8e4dc !important; padding: 8pt 10pt !important; margin-bottom: 6pt !important; page-break-inside: avoid; }
+    .block p { margin-bottom: 5pt !important; font-size: 10pt !important; }
+    .block ul { padding-left: 14pt !important; margin: 4pt 0 !important; }
+    .block li { margin-bottom: 3pt !important; font-size: 10pt !important; }
+    h3 { font-size: 10.5pt !important; margin-top: 7pt !important; margin-bottom: 4pt !important; page-break-after: avoid; }
+    .alert-box { border: 0.75pt solid #e65100 !important; border-left: 3pt solid #e65100 !important; background: #fff8f5 !important; padding: 7pt 10pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .alert-box .alert-title { font-size: 6.5pt !important; color: #e65100 !important; margin-bottom: 4pt !important; }
+    .alert-box p, .alert-box li { font-size: 9.5pt !important; }
+    .quote { border-left: 3pt solid #1a5276 !important; background: #f0f4f8 !important; color: #1a5276 !important; padding: 7pt 10pt !important; font-size: 9.5pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .sub-section { border-top: 0.5pt solid #e8e4dc !important; margin-top: 8pt !important; padding-top: 8pt !important; }
+    .art-num { color: #c0392b !important; }
+    .art-txt { color: #1a5276 !important; }
+    .juris   { color: #6c3483 !important; }
+    .loi     { color: #7b5e3a !important; }
+    a[href]:after { content: none !important; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="label">Droit des obligations · Sources · Cours 2</div>
+  <h1>Cours 2 — Sources des Obligations</h1>
+  <div class="subtitle">21 janvier · Prof. Laurent Poulet-Bellet · Cap Avocat / Formaprep</div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--article)"></div><span style="color:var(--article);font-weight:700">Numéro d'article du code</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--citation)"></div><span style="color:var(--citation)">Texte cité de l'article / Doctrine</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--juris)"></div><span style="color:var(--juris);font-weight:700">Jurisprudence</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--loi)"></div><span style="color:var(--loi);font-weight:700">Loi</span></div>
+</div>
+
+<div class="main">
+
+  <div class="note">
+    Note de lecture : Ce cours contient deux blocs. La première partie (1.1 à 1.4) est encore une présentation d'ensemble du programme — suite du cours 1. La seconde partie (2.1 à 2.5) est le vrai début du cours sur les sources : notion d'obligation civile, obligation naturelle, arrêt PMU, article 1100 al. 2 commenté mot par mot.
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Sommaire</div>
+    <ul>
+      <li><a href="#cours">📚 Cours — Contenu juridique</a> <span class="toc-tag">Extinction · Prescription · Notion d'obligation · Obligation naturelle · Art. 1100</span></li>
+      <li><a href="#methodo">⚠️ Méthodo — Conseils pédagogiques</a></li>
+      <li><a href="#oral">🎓 Grand oral — Culture juridique</a></li>
+      <li><a href="#critique">🔍 Critique des prépas</a></li>
+      <li><a href="#alerte">⚡ Alertes examen</a></li>
+      <li><a href="#orga">🗓️ Organisation</a></li>
+    </ul>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       COURS
+  ══════════════════════════════════════════ -->
+  <div class="section" id="cours">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📚 Cours</span>
+      <span class="section-title">Contenu juridique pur</span>
+    </div>
+
+    <!-- I. Extinction des obligations -->
+    <div class="subsection">
+      <div class="subsection-title">I. Extinction des obligations — vue d'ensemble (suite cours 1)</div>
+      <div class="block">
+        <p><strong>Deux types d'extinction :</strong> avec satisfaction du créancier / sans satisfaction du créancier.</p>
+
+        <p><strong>Le paiement en droit = exécution de toute obligation :</strong></p>
+        <div class="quote">"Le paiement en droit, ce n'est pas du tout uniquement le paiement d'une somme d'argent, c'est l'exécution de toute obligation. [...] Il faut dire que le paiement, c'est l'exécution de toute obligation, quelle que soit sa nature, et pas simplement l'obligation monétaire."</div>
+
+        <p><strong>Vocabulaire technique obligatoire :</strong> le <strong>solvens</strong> = celui qui a payé. L'<strong>accipiens</strong> = celui qui a reçu le paiement.</p>
+
+        <p><strong>Action oblique — définition :</strong></p>
+        <div class="quote">"L'action oblique, évidemment, c'est pour se faire payer par le débiteur de votre débiteur, parce que votre débiteur fait tout pour ne pas payer. [...] C'est une hypothèse de reconstitution du droit de gage général du créancier contre son débiteur qui fait tout pour ne pas être en mesure de payer en ne se faisant pas payer lui-même."</div>
+
+        <p><strong>Action paulienne — définition et distinction avec l'oblique :</strong></p>
+        <div class="quote">"L'action paulienne, c'est l'hypothèse où le débiteur a des actifs, donc il est en mesure de payer. Mais qu'est-ce qu'il fait ? Il les fait sortir frauduleusement. [...] Vous avez un débiteur qui se rend volontairement plus pauvre qu'il l'était, en donnant ou en vendant généralement à très bas prix."</div>
+
+        <p><strong>Recours subrogatoire vs recours personnel — distinction fondamentale :</strong></p>
+        <div class="quote">"Le recours subrogatoire, c'est celui qui vous a été transmis par celui que vous avez payé. Il vous transmet son action, alors que le recours personnel, c'est celui que le droit des obligations lui octroie personnellement en tout état de cause, même s'il ne se prévoit pas la subrogation."</div>
+        <div class="quote">"Une subrogation transfère l'action qui était celle du créancier, alors que là, je me constitue mon propre droit par un contrat."</div>
+
+        <p><strong>La compensation — paiement simplifié :</strong> les deux protagonistes sont à la fois créanciers et débiteurs l'un de l'autre. On confronte les créances et dettes réciproques plutôt que d'opérer deux paiements.</p>
+
+        <p><strong>La novation :</strong></p>
+        <div class="quote">"La novation, comme son nom l'indique, ça consiste à renouveler. Nové, en latin, c'est renouveler. Donc, il s'agit de renouveler le rapport d'obligation, c'est-à-dire qu'on va éteindre l'obligation civile initiale pour la remplacer par une nouvelle obligation civile."</div>
+        <p>Conséquence clé : inopposabilité des moyens de défense tirés du passé, car ce qui est nouveau n'emprunte pas au passé.</p>
+
+        <p><strong>Délégation parfaite et imparfaite :</strong> la délégation imparfaite = délégation simple (non novatoire). La délégation parfaite = délégation novatoire.</p>
+
+        <p><strong>Extinction sans satisfaction — la confusion :</strong></p>
+        <div class="quote">"La confusion, c'est l'hypothèse dans laquelle vous êtes à la fois créancier et débiteur. [...] Vous héritez de votre créancier. [...] Les patrimoines fusionnent. Donc, vous ne pouvez pas être débiteur de vous-même."</div>
+
+        <p><strong>La remise de dette :</strong></p>
+        <div class="quote">"La remise de dette, c'est un contrat par lequel créancier et débiteur se mettent d'accord pour que le débiteur soit libéré."</div>
+        <p>Particularité : acceptation par le silence possible — <span class="juris">Ch. des requêtes, 1938</span> — seule vraie exception juridique au principe selon lequel le silence ne vaut pas acceptation.</p>
+      </div>
+    </div>
+
+    <!-- II. La prescription -->
+    <div class="subsection">
+      <div class="subsection-title">II. La prescription — distinction fondamentale</div>
+      <div class="block">
+        <p><strong>Prescription du droit ou prescription de l'action ? :</strong></p>
+        <div class="quote">"Le code civil prévoit que celui qui exécute volontairement une dette prescrite ne peut pas demander répétition. [...] Ça veut dire que la dette, elle n'a pas disparu. Donc la prescription, elle concerne l'action, pas le droit."</div>
+
+        <p><strong>La réforme de la prescription — loi du 17 juin 2008 :</strong></p>
+        <div class="quote">"C'est une loi du 17 juin 2008. Ça a été la première étape de la réforme des obligations. C'est le droit de la prescription dans le prolongement du rapport Catala."</div>
+        <p><span class="loi">Loi du 17 juin 2008</span> — institue le délai quinquennal de droit commun. Texte clé : <span class="art-num">art. 2224 C. civ.</span></p>
+
+        <p><strong>Le point de départ flottant — art. 2224 :</strong></p>
+        <p><span class="art-num">Art. 2224 C. civ.</span> — <span class="art-txt">"Les actions personnelles ou mobilières se prescrivent par cinq ans à compter du jour où le titulaire d'un droit a connu ou aurait dû connaître les faits lui permettant de l'exercer."</span></p>
+        <div class="quote">"90 % du contentieux de la prescription dans le monde réel, c'est le point de départ de la prescription. Le problème, ce n'est pas de savoir si c'est 5 ans. [...] C'est de savoir à partir de quand vous décomptez, à vrai dire, le délai."</div>
+
+        <p><strong>Prescriptions spéciales :</strong></p>
+        <ul style="padding-left:24px; margin: 12px 0;">
+          <li>Préjudice corporel : 10 ans à compter de la consolidation du dommage</li>
+          <li>Produits défectueux : 3 ans (prescription) + 10 ans (délai de péremption de responsabilité — voir infra)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- III. Plan du code -->
+    <div class="subsection">
+      <div class="subsection-title">III. Plan du code — articles à lire immédiatement</div>
+      <div class="block">
+        <p>
+          <span class="art-num">Art. 1100 et s. C. civ.</span> — Sources des obligations<br>
+          <span class="art-num">Art. 1353 et s. C. civ.</span> — Preuve des obligations (Titre 4 bis)<br>
+          <span class="art-num">Art. 1304 à 1352-9 C. civ.</span> — Régime général des obligations<br>
+          <span class="art-num">Art. 1240 et s. C. civ.</span> — Responsabilité civile extra-contractuelle (ex-<span class="art-num">art. 1382 et s.</span>)<br>
+          <span class="art-num">Art. 1245 et s. C. civ.</span> — Droit des produits défectueux<br>
+          <span class="art-num">Art. 2219 et s. C. civ.</span> — Prescription civile<br>
+          <span class="art-num">Art. 2224 C. civ.</span> — Délai quinquennal de droit commun
+        </p>
+      </div>
+    </div>
+
+    <!-- IV. Responsabilité civile extra-contractuelle -->
+    <div class="subsection">
+      <div class="subsection-title">IV. Responsabilité civile extra-contractuelle — annonce du cours 3</div>
+      <div class="block">
+        <p><strong>Pas de réforme — simple renumérotation :</strong></p>
+        <div class="quote">"La réforme est toujours en suspens. Donc il y a simplement une renumérotation des textes."</div>
+        <p>Formule exacte de la Cour de cassation : <span class="art-num">art. 1382 C. civ.</span>, devenu <span class="art-num">art. 1240 C. civ.</span> — jamais "nouvel article 1240".</p>
+
+        <p><strong>Responsabilité pour faute — art. 1240 :</strong></p>
+        <p><span class="art-num">Art. 1240 C. civ.</span> — <span class="art-txt">"Tout fait quelconque de l'homme, qui cause à autrui un dommage, oblige celui par la faute duquel il est arrivé à le réparer."</span></p>
+        <p>Standard dégenré depuis l'ordonnance : plus le "bon père de famille" mais le sujet de droit placé dans des circonstances analogues, quel que soit son sexe.</p>
+        <p>Enfants et fous peuvent être fautifs — <span class="juris">AP, 9 mai 1984</span> / <span class="loi">Loi du 3 janvier 1968</span>, <span class="art-num">art. 414-3 C. civ.</span></p>
+
+        <p><strong>Responsabilité du fait des choses — art. 1242 al. 1 :</strong></p>
+        <p><span class="art-num">Art. 1242 al. 1 C. civ.</span> (ex-<span class="art-num">art. 1384 al. 1</span>) — texte muet historiquement. Création purement jurisprudentielle.</p>
+        <div class="quote">"Si dans une majeure, on laisse croire que l'article 1242 alinéa 1er dispose de manière directe la responsabilité du fait des choses, sans préciser que c'est la jurisprudence qui a dégagé un principe général sur la base de ce texte, déjà, la majeure, elle vaut la moitié des points."</div>
+        <p>Arrêt fondateur : <span class="juris">Ch. réunies, 13 février 1930</span> — création jurisprudentielle du principe général de responsabilité du fait des choses.</p>
+
+        <p><strong>Responsabilité des parents — art. 1242 al. 4 :</strong></p>
+        <p><span class="art-num">Art. 1242 al. 4 C. civ.</span> (ex-<span class="art-num">art. 1384 al. 4</span>)</p>
+        <p>Évolution : responsabilité sans faute fondée sur l'autorité parentale depuis <span class="juris">Cass. 2e civ., 19 février 1997, Bertrand</span>. Réforme récente : <span class="juris">AP, 28 juin 2024</span> — suppression de la condition de cohabitation, fondement = autorité parentale seule.</p>
+
+        <p><strong>Responsabilité des commettants du fait des préposés — art. 1242 al. 5 :</strong></p>
+        <p><span class="art-num">Art. 1242 al. 5 C. civ.</span> (ex-<span class="art-num">art. 1384 al. 5</span>) — responsabilité sans faute. Immunité du préposé dans le cadre de ses fonctions : <span class="juris">AP, 25 février 2000, Costedoat</span>.</p>
+
+        <p><strong>Loi Badinter — accidents de la circulation :</strong></p>
+        <p><span class="loi">Loi du 5 juillet 1985</span>, dite loi Badinter. Régime dérogatoire au droit commun. Pas de condition de causalité — l'implication du véhicule suffit. Ne distingue pas entre parties et tiers au contrat.</p>
+
+        <p><strong>Droit des produits défectueux — art. 1245 et s. :</strong></p>
+        <p><span class="art-num">Art. 1245 et s. C. civ.</span> — transposition de la <span class="loi">Directive du 25 juillet 1985</span>, transposée en France en <span class="loi">1998</span> (13 ans de retard, 5 condamnations CJUE).</p>
+        <div class="quote">"Le déterminant de l'interprétation des textes du Code civil 1245 et suivant, c'est la jurisprudence de la Cour de justice de l'Union européenne."</div>
+        <p><strong>Attention — double délai, deux natures distinctes :</strong></p>
+        <ul style="padding-left:24px; margin: 12px 0;">
+          <li>3 ans : <strong>prescription de l'action</strong> à compter de la connaissance du dommage, du défaut et de l'identité du producteur</li>
+          <li>10 ans : <strong>délai de péremption de la responsabilité</strong> — notion de droit de l'UE, pas une prescription. La base légale disparaît au bout de 10 ans si aucune action n'est intentée. Ce n'est pas deux délais de prescription.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- V. Application de la loi dans le temps -->
+    <div class="subsection">
+      <div class="subsection-title">V. Application de la loi dans le temps</div>
+      <div class="block">
+        <p><strong>Principe de survie de la loi ancienne en matière contractuelle :</strong></p>
+        <p>Codifié à l'<span class="art-num">art. 9 de l'ordonnance du 10 février 2016</span> — mais ce texte ne fait que rappeler un principe jurisprudentiel historique posé sous l'influence de Paul Roubier.</p>
+        <div class="quote">"L'article 9 de l'ordonnance ne fait que codifier des choses qu'on connaissait déjà."</div>
+
+        <p><strong>Pas d'application de la loi dans le temps en responsabilité délictuelle :</strong></p>
+        <div class="quote">"Les questions d'application de la loi dans le temps n'existent pas pour la responsabilité civile. [...] Si dans votre copie vous vous mettez à commencer à parler de trucs sur lesquels, de toute évidence, on ne vous interrogera jamais, ça n'a pas de sens."</div>
+
+        <p><strong>Pour les quasi-contrats :</strong> appliquer le droit ancien si le fait générateur est antérieur à l'ordonnance ; droit nouveau si postérieur. Pas de raisonnement par rapport à un contrat (il n'y en a pas).</p>
+
+        <p><strong>Codification à droit constant — utiliser la jurisprudence ancienne :</strong></p>
+        <div class="quote">"Si les textes nouveaux sont la codification en matière contractuelle des solutions anciennes, vous allez pouvoir même dans vos majeures vous référer à la jurisprudence ancienne. [...] En droit des obligations, il y a des allers-retours constants, évidemment, entre la jurisprudence ancienne et les textes nouveaux, quand il s'agit d'une codification à droit constant."</div>
+      </div>
+    </div>
+
+    <!-- VI. Notion d'obligation civile -->
+    <div class="subsection">
+      <div class="subsection-title">VI. Notion d'obligation civile — début du cours proprement dit</div>
+      <div class="block">
+        <p><strong>Définition — lien de droit de créancier à débiteur :</strong></p>
+        <div class="quote">"L'obligation civile, c'est le lien de droit qui unit un créancier à un débiteur. Et qui est juridiquement sanctionné. En cas d'inexécution, le débiteur se trouvera bien évidemment sanctionné pour ne pas avoir respecté ce lien d'obligation."</div>
+        <p>Pas de définition dans le code à l'occasion de l'ordonnance de 2016.</p>
+
+        <p><strong>Obligation civile ≠ devoir légal général :</strong> un devoir imposé par la loi pénale (ex. devoir d'assistance à personne en danger) n'est pas une obligation au sens du droit des obligations — pas de lien patrimonial créancier/débiteur.</p>
+
+        <p><strong>Le mariage n'est pas un contrat :</strong></p>
+        <div class="quote">"Le mariage n'obéit pas au régime contractuel. C'est une institution conjugale qui peut engendrer quelques obligations, notamment, par l'effet de la loi, mais pas par l'effet de la volonté."</div>
+        <p>Distinction clé : le <strong>contrat de mariage</strong> (régimes matrimoniaux, acte solennel devant notaire, <span class="art-num">art. 931 C. civ.</span>) ≠ le mariage envisagé comme un contrat. Aucun rapport.</p>
+
+        <p><strong>Vocabulaire pénal ≠ vocabulaire civil :</strong> dans une copie de droit des obligations, on parle du <strong>responsable</strong>, pas du "coupable". Principe d'identité de la faute pénale et de la faute civile — exceptions existent.</p>
+      </div>
+    </div>
+
+    <!-- VII. Obligation naturelle — art. 1100 al. 2 -->
+    <div class="subsection">
+      <div class="subsection-title">VII. Obligation naturelle muée en obligation civile — art. 1100 al. 2</div>
+      <div class="block">
+        <p><strong>Obligation naturelle = obligation morale = devoir de conscience :</strong> synonymes. N'est pas une obligation civile — sanction : la mauvaise conscience, pas le droit.</p>
+
+        <p><strong>Droit antérieur — ancien art. 1235 C. civ. :</strong> celui qui exécute volontairement une obligation naturelle ne peut pas en demander répétition (pas d'indu).</p>
+
+        <p><strong>Trois hypothèses de transformation dégagées par la jurisprudence :</strong></p>
+        <ul style="padding-left:24px; margin: 12px 0;">
+          <li><strong>1.</strong> Exécution volontaire totale → pas de répétition de l'indu possible</li>
+          <li><strong>2.</strong> Commencement d'exécution → obligation de continuer (jurisprudence constante)</li>
+          <li><strong>3.</strong> Simple promesse d'exécution sans commencement → <span class="juris">Cass. 1re civ., 10 octobre 1995, arrêt PMU</span></li>
+        </ul>
+
+        <p><strong>L'arrêt PMU — Cass. 1re civ., 10 octobre 1995 :</strong></p>
+        <p><span class="juris">Cass. 1re civ., 10 octobre 1995</span> — commenté par Nicolas Molfessis.</p>
+        <p>Faits : joueur de PMU malade demande à un ami de jouer sa combinaison à sa place. Lui promet une part des gains si ça sort. Ça sort. L'ami refuse de partager.</p>
+        <p>Pourquoi pas le contrat : la loi frappe de nullité absolue les contrats de type bookmaker — <span class="art-num">art. 1162 C. civ.</span> (ordre public). L'adversaire aurait soulevé la nullité.</p>
+        <p>Pourquoi pas la RC : la réparation aurait porté sur un simple espoir déçu (préjudice moral), apprécié souverainement par les juges du fond — résultat dérisoire.</p>
+        <p>Solution : l'avocat plaide l'obligation naturelle muée en obligation civile par la promesse d'exécution.</p>
+        <div class="quote">"La Cour de cassation nous dit que la transformation de l'obligation morale en obligation civile par l'affirmation de la volonté d'exécuter ne se justifie pas par l'innovation, mais se justifie par la promesse d'exécution elle-même."</div>
+        <p>Portée : reconnaissance en droit français de l'<strong>engagement unilatéral de volonté</strong> par la 1re chambre civile.</p>
+
+        <p><strong>Pourquoi pas la novation pour justifier la transformation :</strong></p>
+        <div class="quote">"La novation en RGO, c'est la transformation d'une obligation civile en une autre obligation civile. [...] Il faut donc qu'il y ait déjà une obligation civile. Donc une novation au sens du RGO ne peut pas expliquer la transformation d'une obligation naturelle en obligation civile."</div>
+        <p>L'arrêt PMU opère un revirement sur ce point — arrêt de rejet avec substitution de motif.</p>
+
+        <p><strong>Autre exemple — Cass. 1re civ., octobre 2017 :</strong></p>
+        <p><span class="juris">Cass. 1re civ., octobre 2017</span> — Succession franco-canadienne. Deux sœurs écrivent à leur demi-frère qu'elles vont lui reverser la part successorale dont le père l'avait privé. Elles se rétractent. La Cour de cassation retient que l'obligation morale exprimée par écrit s'est muée en obligation civile.</p>
+        <p>Intérêt : contourne les exigences de forme de la donation (<span class="art-num">art. 931 C. civ.</span> — acte notarié), puisqu'on est sur le terrain de l'engagement unilatéral et non de la libéralité.</p>
+
+        <p><strong>Codification — art. 1100 al. 2 :</strong></p>
+        <p><span class="art-num">Art. 1100 al. 2 C. civ.</span> — <span class="art-txt">"Elles peuvent naître de l'exécution volontaire ou de la promesse d'exécution d'un devoir de conscience envers autrui."</span></p>
+        <div class="quote">"Ce texte est apparu très tard. Il n'était pas dans le projet d'ordonnance. Il est apparu in fine dans l'ordonnance après que les rédacteurs du projet d'ordonnance se soient fait défoncer par certains auteurs."</div>
+        <p>Le rapport au Président de la République précise explicitement que ce texte doit être lu à la lumière de la jurisprudence antérieure — codification de l'ancien <span class="art-num">art. 1235 C. civ.</span> et de l'arrêt PMU.</p>
+
+        <p><strong>Qui qualifie l'obligation morale ? Le juge :</strong></p>
+        <div class="quote">"Dans tous les cas, le décisionnaire, c'est le juge. C'est lui qui va décider qu'il y avait une obligation morale qui existait."</div>
+        <p>Double preuve à apporter en cas pratique :</p>
+        <ul style="padding-left:24px; margin: 12px 0;">
+          <li>Existence d'un devoir de conscience envers autrui (fait juridique → preuve par tout moyen)</li>
+          <li>Fait générateur de la transformation : exécution, commencement d'exécution, ou promesse d'exécution</li>
+        </ul>
+        <p>La promesse d'exécution = engagement unilatéral de volonté = acte juridique en principe. Exception à l'exigence d'un écrit : impossibilité matérielle de préconstituer la preuve (personne ne sait à ce moment-là qu'il s'engage juridiquement).</p>
+
+        <p><strong>Responsabilité médicale — point précis (suite à une question) :</strong></p>
+        <p><span class="loi">Loi du 4 mai 2002</span> — exclut la responsabilité sans faute du champ médical, sauf infections nosocomiales en établissement de santé. Responsabilité désormais purement délictuelle pour faute (<span class="art-num">art. 1240 C. civ.</span>).</p>
+        <p>Abandon de la responsabilité contractuelle médicale : <span class="juris">Cass. 1re civ., 3 juin 2010</span>.</p>
+        <p>Avant 2002 : terrain contractuel. Après 2002 : terrain délictuel fondé sur la faute. Application de la loi dans le temps selon la date des faits — pas selon la date de l'arrêt.</p>
+        <p>L'ONIAM n'est pas de la responsabilité — c'est un régime d'indemnisation mutualisé pour les accidents médicaux non fautifs.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- METHODO -->
+  <div class="section" id="methodo">
+    <div class="section-header">
+      <span class="section-tag tag-methodo">⚠️ Méthodo</span>
+      <span class="section-title">Conseils méthodologiques et pédagogiques</span>
+    </div>
+
+    <div class="block">
+      <p><strong>Être fusionnel avec le code avant le jour J :</strong></p>
+      <div class="quote">"Vous devez être quasiment fusionnel avec le code. Le bon candidat [...] est capable d'utiliser, évidemment, le code de manière optimale à la vitesse accélérée le jour J."</div>
+
+      <p><strong>Ne pas travailler uniquement sur sujets corrigés :</strong></p>
+      <div class="quote">"Il y a beaucoup de candidats qui croient que l'on prépare un examen de ce type en travaillant uniquement sur des annales et des sujets corrigés. C'est une blague. Pourquoi ? Parce que ça a pour conséquence catastrophique [...] de vous faire perdre ce sens tactique du sujet qu'on vous donne."</div>
+
+      <p><strong>Traiter le sujet qu'on vous donne, pas celui qu'on a préparé :</strong></p>
+      <div class="quote">"Il faut puiser dans les connaissances de fond que l'on a et traiter le sujet carrément à la guerrière. Parce que de toute façon, tout le monde, si vous êtes en difficulté face au sujet, les autres le seront aussi."</div>
+
+      <p><strong>Sur la prescription — hiérarchiser dans la copie :</strong> si le problème prescriptif est évident au regard des dates, commencer par là. Sinon, traiter d'abord la question de fond et aborder la prescription en fin. Pas de stéréotype de rédaction — s'adapter au sujet.</p>
+
+      <p><strong>Ne jamais mettre l'application de la loi dans le temps sur un cas de RC :</strong></p>
+      <div class="quote">"Systématiquement, la copie débute par [...] des paragraphes introductifs sur l'application de la loi dans le temps [...] sur l'article 9 de l'ordonnance du 10 février 2016. [...] Quand le cas pratique est de responsabilité délictuelle, ça n'a aucun sens. [...] Il n'y a pas de droit nouveau et de droit ancien en délictuel."</div>
+
+      <p><strong>Sur la codification à droit constant — ne pas ignorer le droit ancien :</strong></p>
+      <div class="quote">"Si les textes nouveaux sont la codification en matière contractuelle des solutions anciennes, vous allez pouvoir même dans vos majeures vous référer à la jurisprudence ancienne."</div>
+
+      <p><strong>Ne pas citer des arrêts d'espèce miteux :</strong></p>
+      <div class="quote">"Un arrêt miteux, pêché au hasard, n'est pas une référence dans une copie de bon niveau. [...] Je vais vous demander de repérer [les bons arrêts]. Et vous allez me dégager toutes les saloperies qui sont parfois citées dont on n'a rien à cirer."</div>
+
+      <p><strong>Comment raisonner l'arrêt PMU dans un cas pratique :</strong></p>
+      <div class="quote">"Il faudrait simplement que vous évoquiez les qualifications qui seraient susceptibles d'être naturellement envisagées et qui ne le sont pas ou qui ne sont pas opportunes dans l'intérêt de votre client. Et que vous proposiez comme pis-aller la solution que la jurisprudence a elle-même proposée."</div>
+
+      <p><strong>Deux éléments à toujours prouver pour l'obligation naturelle :</strong> (1) l'existence d'un devoir de conscience envers autrui ; (2) le fait générateur de la transformation. Si vous êtes l'adversaire, attaquer ces deux points.</p>
+
+      <p><strong>Surlignage du code — hiérarchiser :</strong></p>
+      <div class="quote">"Ne surlignez pas tout. [...] Le surlignage intégral, c'est une catastrophe. Pourquoi ? Parce que ça ne vous permet plus le moment venu, évidemment, en quelques secondes, de savoir ce qui est important et ce qui ne l'est pas."</div>
+    </div>
+  </div>
+
+  <!-- GRAND ORAL -->
+  <div class="section" id="oral">
+    <div class="section-header">
+      <span class="section-tag tag-oral">🎓 Grand oral</span>
+      <span class="section-title">Culture juridique et préparation orale</span>
+    </div>
+
+    <div class="block">
+      <p><strong>L'ordonnance du 10 février 2016 — réforme historique :</strong></p>
+      <div class="quote">"La réforme opérée par l'ordonnance du 10 février 2016 a été considérée par des juristes non mineurs comme la plus importante réforme du droit français depuis 1804."</div>
+      <p>Jean Carbonnier considérait le droit des obligations comme le pilier du droit avec le droit des biens et le droit de la famille.</p>
+
+      <p><strong>Robert Badinter et l'opposition à la réforme par ordonnance :</strong> Badinter, sénateur, avait mené une cabale pour que le droit des contrats ne soit pas réformé par ordonnance. Il a échoué — la loi d'habilitation n'a été votée que par l'Assemblée nationale (pas le Sénat).</p>
+
+      <p><strong>Paul Roubier — droit transitoire :</strong> auteur du traité sur le droit transitoire, a influencé directement la Cour de cassation sur le principe de survie de la loi ancienne en matière contractuelle.</p>
+
+      <p><strong>Conception substantielle vs procédurale de la prescription :</strong> distinction fondamentale pour le grand oral. La prescription porte sur l'action (conception procédurale), pas sur le droit lui-même (conception substantielle).</p>
+
+      <p><strong>Loi Badinter — histoire législative :</strong> idée initialement d'André Tack (Paris 1), promoteur parlementaire Robert Badinter (garde des Sceaux sous Mitterrand). Adoptée en 1985 grâce à la majorité socialiste à l'Assemblée. Les lobbies assurantiels avaient bloqué les projets précédents pendant des décennies.</p>
+
+      <p><strong>Actions interrogatoires — innovation non appliquée :</strong> prévues par l'ordonnance, jamais utilisées en pratique selon le président du tribunal de commerce de Paris. Sujet possible dans le cadre des 10 ans de l'ordonnance.</p>
+
+      <p><strong>Engagement unilatéral de volonté — reconnaissance progressive :</strong> déjà admis en droit du travail (engagement unilatéral de l'employeur, Ch. sociale) et en droit des procédures collectives (Ch. commerciale) avant l'arrêt PMU de 1995. Codifié par l'ordonnance à l'<span class="art-num">art. 1100-1 C. civ.</span></p>
+
+      <p><strong>Droit des produits défectueux — origine unioniste :</strong> ne pas raisonner avec les yeux du juriste franco-français. L'interprétation relève de la CJUE. Le délai de 10 ans est un délai de péremption de responsabilité — notion de droit de l'UE, résultat d'un rapport de force lors de la négociation de la directive.</p>
+    </div>
+  </div>
+
+  <!-- CRITIQUE -->
+  <div class="section" id="critique">
+    <div class="section-header">
+      <span class="section-tag tag-critique">🔍 Critique des prépas</span>
+      <span class="section-title">Erreurs et manques de formation dénoncés</span>
+    </div>
+
+    <div class="block">
+      <p><strong>Sur la littérature en droit des obligations :</strong></p>
+      <div class="quote">"En droit des obligations, 90 % de ce qui est publié qui n'a aucun intérêt. C'est une matière qui est d'une exigence telle qu'elle est sinistrée. [...] Les gens adorent se montrer en publiant en obligation comme s'ils y connaissaient quelque chose."</div>
+
+      <p><strong>Sur certains intervenants en IEJ :</strong></p>
+      <div class="quote">"Vous pouvez avoir quelqu'un [...] qui vous racontent des trucs, mais qui n'ont aucun rapport avec ce qui est attendu pour l'examen [...] qui assène des interprétations lunaires de certains arrêts et qui, appliquées en cas pratique, vous donneraient zéro à la question."</div>
+
+      <p><strong>Sur l'idée qu'il n'y aurait pas besoin de connaître le droit ancien :</strong></p>
+      <div class="quote">"Quel illettré a osé vous dire ça ? [...] Tout le sujet, justement, sur les dispositions nouvelles, quand elles portent codification à droit constant, c'est justement d'établir le continuum entre le droit ancien et le droit nouveau."</div>
+
+      <p><strong>Sur les corrigés qui citent des arrêts d'espèce miteux :</strong></p>
+      <div class="quote">"Ils vous sortent [...] Cass. 1re civ., 16 janvier 1976. [...] Ça veut dire que cet arrêt n'a aucun intérêt. C'est un arrêt d'espèce dont tout le monde se fout [...] Avec un bon correcteur, cata."</div>
+
+      <p><strong>Sur l'idée d'une méthode unique :</strong></p>
+      <div class="quote">"Il n'y a pas une méthode pour le CRFPA. [...] Il y a des méthodes et il faut aussi adapter même la méthode au sujet."</div>
+
+      <p><strong>Sur les charlatans qui disent de s'arrêter en mai :</strong></p>
+      <div class="quote">"Les rigolos, les prédicateurs et autres charlatans du CRFA qui expliquent que le candidat peut s'arrêter de travailler à date au mois de mai, c'est une blague. [...] Le corrigé de septembre est complètement actualisé."</div>
+    </div>
+  </div>
+
+  <!-- ALERTES -->
+  <div class="section" id="alerte">
+    <div class="section-header">
+      <span class="section-tag tag-alerte">⚡ Alertes examen</span>
+      <span class="section-title">Sujets susceptibles de tomber</span>
+    </div>
+
+    <div class="block">
+      <div class="alert-box">
+        <div class="alert-title">Action oblique et action paulienne</div>
+        Attendu en 2025, non tombé. Risque élevé à court terme. Sujet pratique quotidien dans les cabinets de voies d'exécution.
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Responsabilité des parents — AP 28 juin 2024</div>
+        Réforme historique récente par la Cour de cassation. Attendu en 2025, non tombé. Fondement = autorité parentale seule, plus de condition de cohabitation.
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Prescription — point de départ flottant</div>
+        Tombé l'année dernière. Peut retomber. 90% du contentieux réel porte sur le point de départ, pas sur la durée.
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Recours subrogatoire vs recours personnel</div>
+        Sujet classique à Paris 1 avant la réforme. Distinction méconnue par la plupart des candidats.
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Obligation naturelle — art. 1100 al. 2</div>
+        Jamais tombé. Vrai sujet. Applicable dans des hypothèses très variées (successions, affaires, concubinage).
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Arrêt du 3 juillet 2024 — Chambre commerciale (Miro)</div>
+        Dans le corrigé national de septembre 2024. Divergence avec la 1re chambre civile — assemblée plénière à venir probable.
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">10 ans de l'ordonnance du 10 février 2016</div>
+        Colloques partout en France. Actions interrogatoires et limites de la réforme susceptibles d'inspirer des sujets.
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Produits défectueux</div>
+        Jamais tombé mais très important en pratique. Risque fort si un spécialiste est nommé à la commission. La distinction délai de prescription / délai de péremption est systématiquement ratée.
+      </div>
+    </div>
+  </div>
+
+  <!-- ORGANISATION -->
+  <div class="section" id="orga">
+    <div class="section-header">
+      <span class="section-tag tag-orga">🗓️ Organisation</span>
+      <span class="section-title">Informations pratiques</span>
+    </div>
+
+    <div class="block">
+      <p><strong>Dépôt des copies :</strong> lien Dropbox à venir dans la semaine.</p>
+      <p><strong>Premier DST en obligation :</strong> dans environ 3 semaines.</p>
+      <p><strong>Cours suivant :</strong> mardi prochain — suite des sources. Mercredi — début du cours droit des contrats.</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

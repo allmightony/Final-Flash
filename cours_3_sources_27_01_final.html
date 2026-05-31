@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours 3 — Sources des Obligations — 27 janvier</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #faf9f6;
+    --surface: #ffffff;
+    --border: #e8e4dc;
+    --text: #1a1a1a;
+    --text-light: #555;
+    --article: #c0392b;
+    --juris: #6c3483;
+    --loi: #7b5e3a;
+    --citation: #1a5276;
+    --tag-cours: #2c6e49;
+    --tag-methodo: #1565c0;
+    --tag-oral: #6a0f49;
+    --tag-critique: #b71c1c;
+    --tag-orga: #4a4a4a;
+    --tag-alerte: #e65100;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; font-style: normal; }
+
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .page-header {
+    background: #ffffff;
+    color: #1a1a1a;
+    padding: 48px 64px 40px;
+    border-bottom: 4px solid var(--article);
+  }
+
+  .page-header .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 12px;
+  }
+
+  .page-header h1 { font-size: 2rem; font-weight: 500; margin-bottom: 8px; }
+  .page-header .subtitle { color: #ccc; font-size: 1rem; }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 64px;
+    background: #f2f0ea;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+
+  .main { max-width: 900px; margin: 0 auto; padding: 48px 32px 80px; }
+
+  .section { margin-bottom: 56px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .section-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    color: #fff;
+    white-space: nowrap;
+  }
+
+  .tag-cours    { background: var(--tag-cours); }
+  .tag-methodo  { background: var(--tag-methodo); }
+  .tag-oral     { background: var(--tag-oral); }
+  .tag-critique { background: var(--tag-critique); }
+  .tag-orga     { background: var(--tag-orga); }
+  .tag-alerte   { background: var(--tag-alerte); }
+
+  .section-title { font-size: 1.25rem; font-weight: 600; color: var(--text); }
+
+  .subsection { margin-bottom: 36px; }
+
+  .subsection-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 16px;
+    padding-left: 16px;
+    border-left: 3px solid var(--border);
+  }
+
+  .block { margin-bottom: 20px; }
+  .block p { margin-bottom: 12px; color: var(--text); }
+
+  .quote {
+    background: var(--surface);
+    border-left: 3px solid #ccc;
+    padding: 14px 20px;
+    margin: 12px 0;
+    border-radius: 0 4px 4px 0;
+    color: #333;
+    font-size: 0.97em;
+  }
+
+  .art-num { color: var(--article); font-weight: 700; }
+  .art-txt { color: var(--citation); font-weight: 400; }
+  .juris   { color: var(--juris); font-weight: 700; }
+  .loi     { color: var(--loi); font-weight: 700; }
+  .cit     { color: var(--citation); font-weight: 400; }
+
+  .alert-box {
+    background: #fff8f0;
+    border: 1px solid #e65100;
+    border-left: 4px solid #e65100;
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 12px 0;
+    font-size: 0.95em;
+  }
+
+  .alert-box .alert-title {
+    font-weight: 700;
+    color: #e65100;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin-bottom: 48px;
+  }
+
+  .toc-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 16px;
+  }
+
+  .toc ul { list-style: none; padding: 0; }
+  .toc li { padding: 4px 0; font-size: 0.95em; }
+  .toc a { color: var(--text); text-decoration: none; }
+  .toc a:hover { color: var(--article); }
+  .toc .toc-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-light); margin-left: 6px; }
+
+  .note {
+    background: #f0f4ff;
+    border: 1px solid #c5cee0;
+    border-left: 4px solid var(--citation);
+    padding: 14px 18px;
+    border-radius: 4px;
+    margin-bottom: 32px;
+    font-size: 0.9em;
+    color: #333;
+  }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    @page { size: A4; margin: 15mm 14mm 18mm 14mm; }
+    body { font-size: 10.5pt; line-height: 1.55; background: #faf9f6 !important; color: #1a1a1a !important; }
+    .page-header { background: #ffffff !important; color: #1a1a1a !important; padding: 14pt 20pt 10pt !important; border-bottom: 3pt solid #c0392b !important; margin-bottom: 8pt; }
+    .page-header .label { color: #888 !important; font-size: 7pt !important; }
+    .page-header h1 { font-size: 15pt !important; margin-bottom: 3pt !important; color: #1a1a1a !important; }
+    .page-header .subtitle { color: #555 !important; font-size: 9pt !important; }
+    .legend { background: #f2f0ea !important; padding: 6pt 20pt !important; font-size: 7.5pt !important; gap: 10pt !important; border-bottom: 1pt solid #e8e4dc !important; margin-bottom: 8pt; }
+    .main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+    .section { margin-bottom: 16pt !important; }
+    .section-header { padding-bottom: 5pt !important; margin-bottom: 8pt !important; border-bottom: 1.5pt solid #e8e4dc !important; page-break-after: avoid; }
+    .section-tag { font-size: 6.5pt !important; padding: 2pt 6pt !important; color: #fff !important; }
+    .tag-cours    { background: #2c6e49 !important; }
+    .tag-methodo  { background: #1565c0 !important; }
+    .tag-oral     { background: #6a0f49 !important; }
+    .tag-critique { background: #b71c1c !important; }
+    .tag-orga     { background: #4a4a4a !important; }
+    .tag-alerte   { background: #e65100 !important; }
+    .section-title { font-size: 11pt !important; }
+    .subsection { margin-bottom: 10pt !important; }
+    .subsection-title { font-size: 9.5pt !important; margin-bottom: 5pt !important; }
+    .block { background: #ffffff !important; border: 0.75pt solid #e8e4dc !important; padding: 8pt 10pt !important; margin-bottom: 6pt !important; page-break-inside: avoid; }
+    .block p { margin-bottom: 5pt !important; font-size: 10pt !important; }
+    .block ul { padding-left: 14pt !important; margin: 4pt 0 !important; }
+    .block li { margin-bottom: 3pt !important; font-size: 10pt !important; }
+    h3 { font-size: 10.5pt !important; margin-top: 7pt !important; margin-bottom: 4pt !important; page-break-after: avoid; }
+    .alert-box { border: 0.75pt solid #e65100 !important; border-left: 3pt solid #e65100 !important; background: #fff8f5 !important; padding: 7pt 10pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .alert-box .alert-title { font-size: 6.5pt !important; color: #e65100 !important; margin-bottom: 4pt !important; }
+    .alert-box p, .alert-box li { font-size: 9.5pt !important; }
+    .quote { border-left: 3pt solid #1a5276 !important; background: #f0f4f8 !important; color: #1a5276 !important; padding: 7pt 10pt !important; font-size: 9.5pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .sub-section { border-top: 0.5pt solid #e8e4dc !important; margin-top: 8pt !important; padding-top: 8pt !important; }
+    .art-num { color: #c0392b !important; }
+    .art-txt { color: #1a5276 !important; }
+    .juris   { color: #6c3483 !important; }
+    .loi     { color: #7b5e3a !important; }
+    a[href]:after { content: none !important; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="label">Droit des obligations · Sources · Cours 3</div>
+  <h1>Cours 3 — Sources des Obligations</h1>
+  <div class="subtitle">27 janvier · Prof. Laurent Poulet-Bellet · Cap Avocat / Formaprep</div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--article)"></div><span style="color:var(--article);font-weight:700">Numéro d'article du code</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--citation)"></div><span style="color:var(--citation)">Texte cité de l'article / Doctrine</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--juris)"></div><span style="color:var(--juris);font-weight:700">Jurisprudence</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--loi)"></div><span style="color:var(--loi);font-weight:700">Loi</span></div>
+</div>
+
+<div class="main">
+
+  <div class="note">
+    Note de lecture : Ce cours est très dense. Il couvre : (1) la fin de l'obligation naturelle avec les développements sur la validité de l'engagement unilatéral, l'arrêt de 2012 lu à contrario, et l'arrêt CA Montpellier 2024 ; (2) les sources des obligations — actes et faits juridiques, engagement unilatéral de volonté, loteries publicitaires ; (3) le principe de non-cumul / non-option, avec les chaînes de contrats (Lamborghini, AP 7 fév. 1986, AP Besse). La transcription contient d'importants passages répétés (bug d'enregistrement) — ils ont été supprimés du présent document.
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Sommaire</div>
+    <ul>
+      <li><a href="#cours">📚 Cours — Contenu juridique</a> <span class="toc-tag">Obligation naturelle · EUV · Sources · Faute · Non-cumul · Chaînes de contrats</span></li>
+      <li><a href="#methodo">⚠️ Méthodo — Conseils pédagogiques</a></li>
+      <li><a href="#oral">🎓 Grand oral — Culture juridique</a></li>
+      <li><a href="#critique">🔍 Critique des prépas</a></li>
+      <li><a href="#alerte">⚡ Alertes examen</a></li>
+      <li><a href="#orga">🗓️ Organisation</a></li>
+    </ul>
+  </div>
+
+  <!-- COURS -->
+  <div class="section" id="cours">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📚 Cours</span>
+      <span class="section-title">Contenu juridique pur</span>
+    </div>
+
+    <!-- I. Fin obligation naturelle -->
+    <div class="subsection">
+      <div class="subsection-title">I. Obligation naturelle — suite et fin : validité de l'engagement unilatéral</div>
+      <div class="block">
+
+        <p><strong>Rappel méthodo fondamental — établir la filiation droit ancien / droit nouveau :</strong></p>
+        <div class="quote">"Le cas pratique fut-il à droit nouveau ? Ça ne change strictement rien. [...] Il faudrait impérativement expliciter le texte par la référence au droit ancien. Ce n'est pas fait, vous pouvez considérer que vous ne dépasserez jamais le 10 sur 20."</div>
+
+        <p><strong>Synonymes — à maîtriser absolument :</strong> obligation naturelle = obligation morale = devoir de conscience envers autrui. Le code a retenu "devoir de conscience envers autrui" pour des raisons de neutralité doctrinale. Aucune différence de fond.</p>
+
+        <p><strong>Textes de référence :</strong><br>
+        Droit ancien : <span class="art-num">art. 1235 anc. C. civ.</span><br>
+        Droit nouveau : <span class="art-num">art. 1100 al. 2 C. civ.</span> — <span class="art-txt">"Les obligations peuvent naître de l'exécution volontaire ou de la promesse d'exécution d'un devoir de conscience envers autrui."</span></p>
+
+        <p><strong>Articulation majeure / mineure en cas pratique :</strong></p>
+        <div class="quote">"La majeure est commune, c'est la majeure. Et ensuite, il y a la mineure, c'est-à-dire l'application au fait. [...] Dans tous les cas de concubinage, il n'y aura pas nécessairement transformation d'une obligation naturelle en obligation civile. Parce que dans certains cas de concubinage, la jurisprudence a déjà retenu que parfois, il n'y avait pas d'obligation naturelle."</div>
+        <p>Exemple : une relation destructrice entre concubins ne donne pas lieu à un devoir de conscience. Le juge apprécie souverainement en fonction des faits de l'espèce.</p>
+
+        <p><strong>Sans source, pas d'obligation civile :</strong></p>
+        <div class="quote">"Pour qu'il y ait une obligation, faut-il qu'il y ait une source d'obligation, c'est-à-dire un contrat, un quasi-contrat ou un fait générateur de responsabilité civile. [...] Sinon, il n'y a pas d'obligation, sans source. Sans source, pas d'obligation."</div>
+
+        <p><strong>Attention — polysémie du mot "promesse" :</strong></p>
+        <div class="quote">"La promesse synallagmatique et la promesse unilatérale sont des contrats préparatoires. Donc ça n'a rien à voir avec la promesse d'exécution d'une obligation naturelle."</div>
+        <p>Confusion fréquente chez les candidats qui ont appris des syllabus par cœur. Grave erreur de qualification en cas pratique.</p>
+
+        <p><strong>Validité de l'engagement unilatéral de volonté — raisonnement en deux temps :</strong></p>
+        <p><span class="art-num">Art. 1100-1 al. 2 C. civ.</span> — les conditions de validité des contrats s'appliquent par analogie aux engagements unilatéraux de volonté.</p>
+        <div class="quote">"À supposer que l'engagement soit constitué, il faut lui appliquer les conditions de validité qui sont applicables aux actes juridiques, conformément à l'analogie qui est proposée par l'article 1100-1."</div>
+        <p>Conséquence pratique : l'existence de l'acte juridique ne préjuge pas de sa validité. Si l'engagement unilatéral est invalide, il peut être annulé — et la transformation de l'obligation naturelle en obligation civile tombe avec lui.</p>
+
+        <p><strong>Arrêt de référence — Cass. 1re civ., 17 octobre 2012 (arrêt du dirigeant social) :</strong></p>
+        <p><span class="juris">Cass. 1re civ., 17 octobre 2012</span> — à lire à contrario.</p>
+        <p>Faits : un dirigeant social, convoqué par la brigade financière dans le cadre d'une enquête sur des détournements de fonds, craque devant les enquêteurs et déclare spontanément qu'il va indemniser les victimes (retraités qui avaient perdu leurs économies). Il n'était pas personnellement responsable (pas de confusion avec la personne morale), mais son engagement moral risquait de se muer en obligation civile.</p>
+        <p>Décision : la Cour de cassation casse les juges du fond car les éléments relevés ne permettaient pas de caractériser que le dirigeant s'était véritablement engagé à exécuter.</p>
+        <p>Lecture à contrario : si les déclarations avaient été plus catégoriques, il aurait été tenu. Ce n'est pas une exclusion de principe — c'est la mineure du syllogisme qui n'était pas suffisamment caractérisée.</p>
+
+        <p><strong>Argument de défense — vice du consentement (violence morale) :</strong></p>
+        <div class="quote">"Quand vous êtes sous la pression d'un interrogatoire, vous pouvez tout à fait paniquer et finalement affirmer des choses dont vous ne percevez pas l'exacte portée, même que vous n'auriez jamais dites ni pensées, si vous n'aviez pas été dans un tel contexte. [...] Donc en fait, même si la solution de 2012, prise à contrario, venait à être appliquée aujourd'hui, il serait possible de faire tomber en réalité la transformation de l'obligation naturelle en obligation civile par le biais de l'invalidation de l'acte juridique qui la sous-tend."</div>
+        <p>Vice invocable : violence morale (<span class="art-num">art. 1140 C. civ.</span>) ou erreur de droit (<span class="art-num">art. 1132 C. civ.</span>). Ces vices permettent d'obtenir la nullité de l'engagement unilatéral et donc de faire tomber la transformation.</p>
+
+        <p><strong>Arrêt CA Montpellier, 12 décembre 2024 (commenté par Dimitri Houtcieff, Gazette du Palais) :</strong></p>
+        <p><span class="juris">CA Montpellier, 12 décembre 2024</span></p>
+        <p>Faits : au cours d'une procédure de divorce, un époux s'est engagé par écrit à verser à son épouse la moitié du produit de la vente du domicile familial, déduction faite de la levée d'hypothèque et des échéances de prêt restant à rembourser. La maison est vendue, rien n'est versé. L'ex-épouse assigne, le tribunal judiciaire la déboute, elle fait appel en invoquant un engagement unilatéral de volonté.</p>
+        <p>Décision : la cour d'appel confirme le déboutement. Non pas parce que l'engagement unilatéral est impossible en la matière, mais parce que :</p>
+        <ul style="padding-left:24px;margin:12px 0;">
+          <li>L'engagement devait être dépourvu d'équivoque (ferme et précis) — <span class="art-num">art. 1100-1 al. 2</span> par analogie avec les règles de validité des contrats</li>
+          <li>L'acte de vente n'avait pas été produit, rendant impossible d'établir le lien entre l'engagement manuscrit et le prix de vente réel</li>
+          <li>Double problème : fond (ambiguïté de l'engagement) + preuve (absence de l'acte de vente)</li>
+        </ul>
+        <div class="quote">"Il doit être constaté que Mme Y échoue à rapporter la preuve de la réalité de sa créance découlant d'un engagement unilatéral de volonté."</div>
+        <p>Enseignement : la majeure (possibilité d'un EUV en droit de la famille) est bonne. Ce qui échoue, c'est la mineure — preuve insuffisante du lien entre engagement et prix de vente.</p>
+      </div>
+    </div>
+
+    <!-- II. Sources des obligations -->
+    <div class="subsection">
+      <div class="subsection-title">II. Sources des obligations — classification générale</div>
+      <div class="block">
+        <p><strong>Codification des sources :</strong></p>
+        <p><span class="art-num">Art. 1100-1 C. civ.</span> — <span class="art-txt">"Les actes juridiques sont des manifestations de volonté destinées à produire des effets de droit."</span></p>
+        <p><span class="art-num">Art. 1100-2 C. civ.</span> — <span class="art-txt">"Les faits juridiques sont des agissements ou des événements auxquels la loi attache des effets de droit."</span></p>
+        <p><span class="art-num">Art. 1100-2 al. 2 C. civ.</span> — <span class="art-txt">"Les obligations qui naissent d'un fait juridique sont régies selon le cas par le sous-titre relatif à la responsabilité extra-contractuelle ou le sous-titre relatif aux autres sources d'obligation."</span></p>
+        <p>Les "autres sources d'obligation" = les quasi-contrats uniquement. Plan médiocre de l'ordonnance sur ce point — textes ajoutés in extremis sous pression doctrinale.</p>
+
+        <p><strong>Actes juridiques ≠ uniquement obligationnels :</strong> ex. la reconnaissance de paternité est un acte juridique qui crée un statut (la parenté), pas des obligations au sens du droit des obligations. L'obligation alimentaire qui en découle est d'origine légale (autorité de la loi), pas contractuelle ni délictuelle.</p>
+
+        <p><strong>Faits juridiques ≠ uniquement obligationnels :</strong> la naissance et la mort sont des faits juridiques qui ne créent pas d'obligations civiles — question classique de grand oral.</p>
+
+        <p><strong>Contrat — nouvelle définition :</strong></p>
+        <p><span class="art-num">Art. 1101 C. civ.</span> — <span class="art-txt">"Le contrat est un accord de volonté entre deux ou plusieurs personnes destinées à créer, modifier, transmettre ou éteindre des obligations."</span></p>
+        <p>Apport de l'ordonnance : le contrat n'est plus seulement créateur d'obligations. Il peut aussi les modifier (novation), transmettre (cession de créance, cession de contrat) ou éteindre (remise de dette). Ces figures sont du RGO et du droit des contrats simultanément.</p>
+      </div>
+    </div>
+
+    <!-- III. Engagement unilatéral de volonté -->
+    <div class="subsection">
+      <div class="subsection-title">III. Engagement unilatéral de volonté (EUV) — sources et domaine</div>
+      <div class="block">
+        <p><strong>EUV non reconnu par le Code civil de 1804</strong> — mais connu en droit allemand (BGB) et en common law (promesse de récompense).</p>
+
+        <p><strong>Reconnaissance jurisprudentielle avant 2016 :</strong></p>
+        <ul style="padding-left:24px;margin:12px 0;">
+          <li>Droit du travail : engagement unilatéral de l'employeur — jurisprudence constante de la Chambre sociale</li>
+          <li>Procédures collectives : engagement du repreneur à la barre non acté dans le plan — <span class="juris">jurisprudence de la Chambre commerciale</span></li>
+          <li>Obligation naturelle muée en civile : <span class="juris">Cass. 1re civ., 10 octobre 1995, arrêt PMU</span></li>
+          <li>Droit des sociétés : promesse de partage de bénéfices — <span class="juris">Cass. 1re civ., 10 septembre 2015</span></li>
+        </ul>
+
+        <p><strong>Codification à l'ordonnance :</strong> <span class="art-num">art. 1100-1 C. civ.</span></p>
+
+        <p><strong>EUV résiduel — ne pas l'inventer quand il y a un contrat :</strong></p>
+        <div class="quote">"Surtout dans les cas pratiques, n'allez pas m'inventer un engagement unilatéral de volonté quand il y a de toute évidence un contrat. Parce qu'on va se dire que vous fumez la moquette. [...] Si vous regardez bien les exemples que nous avons vus en jurisprudence, c'était des hypothèses dans lesquelles la qualification contractuelle posait problème systématiquement."</div>
+
+        <p><strong>L'offre avec délai n'est PAS un EUV :</strong></p>
+        <div class="quote">"La réponse du rapport au président de la République est négative. [...] C'est une question qu'on retrouvera. La réponse est négative."</div>
+        <p>Rejet explicite par l'ordonnance. Le rapport au Président de la République mentionne ce débat. En cas de rétractation prématurée de l'offre : responsabilité délictuelle (<span class="art-num">art. 1116 C. civ.</span>), pas exécution forcée.</p>
+
+        <p><strong>Loteries publicitaires — évolution jurisprudentielle :</strong></p>
+        <p><span class="juris">Cass. 1re civ., 28 mars 1995</span> — EUV retenu pour la promesse de gain apparent à l'occasion d'une loterie publicitaire.</p>
+        <p><span class="juris">Ch. mixte, 6 septembre 2002</span> — bascule sur le terrain du quasi-contrat (création d'apparence trompeuse). Solution aujourd'hui majoritaire. L'EUV de 1995 est dépassé mais connu — pourrait redevenir pertinent.</p>
+        <div class="quote">"C'est là que vous voyez que la maîtrise des sources est essentielle. Parce que si vous croyez qu'un engagement unilatéral de volonté est un quasi-contrat, vous racontez n'importe quoi dans votre copie. L'engagement unilatéral de volonté est un acte juridique alors que le quasi-contrat est un fait juridique."</div>
+
+        <p><strong>Arrêt du 10 septembre 2015 — promesse de partage de bénéfices en droit des sociétés :</strong></p>
+        <p><span class="juris">Cass. 1re civ., 10 septembre 2015</span> — EUV reconnu pour une promesse de partage de bénéfices dépassant la proportion du capital détenu. L'arrêt interroge la validité de l'EUV par analogie avec les conditions de validité des contrats — notamment la notion de cause (devenue contrepartie convenue). La Cour admet qu'il peut y avoir une contrepartie factuelle (avantages antérieurement consentis) même sans contrat. Arrêt tombé en IEJ comme commentaire avant la réforme.</p>
+      </div>
+    </div>
+
+    <!-- IV. Faute civile — art. 1240 et 1241 -->
+    <div class="subsection">
+      <div class="subsection-title">IV. La faute civile — art. 1240 et 1241 C. civ.</div>
+      <div class="block">
+        <p><strong>Pas de réforme — simple renumérotation :</strong> <span class="art-num">art. 1382 anc.</span> devenu <span class="art-num">art. 1240 C. civ.</span> / <span class="art-num">art. 1383 anc.</span> devenu <span class="art-num">art. 1241 C. civ.</span> Ne jamais écrire "nouvel article 1240".</p>
+
+        <p><span class="art-num">Art. 1240 C. civ.</span> — <span class="art-txt">"Tout fait quelconque de l'homme, qui cause à autrui un dommage, oblige celui par la faute duquel il est arrivé à le réparer."</span> (anciennement art. 1382)</p>
+
+        <p><span class="art-num">Art. 1241 C. civ.</span> — <span class="art-txt">"Chacun est responsable du dommage qu'il a causé non seulement par son fait, mais encore par sa négligence ou par son imprudence."</span> (anciennement art. 1383)</p>
+
+        <p><strong>Distinction faute volontaire / faute d'imprudence — sans portée pratique :</strong></p>
+        <div class="quote">"En droit français, il y a un principe qui s'applique, qui est le principe de la réparation intégrale. C'est-à-dire qu'une faute depuis 1804 vaut une faute. Une faute volontaire ou une faute d'imprudence, la victime a droit à réparation intégrale, point."</div>
+
+        <p><strong>Enfants et fous peuvent être fautifs :</strong></p>
+        <ul style="padding-left:24px;margin:12px 0;">
+          <li>Enfants : <span class="juris">AP, 9 mai 1984 (arrêts Lemaire et Derguigny)</span> — suppression de l'imputabilité subjective pour les mineurs</li>
+          <li>Déments : <span class="loi">Loi du 3 janvier 1968</span>, <span class="art-num">art. 414-3 C. civ.</span> (ex-<span class="art-num">art. 489-2</span>) — un dément peut être civilement responsable même s'il n'est pas pénalement responsable</li>
+        </ul>
+
+        <p><strong>Commencer par la faute si les faits le permettent :</strong></p>
+        <div class="quote">"Vous avez des personnes qui arrivent à commencer quasiment les cas pratiques systématiquement par des cas de responsabilité objective. Ils disent, ah oui, on m'a dit de commencer systématiquement par les responsabilités sans faute. Non, en fait, ça c'est de la deuxième année. [...] Si vous avez un cas pratique dans lequel, au contraire, vous voyez qu'il y a des éléments qui permettent de fonder la faute de manière absolument lumineuse, vous n'allez quand même pas commencer par un régime de responsabilité sans faute."</div>
+        <p>La faute est le droit commun de la responsabilité civile extra-contractuelle. Toujours commencer par 1240 si les faits permettent de caractériser une faute.</p>
+
+        <p><strong>Responsabilité contractuelle vs extra-contractuelle :</strong> la "responsabilité contractuelle" est une technique de réparation du préjudice causé par l'inexécution d'un contrat (<span class="art-num">art. 1217 et s. C. civ.</span>). Elle n'est pas une responsabilité comme une autre — elle reflète la volonté des parties et inclut notamment la limite du préjudice prévisible.</p>
+        <p><span class="art-num">Art. 1231-3 C. civ.</span> (ex-<span class="art-num">art. 1150</span>) — <span class="art-txt">"Le débiteur n'est tenu que des dommages et intérêts qui ont été prévus ou qui pouvaient être prévus lors de la conclusion du contrat, sauf lorsque l'inexécution est due à une faute lourde ou dolosive."</span></p>
+        <p>Faute dolosive = inexécution volontaire. En matière délictuelle : réparation intégrale sans plafond.</p>
+
+        <p><strong>Responsabilité notariale — erreur éditoriale du Dalloz :</strong></p>
+        <div class="quote">"Les notaires ne sont pas tenus en droit français au titre de la responsabilité contractuelle. C'est une erreur épouvantable. Elle est entièrement délictuelle. Sauf un cas sur 100 [...] C'est une des plus grosses erreurs éditoriales dans le Code Dalloz."</div>
+        <p>La responsabilité notariale est délictuelle (responsabilité statutaire d'officier ministériel). Sous <span class="art-num">art. 1231-1 Dalloz</span>, la classer en responsabilité contractuelle est une faute grave — erreur ayant coûté des points en 2017.</p>
+      </div>
+    </div>
+
+    <!-- V. Principe de non-cumul -->
+    <div class="subsection">
+      <div class="subsection-title">V. Principe de non-cumul = principe de non-option</div>
+      <div class="block">
+        <p><strong>Fondement purement jurisprudentiel — pas de texte :</strong></p>
+        <div class="quote">"Est-ce qu'il est légal, le principe de non-cumul ? Non, il est jurisprudentiel. Il est purement jurisprudentiel. Donc, si vous allez m'inventer un texte pour fonder le principe de non-cumul [...] si vous avez un correcteur de bon niveau, il va être fou."</div>
+        <p>Arrêt de référence absolu : <span class="juris">Civ., 11 janvier 1922</span> (et non l'arrêt de Cass. 2e civ., 9 juin 1993, qui est un arrêt d'espèce sans intérêt). L'arrêt de 1922 figure au Grand Arrêt de la Jurisprudence Civile (GAJC).</p>
+
+        <p><strong>Vraie dénomination — non-option :</strong></p>
+        <div class="quote">"Tout le monde l'appelle principe de non-cumul. Ça ne veut strictement rien dire. [...] C'est-à-dire que vous ne pouvez pas opter pour le régime de responsabilité qui vous arrange. Si vous êtes en présence d'un contrat, la responsabilité sera une responsabilité contractuelle. S'il n'y a pas de contrat, la responsabilité ne pourra être qu'extra-contractuelle."</div>
+
+        <p><strong>Justification :</strong> sécurité juridique et prévisibilité. Quand il y a un contrat, on respecte la volonté des parties (et ses aménagements). Quand il n'y en a pas, on applique la réparation intégrale de droit commun. On ne peut pas mélanger les deux régimes car ils reposent sur des sources contradictoires.</p>
+      </div>
+    </div>
+
+    <!-- VI. Chaînes de contrats -->
+    <div class="subsection">
+      <div class="subsection-title">VI. Chaînes de contrats — trois arrêts, pas une théorie mathématique</div>
+      <div class="block">
+
+        <p><strong>Principe :</strong> entre deux personnes qui ne se connaissent pas, la responsabilité est délictuelle (<span class="art-num">art. 1240 C. civ.</span>). Deux exceptions jurisprudentielles, très précises, où l'action est contractuelle.</p>
+
+        <p><strong>Exception 1 — Chaînes translatives de propriété : <span class="juris">Cass. 1re civ., 9 octobre 1979, arrêt Lamborghini</span></strong></p>
+        <p>L'action en garantie des vices cachés est transmise avec le bien en tant qu'accessoire (transmission propter rem / in futuris). Le dernier acquéreur peut agir contractuellement contre le vendeur originaire (fabricant), même sans lien direct. Conséquence : les clauses limitatives de responsabilité entre les premiers maillons sont aussi transmises — ce qui peut être défavorable au dernier maillon.</p>
+        <div class="quote">"Ce n'est pas une dérogation à la non-option, parce que ce n'est pas la victime qui choisit. [...] On impose au dernier maillon de la chaîne une action contractuelle. [...] Vous devez agir sur le terrain contractuel. On en reparlera."</div>
+
+        <p><strong>Exception 2 — Contrat constitutif de propriété suivi d'une vente : <span class="juris">AP, 7 février 1986 (arrêt des tuiles gélives)</span></strong></p>
+        <p>Même solution que Lamborghini. Contrat d'entreprise de construction (constitutif de propriété pour le maître de l'ouvrage) + vente de matériaux par l'entrepreneur à un fournisseur. Le maître de l'ouvrage peut agir contractuellement contre le fournisseur de l'entrepreneur pour les vices des matériaux (tuiles qui éclatent au gel). Le contrat d'entreprise est constitutif (et non translatif) de propriété, mais la même logique de transmission s'applique.</p>
+
+        <p><strong>Arrêt fondamental — refus d'extension à la sous-traitance : <span class="juris">AP, 12 juillet 1991, arrêt Besse</span></strong></p>
+        <p>Fin de la théorie des groupes de contrats (Bernard Teyssié). Un maître de l'ouvrage veut agir contre le sous-traitant plombier de son entrepreneur (qui a mal installé le réseau d'eau). L'assemblée plénière refuse l'action contractuelle — tranche le conflit entre la 1re chambre civile (favorable à la théorie des groupes de contrats, arrêts Clic-Clac Photo et Aéroport de Paris, 1988) et la 3e chambre civile (attachée à l'effet relatif des conventions).</p>
+        <div class="quote">"L'arrêt Besse, qu'est-ce qu'elle dit ? Elle dit ils ne se connaissent pas. Conséquemment, la responsabilité ne peut être que délictuelle. Elle dit que c'est l'effet relatif des conventions qui commande l'application de quel texte ? Eh bien, 1382 devenu 1240."</div>
+        <p>Rendu au visa de l'effet relatif des conventions (<span class="art-num">art. 1199 C. civ.</span>, ex-<span class="art-num">art. 1165</span>) et de la faute (<span class="art-num">art. 1240 C. civ.</span>).</p>
+
+        <p><strong>Les terminologies "chaînes homogènes / hétérogènes" n'existent pas dans les arrêts :</strong></p>
+        <div class="quote">"La terminologie n'est pas usitée. Vous voyez, donc c'est le genre de choses qu'on va étudier. Parce que ça vous allait être beaucoup plus à l'aise en cas pratique. [...] C'est une matière qui, sinon, est terrorisante."</div>
+        <p>Ce sont des reconstructions doctrinales pédagogiques (Patrick Jourdain). La Cour de cassation n'a jamais créé une théorie mathématique. Il y a trois arrêts, pas des équations.</p>
+
+        <p><strong>Vice caché ≠ défectuosité :</strong> distinction fondamentale pour les chaînes de contrats vs droit des produits défectueux. La garantie des vices cachés est au programme en obligation (dans son principe) mais pas dans son régime (qui relève des contrats spéciaux). Déjà tombé en annales.</p>
+      </div>
+    </div>
+
+    <!-- VII. Quasi-contrats -->
+    <div class="subsection">
+      <div class="subsection-title">VII. Quasi-contrats — annonce du cours détaillé</div>
+      <div class="block">
+        <p><strong>Le quasi-contrat n'est pas un contrat :</strong> c'est un fait juridique, pas un acte juridique. Classé sous les faits juridiques par le code depuis l'ordonnance.</p>
+        <p><span class="art-num">Art. 1300 et s. C. civ.</span> — les quasi-contrats (gestion d'affaires, paiement de l'indu, enrichissement injustifié).</p>
+        <div class="quote">"En droit français, le quasi-contrat n'est en rien un contrat. Pas plus d'ailleurs qu'ailleurs. [...] Le quasi-contrat n'est pas un acte juridique. C'est un fait juridique."</div>
+        <p>Étude détaillée prévue lors des prochains cours — déjà au programme du premier DST.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- METHODO -->
+  <div class="section" id="methodo">
+    <div class="section-header">
+      <span class="section-tag tag-methodo">⚠️ Méthodo</span>
+      <span class="section-title">Conseils méthodologiques et pédagogiques</span>
+    </div>
+
+    <div class="block">
+      <p><strong>Toujours établir la filiation droit ancien / droit nouveau dans la majeure :</strong> même pour un cas pratique à droit nouveau, la jurisprudence antérieure est indispensable pour lire le texte nouveau. Ne pas le faire = plafonner à 9-10/20.</p>
+
+      <p><strong>Raisonner par qualifications, pas par exemples :</strong></p>
+      <div class="quote">"Le candidat qui raisonne par l'exemple, en droit, il est foutu aujourd'hui. Pourquoi ? Parce qu'il faut raisonner à l'inverse. Il faut partir des qualifications et les appliquer sur n'importe quelle réalité parce qu'on les maîtrise."</div>
+
+      <p><strong>Le vrai travail est dans la mineure — pas la majeure :</strong></p>
+      <div class="quote">"Mon sujet, c'est la mineure. [...] Tous nos candidats qui ont eu plus de 14 sur 20, ce sont tous ceux qui ont travaillé la mineure. Et ceux qui ont eu 18, ils ont fait la moitié de leur copie sur les mineurs."</div>
+
+      <p><strong>Raisonnement en deux temps pour l'EUV :</strong></p>
+      <ul style="padding-left:24px;margin:12px 0;">
+        <li><strong>1er temps :</strong> est-ce que l'engagement unilatéral de volonté existe ? (majeure : règle + application aux faits)</li>
+        <li><strong>2e temps :</strong> si oui, est-il valide ? (conditions de validité par analogie avec les contrats — vices du consentement notamment)</li>
+      </ul>
+      <div class="quote">"Là où finalement 80 % des juristes vont s'arrêter, ils vont dire 'Ah oui, il y a eu transformation de l'obligation naturelle en obligation civile.' [...] Et je leur répondrai : 'Oui, et l'engagement unilatéral de volonté, il était valable ici ? Parce que s'il n'était pas valable, je peux obtenir sa nullité.'"</div>
+
+      <p><strong>Commencer par la faute si les faits le permettent — jamais de réflexe systématique de responsabilité sans faute :</strong> la faute est le droit commun de la RC extra-contractuelle. La responsabilité sans faute est l'exception. Commencer par elle quand les éléments pour caractériser la faute sont évidents, c'est une erreur méthodologique grave.</p>
+
+      <p><strong>Sur les chaînes de contrats — ne pas extrapoler :</strong></p>
+      <div class="quote">"Arrêtez ça. Il n'y a pas la meilleure à boire. [...] Ce ne sont pas des équations mathématiques, ce sont des hypothèses sériées. [...] La Cour de cassation n'a jamais inventé une théorie ou des chaînes qu'elle aurait comme ça rendu mathématique."</div>
+
+      <p><strong>Ne pas inventer un texte pour le principe de non-cumul :</strong> fondement purement jurisprudentiel. L'arrêt de référence est <span class="juris">Civ. 11 janvier 1922</span>, pas l'arrêt de Cass. 2e civ. du 9 juin 1993 (arrêt d'espèce). Grave erreur de citer le second en premier.</p>
+
+      <p><strong>Rapport au Président de la République — ne pas le citer directement, mais en connaître les apports :</strong></p>
+      <div class="quote">"Je vous en parlerai pour vous expliquer comment vous pouvez interpréter et devez interpréter les textes. Mais par contre, vous, pour l'instant, vous ne le citez pas. Je vous dirai les endroits où vous pouvez le citer."</div>
+    </div>
+  </div>
+
+  <!-- GRAND ORAL -->
+  <div class="section" id="oral">
+    <div class="section-header">
+      <span class="section-tag tag-oral">🎓 Grand oral</span>
+      <span class="section-title">Culture juridique et préparation orale</span>
+    </div>
+
+    <div class="block">
+      <p><strong>Actes et faits juridiques — portée au-delà du droit des obligations :</strong> ne pas laisser croire que l'acte/fait juridique n'existe qu'en droit des obligations. En droit administratif : les actes administratifs unilatéraux (décrets, réglements). En droit privé : la reconnaissance de paternité. Au grand oral, un examinateur publiciste peut s'énerver si cette dimension n'est pas perçue.</p>
+
+      <p><strong>Faits juridiques non obligationnels — exemples à avoir en tête :</strong></p>
+      <ul style="padding-left:24px;margin:12px 0;">
+        <li>La naissance : fait attachant la personnalité juridique, pas une source d'obligations civiles</li>
+        <li>La mort : extinction (et non création) de certaines obligations personnelles, ouverture de la succession</li>
+      </ul>
+
+      <p><strong>BGB — droit comparé :</strong> le BGB (Code civil allemand) reconnaît depuis longtemps l'acte juridique unilatéral comme source d'obligation. La common law connaît la promesse de récompense (exemple du chat perdu). Le droit français a mis du temps à s'y ouvrir — codification en 2016.</p>
+
+      <p><strong>Geneviève Viney</strong> — papesse du droit de la responsabilité civile. Elle estimait que la distinction "chaînes translatives / non-translatives" ne tenait pas intellectuellement, notamment sur l'affaire Besse.</p>
+
+      <p><strong>Bernard Teyssié</strong> — auteur de la théorie des groupes de contrats, travailliste et civiliste. Sa proposition a été rejetée par l'AP Besse (1991).</p>
+
+      <p><strong>Patrick Jourdain</strong> — auteur de la classification doctrinale des chaînes homogènes / hétérogènes. Qualification pédagogique, pas une règle de droit positive.</p>
+
+      <p><strong>Jean Carbonnier</strong> — l'<span class="art-num">art. 1100-1 al. 2</span> est la codification de sa proposition doctrinale sur l'application par analogie des conditions de validité des contrats aux engagements unilatéraux de volonté.</p>
+
+      <p><strong>Grand oral — quand travailler :</strong></p>
+      <div class="quote">"Le lendemain. De la fin des écrits. Allez, quatre jours après. [...] En aucun cas, vous n'allez travailler le grand oral maintenant en tant que tel. Vous allez travailler le grand oral en préparation annuelle, en vous construisant une solide culture générale."</div>
+    </div>
+  </div>
+
+  <!-- CRITIQUE -->
+  <div class="section" id="critique">
+    <div class="section-header">
+      <span class="section-tag tag-critique">🔍 Critique des prépas</span>
+      <span class="section-title">Erreurs et manques de formation dénoncés</span>
+    </div>
+
+    <div class="block">
+      <p><strong>Apprendre par l'exemple au lieu de raisonner par les qualifications :</strong></p>
+      <div class="quote">"Ils raisonnent par des exemples au lieu de raisonner par la généralité des qualifications. C'est terrible. [...] Un exemple ne sert qu'à illustrer. Il ne permet pas de saisir la réalité."</div>
+
+      <p><strong>Travailler uniquement sur sujets corrigés :</strong> perte du sens tactique du sujet. Le candidat finit par traiter le sujet qu'il a préparé plutôt que celui qu'on lui donne.</p>
+
+      <p><strong>La théorie des chaînes homogènes / hétérogènes enseignée comme du droit positif :</strong></p>
+      <div class="quote">"Vous avez des gens qui croient ça, qui croient que c'est du droit positif. [...] Vous allez voir quand je vais vous expliquer la chose, qu'en fait, si vous appliquez ça sous forme d'équation, ça ne marche jamais sur les hypothèses les plus intelligentes."</div>
+
+      <p><strong>Dire que la garantie des vices cachés n'est pas au programme :</strong></p>
+      <div class="quote">"Vous avez d'excellents préparateurs qui, ne connaissant rien même à la garantie contre les vices cachés, disent aux candidats : 'Ah non, mais la garantie contre les vices cachés, ce n'est pas au programme.' [...] Dans son principe, si elle est au programme en obligation."</div>
+      <p>La garantie contre les vices cachés est au programme dans son principe (sources des obligations) — pas dans son régime (contrats spéciaux). Elle est directement articulée avec les chaînes de contrats.</p>
+
+      <p><strong>Écrire "nouvel article 1240" ou "article 1382 nouveau" :</strong></p>
+      <div class="quote">"Si vous voyez circuler des corrigés avec l'article 1240 nouveau ou le nouvel article 1240, vous prenez le corrigé, d'où qu'il émane, IEJ, prépa, privé, autre, vous le jetez."</div>
+
+      <p><strong>Inventer un texte pour le principe de non-cumul :</strong> fondement jurisprudentiel, pas légal. Un des apports attendus de la future réforme de la RC sera précisément de le légaliser.</p>
+
+      <p><strong>Erreur éditoriale du Dalloz sur la responsabilité notariale :</strong> classée sous la responsabilité contractuelle alors qu'elle est délictuelle. Signalée depuis 2017 sans correction.</p>
+    </div>
+  </div>
+
+  <!-- ALERTES -->
+  <div class="section" id="alerte">
+    <div class="section-header">
+      <span class="section-tag tag-alerte">⚡ Alertes examen</span>
+      <span class="section-title">Sujets susceptibles de tomber</span>
+    </div>
+
+    <div class="block">
+      <div class="alert-box">
+        <div class="alert-title">Obligation naturelle — art. 1100 al. 2</div>
+        Jamais tombé. L'arrêt de 2012 (lu à contrario) + CA Montpellier 2024 donnent un cadre jurisprudentiel récent. La validité de l'EUV (2e temps du raisonnement) est la clé de la différence entre un 8 et un 18.
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Engagement unilatéral de volonté — art. 1100-1</div>
+        Jamais tombé mais codifié. Arrêt 1re civ. 10 sept. 2015 (droit des sociétés) est tombé en IEJ. À risque si un spécialiste du droit des sociétés ou du droit du travail est nommé à la commission.
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Chaînes de contrats — Lamborghini, AP 7 fév. 1986, AP Besse</div>
+        Déjà tombé en annales (sujet sur les sources — 8 points). La distinction avec le droit des produits défectueux était dans le même sujet. À réviser systématiquement.
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Principe de non-cumul / non-option — Civ. 11 janvier 1922</div>
+        Classique mais souvent mal traité. Le candidat doit citer 1922 en premier, pas un arrêt d'espèce de 1993. Fondement purement jurisprudentiel.
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Vice caché vs défectuosité — distinction fondamentale</div>
+        La garantie des vices cachés est au programme dans son principe. La distinction avec la défectuosité (produits défectueux) est indispensable pour traiter les chaînes de contrats.
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Premier DST — quasi-contrats au programme</div>
+        Le premier DST contiendra des questions sur les quasi-contrats. Étude détaillée prévue dans le prochain cours.
+      </div>
+    </div>
+  </div>
+
+  <!-- ORGANISATION -->
+  <div class="section" id="orga">
+    <div class="section-header">
+      <span class="section-tag tag-orga">🗓️ Organisation</span>
+      <span class="section-title">Informations pratiques</span>
+    </div>
+
+    <div class="block">
+      <p><strong>Prochains cours :</strong> décalage d'emploi du temps — mercredi prochain = cours général (sources), vendredi prochain = cours droit des contrats.</p>
+      <p><strong>Premier DST :</strong> semaine suivant celle du cours 4 (dans environ 2 semaines). Note de synthèse prévue la semaine précédente.</p>
+      <p><strong>Concours de médiation CMAP :</strong> 2 mars - 2 avril. Participation proposée aux volontaires. Formation par le prof en soirées et week-ends.</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

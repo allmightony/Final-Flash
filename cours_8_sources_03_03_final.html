@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours 8 — Sources des Obligations — 3 mars 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #faf9f6;
+    --surface: #ffffff;
+    --border: #e8e4dc;
+    --text: #1a1a1a;
+    --text-light: #555;
+    --article: #c0392b;
+    --juris: #6c3483;
+    --loi: #7b5e3a;
+    --citation: #1a5276;
+    --tag-cours: #2c6e49;
+    --tag-methodo: #1565c0;
+    --tag-oral: #6a0f49;
+    --tag-critique: #b71c1c;
+    --tag-alerte: #e65100;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; font-style: normal; }
+
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .page-header {
+    background: #ffffff;
+    color: #1a1a1a;
+    padding: 48px 64px 40px;
+    border-bottom: 4px solid var(--article);
+  }
+  .page-header .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 12px;
+  }
+  .page-header h1 { font-size: 2rem; font-weight: 500; margin-bottom: 8px; }
+  .page-header .subtitle { color: #ccc; font-size: 1rem; }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 64px;
+    background: #f2f0ea;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+
+  .main { max-width: 900px; margin: 0 auto; padding: 48px 32px 80px; }
+
+  .note {
+    background: #f0f4ff;
+    border: 1px solid #c5cee0;
+    border-left: 4px solid var(--citation);
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin-bottom: 32px;
+    font-size: 0.92em;
+    color: #333;
+  }
+
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin-bottom: 48px;
+  }
+  .toc-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 16px;
+  }
+  .toc ul { list-style: none; padding: 0; }
+  .toc li { padding: 5px 0; font-size: 0.97em; border-bottom: 1px solid #f0ede7; }
+  .toc li:last-child { border-bottom: none; }
+  .toc a { color: var(--text); text-decoration: none; }
+  .toc a:hover { color: var(--article); }
+  .toc .toc-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-light);
+    margin-left: 8px;
+  }
+
+  .section { margin-bottom: 64px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    color: #fff;
+    white-space: nowrap;
+  }
+  .tag-cours    { background: var(--tag-cours); }
+  .tag-methodo  { background: var(--tag-methodo); }
+  .tag-oral     { background: var(--tag-oral); }
+  .tag-critique { background: var(--tag-critique); }
+  .tag-alerte   { background: var(--tag-alerte); }
+  .section-title { font-size: 1.25rem; font-weight: 600; }
+
+  .subsection { margin-bottom: 40px; }
+  .subsection-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 18px;
+    padding-left: 16px;
+    border-left: 3px solid var(--border);
+  }
+  .block p { margin-bottom: 14px; }
+  .block strong { font-weight: 600; }
+
+  .quote {
+    background: var(--surface);
+    border-left: 3px solid #ccc;
+    padding: 14px 20px;
+    margin: 14px 0;
+    border-radius: 0 4px 4px 0;
+    color: #333;
+    font-size: 0.96em;
+  }
+
+  .art-num  { color: var(--article); font-weight: 700; }
+  .art-txt  { color: var(--citation); font-weight: 400; }
+  .juris    { color: var(--juris); font-weight: 700; }
+  .loi      { color: var(--loi); font-weight: 700; }
+
+  .alert-box {
+    background: #fff8f0;
+    border: 1px solid #e65100;
+    border-left: 4px solid #e65100;
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 16px 0;
+    font-size: 0.95em;
+  }
+  .alert-box .alert-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #e65100;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  ul, ol { padding-left: 26px; margin: 12px 0; }
+  li { margin-bottom: 6px; }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    @page { size: A4; margin: 15mm 14mm 18mm 14mm; }
+    body { font-size: 10.5pt; line-height: 1.55; background: #faf9f6 !important; color: #1a1a1a !important; }
+    .page-header { background: #ffffff !important; color: #1a1a1a !important; padding: 14pt 20pt 10pt !important; border-bottom: 3pt solid #c0392b !important; margin-bottom: 8pt; }
+    .page-header .label { color: #888 !important; font-size: 7pt !important; }
+    .page-header h1 { font-size: 15pt !important; margin-bottom: 3pt !important; color: #1a1a1a !important; }
+    .page-header .subtitle { color: #555 !important; font-size: 9pt !important; }
+    .legend { background: #f2f0ea !important; padding: 6pt 20pt !important; font-size: 7.5pt !important; gap: 10pt !important; border-bottom: 1pt solid #e8e4dc !important; margin-bottom: 8pt; }
+    .main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+    .section { margin-bottom: 16pt !important; }
+    .section-header { padding-bottom: 5pt !important; margin-bottom: 8pt !important; border-bottom: 1.5pt solid #e8e4dc !important; page-break-after: avoid; }
+    .section-tag { font-size: 6.5pt !important; padding: 2pt 6pt !important; color: #fff !important; }
+    .tag-cours    { background: #2c6e49 !important; }
+    .tag-methodo  { background: #1565c0 !important; }
+    .tag-oral     { background: #6a0f49 !important; }
+    .tag-critique { background: #b71c1c !important; }
+    .tag-orga     { background: #4a4a4a !important; }
+    .tag-alerte   { background: #e65100 !important; }
+    .section-title { font-size: 11pt !important; }
+    .subsection { margin-bottom: 10pt !important; }
+    .subsection-title { font-size: 9.5pt !important; margin-bottom: 5pt !important; }
+    .block { background: #ffffff !important; border: 0.75pt solid #e8e4dc !important; padding: 8pt 10pt !important; margin-bottom: 6pt !important; page-break-inside: avoid; }
+    .block p { margin-bottom: 5pt !important; font-size: 10pt !important; }
+    .block ul { padding-left: 14pt !important; margin: 4pt 0 !important; }
+    .block li { margin-bottom: 3pt !important; font-size: 10pt !important; }
+    h3 { font-size: 10.5pt !important; margin-top: 7pt !important; margin-bottom: 4pt !important; page-break-after: avoid; }
+    .alert-box { border: 0.75pt solid #e65100 !important; border-left: 3pt solid #e65100 !important; background: #fff8f5 !important; padding: 7pt 10pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .alert-box .alert-title { font-size: 6.5pt !important; color: #e65100 !important; margin-bottom: 4pt !important; }
+    .alert-box p, .alert-box li { font-size: 9.5pt !important; }
+    .quote { border-left: 3pt solid #1a5276 !important; background: #f0f4f8 !important; color: #1a5276 !important; padding: 7pt 10pt !important; font-size: 9.5pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .sub-section { border-top: 0.5pt solid #e8e4dc !important; margin-top: 8pt !important; padding-top: 8pt !important; }
+    .art-num { color: #c0392b !important; }
+    .art-txt { color: #1a5276 !important; }
+    .juris   { color: #6c3483 !important; }
+    .loi     { color: #7b5e3a !important; }
+    a[href]:after { content: none !important; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="label">Droit des obligations · Sources · Cours 8</div>
+  <h1>Cours 8 — Sources des Obligations</h1>
+  <div class="subtitle">3 mars 2026 · Prof. Laurent Poulet-Bellet · Cap Avocat / Formaprep</div>
+</div>
+
+<div class="legend">
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--article)"></div>
+    <span style="color:var(--article);font-weight:700">Numéro d'article</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--citation)"></div>
+    <span style="color:var(--citation)">Texte cité / Doctrine</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--juris)"></div>
+    <span style="color:var(--juris);font-weight:700">Jurisprudence</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--loi)"></div>
+    <span style="color:var(--loi);font-weight:700">Loi</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="note">
+    <strong>Note de lecture.</strong> Ce cours est la suite directe du cours 7. Il couvre : (I) Suite et fin de la répétition de l'indu — <span class="art-num">art. 1302-2</span> : paiement de la dette d'autrui sans indu, recours personnels (contractuel, quasi-contractuel, délictuel), action subrogatoire, limites. Exception destruction de titre et abandon de sûretés. <span class="art-num">Art. 1302-2 al. 2</span> : glissement controversé de l'enrichissement injustifié vers la restitution de l'indu à l'encontre du véritable débiteur. <span class="art-num">Art. 1302-3</span> : réduction de la restitution en cas de faute. (II) Droit général des restitutions — <span class="art-num">art. 1352 à 1352-7</span> : restitution en nature ou en valeur, régime des fruits, nouveauté post-ordonnance de la valeur de la jouissance, articulation <span class="art-num">art. 1352-3 / 1352-7</span>, abandon de <span class="juris">Ch. mixte, 9 juillet 2004</span>. (III) Application dans le temps du droit des restitutions.
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Sommaire</div>
+    <ul>
+      <li><a href="#cours">📚 Cours — Contenu juridique</a> <span class="toc-tag">art. 1302-2 · Recours post-indu · art. 1302-3 · art. 1352 à 1352-7 · Valeur de jouissance · Ch. mixte 9 juill. 2004</span></li>
+      <li><a href="#methodo">⚠️ Méthodo</a> <span class="toc-tag">Majeure quasi-contractuelle · Ordre de raisonnement · Articulation textes · Arrêt d'espèce vs règle générale</span></li>
+      <li><a href="#oral">🎓 Grand oral</a> <span class="toc-tag">Fruits / produits · Nominalisme / valorisme · Résolution vs résiliation · Caducité · Geneviève Viney</span></li>
+      <li><a href="#critique">🔍 Critique des prépas</a> <span class="toc-tag">art. 1352-3 sans 1352-7 · Indu objectif/subjectif · Gestion d'affaires avec contrat · Résolution rétroactive</span></li>
+      <li><a href="#alerte">⚡ Alertes examen</a> <span class="toc-tag">Paiement dette d'autrui sans indu · art. 1302-2 al. 2 glissement · Valeur de jouissance · Art. dans le temps</span></li>
+    </ul>
+  </div>
+
+  <!-- ══════════ COURS ══════════ -->
+  <div class="section" id="cours">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📚 Cours</span>
+      <span class="section-title">Contenu juridique pur</span>
+    </div>
+
+    <!-- I. SUITE ART. 1302-2 -->
+    <div class="subsection">
+      <div class="subsection-title">I. Art. 1302-2 — Paiement de la dette d'autrui : recours lorsqu'il n'y a pas d'indu</div>
+      <div class="block">
+
+        <p><strong>Rappel de la structure de l'art. 1302-2 :</strong> ce texte vise l'hypothèse où une dette existait bien (l'accipiens est créancier), mais où le solvens n'était pas le véritable débiteur. Il a payé la dette d'autrui. La restitution contre l'accipiens n'est ouverte que si le paiement a été fait par erreur ou sous la contrainte (<span class="art-num">art. 1302-2 al. 1</span>). Si le paiement était volontaire et conscient, il n'y a pas d'indu — mais le solvens peut disposer d'autres recours.</p>
+
+        <p><strong>Trois situations à distinguer selon l'intention du solvens :</strong></p>
+        <ul>
+          <li><strong>Paiement volontaire avec intention libérale :</strong> pas d'indu, et pas de recours contre l'accipiens ni contre le véritable débiteur. Le solvens a fait un cadeau. Il en est pour ses frais — aucune action possible.</li>
+          <li><strong>Paiement volontaire sans intention libérale :</strong> pas d'indu (car pas d'erreur ni de contrainte, condition de l'<span class="art-num">art. 1302-2</span>), donc pas de restitution possible contre l'accipiens. Mais le solvens dispose de recours contre le véritable débiteur — voir ci-dessous.</li>
+          <li><strong>Paiement par erreur ou sous la contrainte :</strong> indu caractérisé, action en restitution contre l'accipiens (<span class="art-num">art. 1302-2 al. 1</span>), sous réserve de l'exception du titre détruit ou des sûretés abandonnées.</li>
+        </ul>
+
+        <p><strong>Recours du solvens contre le véritable débiteur (paiement volontaire sans intention libérale) :</strong> trois fondements possibles, à examiner dans l'ordre des sources.</p>
+
+        <ul>
+          <li><strong>Action subrogatoire :</strong> le créancier désintéressé transmet sa créance au solvens par subrogation. Largement admise en droit positif (subrogation légale très étendue). Mais la subrogation n'est pas toujours intéressante : si la créance est viciée, prescrite ou affectée d'exceptions opposables, la subrogation transmet aussi ces défauts. Ne pas présenter la subrogation comme toujours favorable.</li>
+          <li><strong>Action personnelle contractuelle :</strong> si le solvens et le véritable débiteur ont contracté (ex. prêt, mandat de paiement), l'action est contractuelle et prime toute autre. La banque qui paye les créanciers d'un client dans le cadre d'un rachat de dette dispose d'une action contractuelle en remboursement du prêt avec intérêts — la subrogation lui serait bien moins favorable (pas d'intérêts). Exemple : le prêt bancaire de regroupement de dettes, le mandat de paiement. Cette action contractuelle exclut la gestion d'affaires, qui est subsidiaire à tout contrat.</li>
+          <li><strong>Action personnelle quasi-contractuelle :</strong> en l'absence de contrat entre le solvens et le véritable débiteur, le solvens peut invoquer la gestion d'affaires si son paiement était spontané et utile (<span class="juris">Cass. civ. 1re, 12 janvier 2012</span> : admission d'une gestion d'affaires dans l'hypothèse où une personne a payé les dettes d'une autre en agissant à la fois dans son intérêt et dans celui de la débitrice pour éviter la saisie de ses biens immobiliers). Si les conditions de la gestion d'affaires ne sont pas réunies, l'enrichissement injustifié prend le relais à titre subsidiaire (<span class="art-num">art. 1301-5</span>). Dans les deux cas, l'indemnité est limitée : la gestion d'affaires ne couvre que les dépenses exposées ; l'enrichissement injustifié est borné par la plus faible des deux sommes entre appauvrissement et enrichissement.</li>
+          <li><strong>Action en responsabilité civile délictuelle :</strong> possible lorsque le solvens a subi un préjudice propre dépassant le montant du paiement, du fait du comportement fautif du véritable débiteur (ex. le locataire gérant qui paye la dette du bailleur de fonds pour éviter son éviction, subit en cascade une désorganisation financière — perte de clients, agios bancaires). La responsabilité civile (<span class="art-num">art. 1240</span>) permettra d'obtenir la réparation intégrale du préjudice, là où la gestion d'affaires n'aurait couvert que les débours.</li>
+        </ul>
+
+        <p><strong>Exception au droit à restitution — destruction du titre ou abandon des sûretés (art. 1302-2 al. 1, seconde phrase) :</strong> <span class="art-txt">"Néanmoins ce droit cesse dans le cas où le créancier, par suite du paiement, a détruit son titre ou abandonné les sûretés qui garantissaient sa créance."</span> Si le créancier accipiens, croyant de bonne foi avoir été désintéressé définitivement, a détruit son titre de créance ou levé ses sûretés (ex. mainlevée d'hypothèque, libération de la caution), il ne peut pas se voir contraindre de restituer l'indu — car la restitution le priverait de tout moyen de recouvrement contre le véritable débiteur. Dans ce cas, le solvens doit se retourner contre le véritable débiteur, sur le fondement de l'enrichissement injustifié.</p>
+
+      </div>
+    </div>
+
+    <!-- II. ART. 1302-2 AL. 2 -->
+    <div class="subsection">
+      <div class="subsection-title">II. Art. 1302-2 al. 2 — Glissement controversé vers la restitution de l'indu contre le débiteur</div>
+      <div class="block">
+
+        <p><strong>Le texte :</strong> <span class="art-num">art. 1302-2 al. 2 C. civ.</span> — <span class="art-txt">"La restitution peut aussi être demandée à celui dont la dette a été acquittée par erreur."</span></p>
+
+        <p><strong>Portée du texte :</strong> avant l'ordonnance, lorsque le solvens ne pouvait pas agir en restitution de l'indu contre l'accipiens (parce que celui-ci avait détruit son titre ou abandonné ses sûretés), le fondement de l'action contre le véritable débiteur était l'enrichissement sans cause, devenu enrichissement injustifié — jurisprudence constante. Ce texte modifie le fondement : il prévoit désormais une action en restitution de l'indu directement contre le véritable débiteur, ce qui était inconnu avant 2016.</p>
+
+        <p><strong>Conséquences pratiques de ce glissement :</strong></p>
+        <ul>
+          <li>Le régime de l'enrichissement injustifié prévoit une indemnité égale à la plus faible des deux sommes entre l'appauvrissement du solvens et l'enrichissement du débiteur — ce qui peut être inférieur au montant payé.</li>
+          <li>Le régime de la restitution de l'indu (<span class="art-num">art. 1352 et s.</span>) prévoit la restitution du paiement effectué — ce qui est généralement plus favorable au solvens.</li>
+          <li>L'enjeu financier peut être considérable (ex. 200 000 € d'écart entre les deux régimes).</li>
+        </ul>
+
+        <p><strong>Limite textuelle importante :</strong> l'alinéa 2 ne vise que l'hypothèse du paiement <em>par erreur</em>. A contrario, si le paiement a été fait sous la contrainte, le fondement de l'action contre le véritable débiteur reste l'enrichissement injustifié — le glissement ne s'applique pas.</p>
+
+        <p><strong>Qualification de ce glissement :</strong> anomalie doctrinale relevée par les ouvrages sérieux (Delebecque, Simler). La jurisprudence antérieure fondée sur l'enrichissement sans cause n'est plus de droit positif en cas de paiement par erreur. Les arrêts anciens sur ce fondement sont dépassés pour cette hypothèse précise. Un correcteur national centrera son corrigé sur ce glissement.</p>
+
+      </div>
+    </div>
+
+    <!-- III. ART. 1302-3 -->
+    <div class="subsection">
+      <div class="subsection-title">III. Art. 1302-3 — Régime de la restitution et faute du solvens</div>
+      <div class="block">
+
+        <p><strong>Le texte :</strong> <span class="art-num">art. 1302-3 C. civ.</span> — <span class="art-txt">"La restitution est soumise aux règles fixées aux articles 1352 à 1352-9. Elle peut être réduite si le paiement procède d'une faute."</span></p>
+
+        <p><strong>Al. 1 — renvoi au droit général des restitutions :</strong> toute restitution de l'indu se règle selon les articles 1352 et suivants. C'est le régime général des restitutions, étudié ci-dessous.</p>
+
+        <p><strong>Al. 2 — réduction de la restitution pour faute du solvens :</strong> si le paiement indû résulte d'une faute du solvens, le juge peut réduire le montant de la restitution. Ce n'est pas de la responsabilité civile — il n'est pas exigé de démontrer un préjudice de l'accipiens. La logique est propre au quasi-contrat : une faute suffit au juge pour moduler le quantum. Distinction essentielle :</p>
+        <ul>
+          <li>Erreur non fautive : bug informatique isolé, dysfonctionnement ponctuel → pas de réduction.</li>
+          <li>Erreur fautive : désorganisation chronique de la comptabilité, personnel sous-qualifié, absence de vérifications → réduction possible.</li>
+        </ul>
+        <p>Le résultat pratique se rapproche de la responsabilité civile sans en être un : la restitution intégrale peut être écartée.</p>
+
+      </div>
+    </div>
+
+    <!-- IV. DROIT GENERAL DES RESTITUTIONS -->
+    <div class="subsection">
+      <div class="subsection-title">IV. Droit général des restitutions — art. 1352 à 1352-7</div>
+      <div class="block">
+
+        <p><strong>Champ d'application :</strong> l'ordonnance a voulu établir un régime général des restitutions commun à toutes les hypothèses : restitution de l'indu (quasi-contractuel), restitutions post-nullité contractuelle, post-résolution, post-caducité. L'ambition est celle d'une décorrélation entre la source de l'obligation de restituer et le régime applicable. En pratique, cette universalité est imparfaite : certains textes n'ont de sens que pour les restitutions contractuelles et s'appliquent mal à l'indu.</p>
+
+        <p><strong>Art. 1352 — restitution en nature ou en valeur :</strong> <span class="art-txt">"La restitution d'une chose autre que d'une somme d'argent a lieu en nature ou, lorsque cela est impossible, en valeur, estimée au jour de la restitution."</span></p>
+        <ul>
+          <li>Principe : restitution en nature de la chose indûment remise.</li>
+          <li>Exception : si la restitution en nature est impossible (chose aliénée, détruite), restitution en valeur estimée au jour de la restitution — dette de valeur, non dette nominale. Cette règle protège le demandeur contre l'inflation : on restitue la valeur contemporaine, pas la valeur originaire.</li>
+          <li>Attention : le paiement n'est pas nécessairement monétaire. Il peut porter sur une chose, un transfert de propriété, une prestation de service — tout ce qui constitue l'exécution d'une obligation.</li>
+        </ul>
+
+        <p><strong>Art. 1352-1 — dégradations et détériorations :</strong> <span class="art-txt">"Celui qui restitue la chose répond des dégradations et détériorations qui en ont diminué la valeur, à moins qu'il ne soit de bonne foi et que celles-ci ne soient pas dues à sa faute."</span></p>
+        <ul>
+          <li>Principe : le restituant répond des altérations de la chose.</li>
+          <li>Exception cumulant deux conditions : bonne foi du restituant ET absence de faute de sa part. Si l'une ou l'autre fait défaut, il répond des dégradations. La bonne foi est toujours présumée — c'est à celui qui invoque la mauvaise foi de la démontrer.</li>
+        </ul>
+
+        <p><strong>Art. 1352-2 — revente de la chose par l'accipiens :</strong> <span class="art-txt">"Celui qui l'ayant reçue de bonne foi a vendu la chose ne doit restituer que le prix de la vente. S'il l'a reçue de mauvaise foi, il en doit la valeur au jour de la restitution lorsqu'elle est supérieure au prix."</span></p>
+        <ul>
+          <li>Ce texte est pensé pour l'hypothèse d'une moins-value : si l'accipiens de bonne foi a revendu la chose à un prix inférieur à sa valeur réelle, il ne restitue que le prix perçu — protection de la bonne foi.</li>
+          <li>Si l'accipiens était de mauvaise foi et a mal revendu (à un prix inférieur à la valeur), il doit restituer la valeur réelle au jour de la restitution — régime punitif.</li>
+          <li>La bonne foi s'apprécie au moment de la prise de possession de la chose.</li>
+          <li>Si la chose a été revendue à un prix supérieur à sa valeur (plus-value), le texte ne s'applique pas directement — la valeur au jour de la restitution calculée par le juge est la référence.</li>
+        </ul>
+
+        <p><strong>Art. 1352-3 et art. 1352-7 — fruits et valeur de la jouissance (à combiner impérativement) :</strong></p>
+
+        <p><span class="art-num">Art. 1352-3 C. civ.</span> — <span class="art-txt">"La restitution inclut les fruits et la valeur de la jouissance que la chose a procurée. La valeur de la jouissance est évaluée par le juge au jour où il se prononce. Sauf stipulation contraire, la restitution des fruits, s'ils ne se retrouvent pas en nature, a lieu selon une valeur estimée à la date du remboursement, suivant l'état de la chose au jour du paiement de l'obligation."</span></p>
+
+        <p><span class="art-num">Art. 1352-7 C. civ.</span> — <span class="art-txt">"Celui qui a reçu de mauvaise foi doit les intérêts, les fruits qu'il a perçus ou la valeur de la jouissance à compter du paiement. Celui qui a reçu de bonne foi ne les doit qu'à compter du jour de la demande."</span></p>
+
+        <p><strong>Combinaison des deux textes :</strong></p>
+        <ul>
+          <li>L'<span class="art-num">art. 1352-3</span> seul semble imposer la restitution des fruits et de la valeur de la jouissance sans condition — ce qui paraîtrait contredire l'<span class="art-num">art. 549 C. civ.</span> (conservation des fruits par le possesseur de bonne foi). Il ne faut surtout pas lire le texte isolément.</li>
+          <li>Combiné avec l'<span class="art-num">art. 1352-7</span>, on comprend que le régime des fruits et de la valeur de la jouissance est gouverné par la bonne ou la mauvaise foi : l'accipiens de bonne foi conserve les fruits (et la valeur de la jouissance) jusqu'au jour de l'assignation ; l'accipiens de mauvaise foi doit restituer depuis le jour du paiement indu. L'<span class="art-num">art. 549</span> est confirmé, pas contredit.</li>
+        </ul>
+
+        <p><strong>Fruits — rappel des trois catégories (art. 547 et s. C. civ.) :</strong></p>
+        <ul>
+          <li>Fruits naturels : produits spontanés de la chose (végétaux, animaux).</li>
+          <li>Fruits civils : loyers, intérêts — le loyer de l'argent.</li>
+          <li>Fruits industriels : produits issus du travail humain (cultures, dividendes distribués par décision d'AG).</li>
+        </ul>
+        <p>Distinction fondamentale : fruit ≠ produit. Le fruit est ce que la chose produit périodiquement sans altération de sa substance. Le produit est un élément de la chose dont le prélèvement en altère la substance.</p>
+
+        <p><strong>Valeur de la jouissance — grande nouveauté de l'ordonnance :</strong> avant l'<span class="loi">ordonnance du 10 février 2016</span>, la valeur de la jouissance n'était pas incluse dans le champ des restitutions. Selon <span class="juris">Cass. ch. mixte, 9 juillet 2004</span> (commentaire Geneviève Viney), la compensation de la perte de valeur de jouissance relevait de la responsabilité civile — il fallait démontrer un fait générateur de faute, un préjudice et un lien de causalité. Le rapport au Président de la République indique expressément que l'<span class="art-num">art. 1352-3</span> est un abandon de cette jurisprudence.</p>
+
+        <p><strong>Régime post-ordonnance de la valeur de la jouissance :</strong></p>
+        <ul>
+          <li>La perte de valeur de jouissance est désormais incluse dans le champ des restitutions — plus besoin de démontrer un fait générateur de responsabilité civile.</li>
+          <li>Régime identique à celui des fruits : alignement complet sur la bonne/mauvaise foi (art. 1352-7). L'accipiens de mauvaise foi doit restituer la valeur de la jouissance depuis le paiement. L'accipiens de bonne foi ne la doit qu'à compter de l'assignation.</li>
+          <li>La valeur de la jouissance est évaluée par le juge au jour où il se prononce. Exemple : appartement de 300 m² à Paris — privation de jouissance pendant 5 ans à 10 000 €/mois = 600 000 € d'enjeu.</li>
+          <li>La bonne foi originaire se transforme en mauvaise foi le jour de l'assignation : l'accipiens sait alors qu'il n'est pas légitime titulaire.</li>
+        </ul>
+
+        <p><strong>Art. 1352-7 — précision sur le cumul :</strong> le texte dit <em>ou</em> entre fruits et valeur de la jouissance — cela ne signifie pas qu'il faut choisir. Il signifie que le même régime (bonne/mauvaise foi) gouverne les deux. Le cumul des fruits et de la valeur de la jouissance est possible si les deux sont distincts (ex. loyers perçus par le détenteur à titre de fruits civils + valeur de jouissance personnelle dont a été privé le demandeur).</p>
+
+      </div>
+    </div>
+
+    <!-- V. APPLICATION DANS LE TEMPS -->
+    <div class="subsection">
+      <div class="subsection-title">V. Application dans le temps du droit des restitutions</div>
+      <div class="block">
+
+        <p><strong>Question ouverte :</strong> deux positions s'affrontent, sans jurisprudence tranchée à ce jour.</p>
+        <ul>
+          <li><strong>Thèse de l'autonomie :</strong> le droit des restitutions est autonome par rapport à sa source. Il suffit de savoir si la restitution doit intervenir avant ou après le 1er octobre 2016 (date d'entrée en vigueur de l'ordonnance). Si la restitution intervient après cette date, le nouveau régime (valeur de la jouissance incluse, etc.) s'applique, quelle que soit la date de l'indu ou du contrat nul.</li>
+          <li><strong>Thèse de la corrélation source/régime :</strong> le régime des restitutions suit la loi applicable à l'acte ou au fait qui commande la restitution. Si l'indu s'est constitué avant le 1er octobre 2016, l'ancien droit (dont l'arrêt du 9 juillet 2004) reste applicable. Présentée par certains auteurs dont Olivier Deshayes.</li>
+        </ul>
+        <p>Dans un cas pratique : envisager les deux hypothèses, argumenter en faveur de celle qui est favorable au client, en signalant l'absence de jurisprudence. C'est une valeur ajoutée pour le correcteur.</p>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ MÉTHODO ══════════ -->
+  <div class="section" id="methodo">
+    <div class="section-header">
+      <span class="section-tag tag-methodo">⚠️ Méthodo</span>
+      <span class="section-title">Conseils méthodologiques</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Ordre de raisonnement devant un paiement de la dette d'autrui</div>
+      <div class="block">
+
+        <p><strong>Réflexe sourcier — en présence d'un paiement dont on veut récupérer le montant :</strong></p>
+        <ol>
+          <li>Y a-t-il un indu ? Vérifier : (a) l'accipiens était-il créancier ? (b) le paiement était-il volontaire ou fait par erreur/contrainte ? → Si pas d'indu (paiement volontaire de la dette d'autrui), passer à l'étape suivante.</li>
+          <li>Y a-t-il une intention libérale ? → Si oui : aucune action possible. Fin du raisonnement.</li>
+          <li>Y a-t-il un contrat entre le solvens et le véritable débiteur ? → Si oui : action contractuelle. Elle prime toute action quasi-contractuelle. Ne pas invoquer la gestion d'affaires si un contrat existe — erreur éliminatoire.</li>
+          <li>En l'absence de contrat : action subrogatoire (si la créance transmise est saine) + action quasi-contractuelle (gestion d'affaires si conditions réunies, enrichissement injustifié sinon).</li>
+          <li>Si un préjudice propre dépasse le montant du paiement et qu'une faute du débiteur est caractérisée : action en responsabilité civile (<span class="art-num">art. 1240</span>) pour réparation intégrale.</li>
+        </ol>
+
+        <p><strong>Ne jamais présenter la subrogation comme toujours favorable :</strong> si la créance transmise est prescrite, viciée ou affectée d'exceptions, la subrogation transmet aussi ces défauts. Envisager si l'action personnelle n'est pas préférable.</p>
+
+        <p><strong>Arrêt d'espèce vs règle générale dans la majeure :</strong> l'arrêt <span class="juris">Cass. civ. 1re, 12 janvier 2012</span> sur la gestion d'affaires ne doit pas être cité en tête de majeure comme porteur d'une règle. Il illustre une règle — la gestion d'affaires. La règle, c'est le texte. La méthode correcte : énoncer la règle générale, appliquer, et citer l'arrêt en confirmation à la fin ("comme cela a pu être jugé"). La différence entre la copie à 7 et à 17 est là.</p>
+
+        <p><strong>Combiner impérativement art. 1352-3 et art. 1352-7 :</strong> lire l'<span class="art-num">art. 1352-3</span> seul conduit à une erreur grave (l'impression que les fruits doivent toujours être restitués, sans égard à la bonne foi). L'<span class="art-num">art. 1352-7</span> est le correctif indispensable. Tout bon candidat les articule dans la même sous-section de sa majeure.</p>
+
+        <p><strong>Droit des restitutions dans la majeure des quasi-contrats :</strong> le régime des restitutions (<span class="art-num">art. 1352 et s.</span>) est un prolongement naturel de la qualification d'indu. Ne pas s'arrêter à la qualification — un correcteur national attend que soient envisagées les modalités pratiques de la restitution. Notamment la valeur de la jouissance dans un cas pratique portant sur un bien immobilier.</p>
+
+        <p><strong>Gestion d'affaires et contrat — principe de non-cumul :</strong> quand le solvens a conclu un contrat (prêt, mandat de paiement) avec le véritable débiteur pour effectuer le paiement, il dispose d'une action contractuelle. La gestion d'affaires ne peut être invoquée qu'en l'absence de tout contrat. Des centaines d'arrêts sanctionnent les plaideurs qui ont invoqué la GA alors qu'ils disposaient d'une action contractuelle.</p>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ GRAND ORAL ══════════ -->
+  <div class="section" id="oral">
+    <div class="section-header">
+      <span class="section-tag tag-oral">🎓 Grand oral</span>
+      <span class="section-title">Culture juridique</span>
+    </div>
+    <div class="block">
+
+      <p><strong>Fruits / produits — distinction fondamentale :</strong> le fruit est ce que la chose produit périodiquement sans altération de sa substance (loyers, intérêts, récoltes, dividendes distribués). Le produit est un élément de la chose dont le prélèvement en altère la substance (extraction minière, bois de futaie). Cette distinction gouverne le régime des restitutions : seuls les fruits sont concernés par l'<span class="art-num">art. 549 C. civ.</span> et l'<span class="art-num">art. 1352-3</span>. Question possible au grand oral.</p>
+
+      <p><strong>Nominalisme / valorisme :</strong> le nominalisme monétaire est le principe selon lequel une dette d'argent s'exécute à sa valeur nominale, quelle que soit l'évolution du pouvoir d'achat. Le valorisme consiste à prendre en compte la valeur réelle de la prestation au jour de l'exécution — protège contre l'inflation. L'<span class="art-num">art. 1352</span> consacre le valorisme pour la restitution en valeur (estimée au jour de la restitution). Distinction à maîtriser en RGO. Question passée en annale.</p>
+
+      <p><strong>Résolution et résiliation — distinction post-ordonnance :</strong> la résolution n'est plus par principe rétroactive depuis l'ordonnance. Le juge peut moduler les effets temporels. La résiliation n'est pas l'opposée de la résolution — c'est une forme de résolution pour les cas où il y a eu une exécution correcte à conserver. Dire que "la résolution est rétroactive par principe, sauf pour les contrats à exécution successive où elle devient résiliation" est une succession d'erreurs.</p>
+
+      <p><strong>Caducité :</strong> sanction de la disparition en cours d'exécution d'un élément essentiel à la formation du contrat. Ce n'est pas la nullité (vice à la formation), ce n'est pas la résolution (inexécution). La caducité est désormais régie dans le code civil et peut, par exception, être rétroactive — elle entraînerait alors des restitutions soumises au même régime des <span class="art-num">art. 1352 et s.</span></p>
+
+      <p><strong>Geneviève Viney et l'arrêt Ch. mixte du 9 juillet 2004 :</strong> grande civiliste française, spécialiste de responsabilité civile. Son commentaire de cet arrêt est présenté comme limpide et compréhensible — un modèle de commentaire pour le grand oral. L'arrêt distingue restitution et responsabilité civile pour la valeur de la jouissance. L'ordonnance abandonne sa solution.</p>
+
+      <p><strong>Le droit des restitutions comme droit économique :</strong> il est impossible de maîtriser les mécanismes de la dette de valeur, du nominalisme, de la valeur de la jouissance sans une culture économique minimale. Le droit des obligations est un droit de l'argent. Cela peut être abordé au grand oral sous l'angle de la finalité du droit civil des obligations.</p>
+
+    </div>
+  </div>
+
+  <!-- ══════════ CRITIQUE ══════════ -->
+  <div class="section" id="critique">
+    <div class="section-header">
+      <span class="section-tag tag-critique">🔍 Critique des prépas</span>
+      <span class="section-title">Erreurs et manques dénoncés</span>
+    </div>
+    <div class="block">
+
+      <p><strong>Lire l'art. 1352-3 sans l'art. 1352-7 :</strong></p>
+      <div class="quote">"Quand vous lisez 1352-3 seul, vous vous dites qu'on a abandonné la prise en compte de la bonne foi dans le cadre du régime des fruits et de la valeur de la jouissance. Si vous écrivez ça, vous avez 0. C'est archi faux. Ces deux textes doivent être impérativement mêlés, même dans la majeure, sinon ça n'a pas de sens."</div>
+
+      <p><strong>Présenter art. 1302-1 comme codification de l'indu objectif et art. 1302-2 comme codification de l'indu subjectif :</strong> faux. L'<span class="art-num">art. 1302-1</span> couvre aussi une hypothèse que la doctrine classait dans l'indu subjectif. L'ordonnance a voulu dépasser cette distinction doctrinale. L'appliquer mécaniquement dans une majeure montre qu'on ne connaît pas le droit positif.</p>
+
+      <p><strong>Invoquer la gestion d'affaires lorsqu'un contrat lie le solvens et le véritable débiteur :</strong></p>
+      <div class="quote">"Il y a des dizaines d'arrêts qui défoncent les plaideurs qui ont invoqué la gestion d'affaires dans pareille hypothèse, en demandant pourquoi ils agissent sur le terrain de la GA alors qu'ils disposent d'une action contractuelle. Ce n'était pas une hypothèse de paiement spontané et utile, le paiement n'était pas spontané puisqu'on l'a fait en application d'un contrat."</div>
+
+      <p><strong>Présenter la subrogation comme toujours favorable au solvens :</strong></p>
+      <div class="quote">"'La subrogation étant favorable au créancier, il conviendra de s'en prévaloir' — c'est un truc de nul. Si on me transmet une créance pourrie, prescrite ou affectée de vices, la subrogation ne porte pas l'inopposabilité des exceptions. La banque qui a prêté de l'argent avec des intérêts choisirait l'action subrogatoire plutôt que l'action personnelle ? Non — elle serait privée de ses intérêts."</div>
+
+      <p><strong>Présenter la résolution comme par principe rétroactive :</strong> résumé classique d'une succession d'erreurs. Depuis l'ordonnance, la résolution n'est plus par principe rétroactive. Le juge peut moduler ses effets temporels. Opposer résolution et résiliation comme deux régimes distincts est faux — la résiliation est une forme de résolution.</p>
+
+      <p><strong>Appliquer les règles de l'enrichissement injustifié à l'action contre le véritable débiteur en cas de paiement par erreur :</strong> depuis l'<span class="art-num">art. 1302-2 al. 2</span>, le fondement de cette action est la restitution de l'indu, non l'enrichissement injustifié. Les arrêts anciens sur l'enrichissement sans cause sont dépassés pour cette hypothèse. Sortir un arrêt pré-ordonnance sur ce fondement = présenter un droit qui n'est plus en vigueur.</p>
+
+    </div>
+  </div>
+
+  <!-- ══════════ ALERTES ══════════ -->
+  <div class="section" id="alerte">
+    <div class="section-header">
+      <span class="section-tag tag-alerte">⚡ Alertes examen</span>
+      <span class="section-title">Sujets susceptibles de tomber</span>
+    </div>
+    <div class="block">
+
+      <div class="alert-box">
+        <div class="alert-title">Paiement volontaire de la dette d'autrui sans indu — identification et recours</div>
+        Cas pratique classique : les candidats tombent massivement dans le piège et parlent de répétition de l'indu alors qu'il n'y en a pas (paiement volontaire). Le vrai sujet : identifier l'absence d'indu, démontrer l'absence d'intention libérale, puis identifier le bon fondement du recours contre le véritable débiteur (contractuel si contrat, quasi-contractuel sinon, délictuel si préjudice propre). Déjà tombé plusieurs fois sous diverses formes.
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">Art. 1302-2 al. 2 — glissement enrichissement injustifié vers restitution de l'indu</div>
+        Nouveauté post-ordonnance sans jurisprudence. Un correcteur national centrerait son corrigé sur ce glissement : la JP antérieure fondant l'action contre le véritable débiteur sur l'enrichissement sans cause n'est plus applicable pour le paiement par erreur. L'enjeu financier est considérable (calcul différent de l'indemnité). Argument a contrario : le glissement ne vise que l'erreur, pas la contrainte.
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">Valeur de la jouissance — art. 1352-3 combiné avec art. 1352-7</div>
+        Grande nouveauté de l'ordonnance, abandon de Ch. mixte, 9 juillet 2004. Sujet possible de manière autonome sur le droit des restitutions. Maîtriser : (1) avant ordonnance = responsabilité civile, fait générateur requis ; (2) après ordonnance = inclus dans les restitutions, pas de fait générateur ; (3) régime calqué sur les fruits selon bonne/mauvaise foi ; (4) la bonne foi originaire cesse au jour de l'assignation. Articulation 1352-3 / 1352-7 indispensable dans la majeure.
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">Art. 1302-3 al. 2 — réduction de la restitution pour faute du solvens</div>
+        Régime original propre au quasi-contrat : le juge peut réduire la restitution si le paiement procède d'une faute, sans exiger de préjudice prouvé de l'accipiens. Distinguer l'erreur ponctuelle (non fautive) de la désorganisation systémique (fautive). Cas pratique possible : entreprise avec comptabilité défaillante qui paye par erreur un tiers — l'accipiens qui a dépensé les fonds peut se prévaloir de la réduction.
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">Application dans le temps du droit des restitutions</div>
+        Zone d'indétermination sans jurisprudence. Valeur ajoutée si mentionné : thèse de l'autonomie (date de la restitution = critère) vs thèse de la corrélation (date de la source = critère). Mention d'Olivier Deshayes comme auteur ayant identifié le problème. Ne pas trancher avec assurance — exposer les deux thèses et argumenter pour le client.
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">Nominalisme vs valorisme — sujet de RGO passé en annale</div>
+        Articulation avec la restitution en valeur au jour de la restitution (art. 1352) et avec les intérêts légaux dans la gestion d'affaires (art. 1301-2 al. 3). Culture économique minimale requise. Lien avec les dettes de valeur en RGO.
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours 9 — Sources des Obligations — 10 mars 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #faf9f6;
+    --surface: #ffffff;
+    --border: #e8e4dc;
+    --text: #1a1a1a;
+    --text-light: #555;
+    --article: #c0392b;
+    --juris: #6c3483;
+    --loi: #7b5e3a;
+    --citation: #1a5276;
+    --tag-cours: #2c6e49;
+    --tag-methodo: #1565c0;
+    --tag-oral: #6a0f49;
+    --tag-critique: #b71c1c;
+    --tag-alerte: #e65100;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; font-style: normal; }
+
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .page-header {
+    background: #ffffff;
+    color: #1a1a1a;
+    padding: 48px 64px 40px;
+    border-bottom: 4px solid var(--article);
+  }
+  .page-header .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 12px;
+  }
+  .page-header h1 { font-size: 2rem; font-weight: 500; margin-bottom: 8px; }
+  .page-header .subtitle { color: #ccc; font-size: 1rem; }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 64px;
+    background: #f2f0ea;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+
+  .main { max-width: 900px; margin: 0 auto; padding: 48px 32px 80px; }
+
+  .note {
+    background: #f0f4ff;
+    border: 1px solid #c5cee0;
+    border-left: 4px solid var(--citation);
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin-bottom: 32px;
+    font-size: 0.92em;
+    color: #333;
+  }
+
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin-bottom: 48px;
+  }
+  .toc-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 16px;
+  }
+  .toc ul { list-style: none; padding: 0; }
+  .toc li { padding: 5px 0; font-size: 0.97em; border-bottom: 1px solid #f0ede7; }
+  .toc li:last-child { border-bottom: none; }
+  .toc a { color: var(--text); text-decoration: none; }
+  .toc a:hover { color: var(--article); }
+  .toc .toc-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-light);
+    margin-left: 8px;
+  }
+
+  .section { margin-bottom: 64px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    color: #fff;
+    white-space: nowrap;
+  }
+  .tag-cours    { background: var(--tag-cours); }
+  .tag-methodo  { background: var(--tag-methodo); }
+  .tag-oral     { background: var(--tag-oral); }
+  .tag-critique { background: var(--tag-critique); }
+  .tag-alerte   { background: var(--tag-alerte); }
+  .section-title { font-size: 1.25rem; font-weight: 600; }
+
+  .subsection { margin-bottom: 40px; }
+  .subsection-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 18px;
+    padding-left: 16px;
+    border-left: 3px solid var(--border);
+  }
+  .block p { margin-bottom: 14px; }
+  .block strong { font-weight: 600; }
+
+  .quote {
+    background: var(--surface);
+    border-left: 3px solid #ccc;
+    padding: 14px 20px;
+    margin: 14px 0;
+    border-radius: 0 4px 4px 0;
+    color: #333;
+    font-size: 0.96em;
+  }
+
+  .art-num  { color: var(--article); font-weight: 700; }
+  .art-txt  { color: var(--citation); font-weight: 400; }
+  .juris    { color: var(--juris); font-weight: 700; }
+  .loi      { color: var(--loi); font-weight: 700; }
+
+  .alert-box {
+    background: #fff8f0;
+    border: 1px solid #e65100;
+    border-left: 4px solid #e65100;
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 16px 0;
+    font-size: 0.95em;
+  }
+  .alert-box .alert-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #e65100;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  ul, ol { padding-left: 26px; margin: 12px 0; }
+  li { margin-bottom: 6px; }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    @page { size: A4; margin: 15mm 14mm 18mm 14mm; }
+    body { font-size: 10.5pt; line-height: 1.55; background: #faf9f6 !important; color: #1a1a1a !important; }
+    .page-header { background: #ffffff !important; color: #1a1a1a !important; padding: 14pt 20pt 10pt !important; border-bottom: 3pt solid #c0392b !important; margin-bottom: 8pt; }
+    .page-header .label { color: #888 !important; font-size: 7pt !important; }
+    .page-header h1 { font-size: 15pt !important; margin-bottom: 3pt !important; color: #1a1a1a !important; }
+    .page-header .subtitle { color: #555 !important; font-size: 9pt !important; }
+    .legend { background: #f2f0ea !important; padding: 6pt 20pt !important; font-size: 7.5pt !important; gap: 10pt !important; border-bottom: 1pt solid #e8e4dc !important; margin-bottom: 8pt; }
+    .main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+    .section { margin-bottom: 16pt !important; }
+    .section-header { padding-bottom: 5pt !important; margin-bottom: 8pt !important; border-bottom: 1.5pt solid #e8e4dc !important; page-break-after: avoid; }
+    .section-tag { font-size: 6.5pt !important; padding: 2pt 6pt !important; color: #fff !important; }
+    .tag-cours    { background: #2c6e49 !important; }
+    .tag-methodo  { background: #1565c0 !important; }
+    .tag-oral     { background: #6a0f49 !important; }
+    .tag-critique { background: #b71c1c !important; }
+    .tag-orga     { background: #4a4a4a !important; }
+    .tag-alerte   { background: #e65100 !important; }
+    .section-title { font-size: 11pt !important; }
+    .subsection { margin-bottom: 10pt !important; }
+    .subsection-title { font-size: 9.5pt !important; margin-bottom: 5pt !important; }
+    .block { background: #ffffff !important; border: 0.75pt solid #e8e4dc !important; padding: 8pt 10pt !important; margin-bottom: 6pt !important; page-break-inside: avoid; }
+    .block p { margin-bottom: 5pt !important; font-size: 10pt !important; }
+    .block ul { padding-left: 14pt !important; margin: 4pt 0 !important; }
+    .block li { margin-bottom: 3pt !important; font-size: 10pt !important; }
+    h3 { font-size: 10.5pt !important; margin-top: 7pt !important; margin-bottom: 4pt !important; page-break-after: avoid; }
+    .alert-box { border: 0.75pt solid #e65100 !important; border-left: 3pt solid #e65100 !important; background: #fff8f5 !important; padding: 7pt 10pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .alert-box .alert-title { font-size: 6.5pt !important; color: #e65100 !important; margin-bottom: 4pt !important; }
+    .alert-box p, .alert-box li { font-size: 9.5pt !important; }
+    .quote { border-left: 3pt solid #1a5276 !important; background: #f0f4f8 !important; color: #1a5276 !important; padding: 7pt 10pt !important; font-size: 9.5pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .sub-section { border-top: 0.5pt solid #e8e4dc !important; margin-top: 8pt !important; padding-top: 8pt !important; }
+    .art-num { color: #c0392b !important; }
+    .art-txt { color: #1a5276 !important; }
+    .juris   { color: #6c3483 !important; }
+    .loi     { color: #7b5e3a !important; }
+    a[href]:after { content: none !important; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="label">Droit des obligations · Sources · Cours 9</div>
+  <h1>Cours 9 — Sources des Obligations</h1>
+  <div class="subtitle">10 mars 2026 · Prof. Laurent Poulet-Bellet · Cap Avocat / Formaprep</div>
+</div>
+
+<div class="legend">
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--article)"></div>
+    <span style="color:var(--article);font-weight:700">Numéro d'article</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--citation)"></div>
+    <span style="color:var(--citation)">Texte cité / Doctrine</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--juris)"></div>
+    <span style="color:var(--juris);font-weight:700">Jurisprudence</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--loi)"></div>
+    <span style="color:var(--loi);font-weight:700">Loi</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="note">
+    <strong>Note de lecture.</strong> Suite et fin des cours 7 et 8. Ce cours couvre : (I) Fin du régime général des restitutions (<span class="art-num">art. 1352-3 al. 2 et 3</span>, <span class="art-num">art. 1352-4 à 1352-9</span>) — applicabilité sélective à la répétition de l'indu, distinction restitution monétaire / chose corporelle. (II) Enrichissement injustifié — genèse prétorienne (<span class="juris">Ch. req. 15 juin 1892, Boudier</span> ; <span class="juris">Civ. 2 mars 1915</span>), codification (<span class="art-num">art. 1303 à 1303-4</span>), conditions, effets et modalités de calcul de l'indemnité. (III) Principe de subsidiarité de l'enrichissement injustifié (<span class="art-num">art. 1303-3</span>) — articulation avec prescription, obligation naturelle, obligation civile nouvelle. (IV) Obligation naturelle vs paiement volontaire d'une obligation prescrite — distinction fondamentale, <span class="juris">JP PMU, Cass. 10 oct. 1995</span>.
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Sommaire</div>
+    <ul>
+      <li><a href="#cours">📚 Cours — Contenu juridique</a> <span class="toc-tag">art. 1352-3 à 1352-9 · art. 1303 à 1303-4 · Boudier 1892 · Subsidiarité · Obligation naturelle · Prescription</span></li>
+      <li><a href="#methodo">⚠️ Méthodo</a> <span class="toc-tag">Lecture des textes restitution · Ordre majeure EI · Mauvaise foi enrichi · Prescription ≠ fond</span></li>
+      <li><a href="#oral">🎓 Grand oral</a> <span class="toc-tag">Art. 1352-4 · Impenses · Syndicat/syndic · Non-cumul sources · Loi = pas un préjudice</span></li>
+      <li><a href="#critique">🔍 Critique des prépas</a> <span class="toc-tag">Restitution post-nullité ≠ indu · art. 1352-3 sans 1352-7 · EI malgré action contractuelle · Obligation naturelle ≠ prescription</span></li>
+      <li><a href="#alerte">⚡ Alertes examen</a> <span class="toc-tag">art. 1303-4 mauvaise foi · EI + prescription · art. 1352-6 taux légal · art. 1352-8 prestation de service</span></li>
+    </ul>
+  </div>
+
+  <!-- ══════════ COURS ══════════ -->
+  <div class="section" id="cours">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📚 Cours</span>
+      <span class="section-title">Contenu juridique pur</span>
+    </div>
+
+    <!-- I. SUITE RESTITUTIONS -->
+    <div class="subsection">
+      <div class="subsection-title">I. Fin du régime général des restitutions — art. 1352-3 al. 2 et 3, art. 1352-4 à 1352-9</div>
+      <div class="block">
+
+        <p><strong>Art. 1352-3 al. 2 — valeur de la jouissance : dette de valeur :</strong> <span class="art-txt">"La valeur de la jouissance est évaluée par le juge au jour où il se prononce."</span> La valeur de la jouissance n'est pas calculée au jour de la mise à disposition de la chose (jour du paiement indu), mais au jour du jugement — dette de valeur, non dette nominale. Le valorisme monétaire s'impose ici pour éviter l'effet de l'inflation sur la chose dont l'accipiens a jouie.</p>
+
+        <p><strong>Art. 1352-3 al. 3 — restitution des fruits en valeur :</strong> <span class="art-txt">"Sauf stipulation contraire, la restitution des fruits, s'ils ne se retrouvent pas en nature, a lieu selon une valeur estimée à la date du remboursement, suivant l'état de la chose au jour du paiement de l'obligation."</span> Deux précisions :</p>
+        <ul>
+          <li>Valorisme : la valeur des fruits est estimée à la date du remboursement (non au jour du paiement indu), mais en tenant compte de l'état de la chose au moment où elle a été remise — pour ne pas rembourser du neuf si la chose était usagée au départ.</li>
+          <li>L'amorce "sauf stipulations contraires" n'a aucune pertinence en matière quasi-contractuelle (on ne prévoit pas contractuellement les modalités d'une restitution d'indu future). Cette formule ne concerne que les restitutions contractuelles. Ne pas l'appliquer au QC — erreur grave.</li>
+          <li>Cet alinéa confirme indirectement que le régime des restitutions n'est pas d'ordre public : des aménagements conventionnels sont possibles en matière contractuelle.</li>
+        </ul>
+
+        <p><strong>Art. 1352-4 — mineurs et majeurs protégés : inapplicable à l'indu :</strong> <span class="art-txt">"Les restitutions dues par un mineur non émancipé ou par un majeur protégé sont réduites à hauteur du profit qu'il a retiré de l'acte annulé."</span> Ce texte ne concerne que les restitutions post-annulation d'un contrat pour incapacité. Il est totalement inapplicable dans le cadre de la restitution de l'indu quasi-contractuelle : il n'y a pas d'acte annulé en matière de QC. Note : ce texte a été réécrit par une loi interprétative à portée rétroactive, parce que la version initiale de l'ordonnance confondait "dues à" et "dues par", rendant le texte absurde.</p>
+
+        <p><strong>Art. 1352-5 — dépenses de conservation et d'amélioration :</strong> <span class="art-txt">"Pour fixer le montant des restitutions, il est tenu compte à celui qui doit restituer des dépenses nécessaires à la conservation de la chose et de celles qui en ont augmenté la valeur, dans la limite de la plus-value estimée au jour de la restitution."</span></p>
+        <ul>
+          <li>Dépenses de conservation (ex. entretien d'un véhicule, ravalement d'un immeuble) : remboursées intégralement.</li>
+          <li>Dépenses d'amélioration : remboursées dans la limite de la plus-value effective au jour de la restitution. Si les travaux ont coûté 100 000 € mais que la plus-value n'est que de 20 000 €, seuls ces 20 000 € sont pris en charge. Logique quasi-contractuelle d'équité : on ne rembourse que l'enrichissement réel de l'autre patrimoine. Héritage direct du droit des biens (impenses nécessaires, impenses utiles).</li>
+        </ul>
+
+        <p><strong>Art. 1352-6 — restitution d'une somme d'argent avec intérêts légaux :</strong> <span class="art-txt">"La restitution d'une somme d'argent inclut les intérêts au taux légal et les taxes acquittées entre les mains de celui qui l'a reçue."</span></p>
+        <ul>
+          <li>Intérêts au taux légal : ne pas les négliger. Le taux légal est aujourd'hui significatif (ordre de grandeur : 5 % selon les périodes), alors qu'il était quasi-nul avant la crise post-Covid. Sur 150 000 €, il peut représenter plusieurs dizaines de milliers d'euros supplémentaires sur une longue procédure. Le calculer par tranches temporelles selon le taux en vigueur à chaque période.</li>
+          <li>Taxes (ex. TVA) : si l'indu incluait de la TVA, elle doit être restituée, car le créancier de la restitution devra lui-même la reverser à l'État — pour éviter qu'il en soit de sa poche.</li>
+          <li>Ce texte est spécifique à la restitution d'une somme d'argent — ne pas le confondre avec l'<span class="art-num">art. 1352-7</span> (fruits et valeur de la jouissance, pensés pour les choses corporelles). Dans l'<span class="art-num">art. 1352-6</span>, les intérêts ne sont pas des "fruits civils" au sens de l'<span class="art-num">art. 1352-7</span> — ce sont les intérêts dus au titre de la restitution pour éviter la dépréciation nominale de la somme restituée. Ce texte a déjà été sollicité dans un sujet Deshayes — 90 % des candidats ne connaissaient pas le texte.</li>
+        </ul>
+
+        <p><strong>Art. 1352-7 — fruits et valeur de la jouissance selon la bonne ou mauvaise foi (rappel) :</strong> à combiner impérativement avec l'<span class="art-num">art. 1352-3</span>. Pensé pour les choses corporelles frugifères, non pour les sommes d'argent brutes. Distinction clé :</p>
+        <ul>
+          <li><span class="art-num">Art. 1352-6</span> = obligation monétaire : restitution de la somme + intérêts légaux, sans égard à la bonne ou mauvaise foi.</li>
+          <li><span class="art-num">Art. 1352-3 / 1352-7</span> = chose frugifère corporelle : restitution des fruits et de la valeur de la jouissance uniquement si mauvaise foi, ou à compter de l'assignation si bonne foi originaire.</li>
+        </ul>
+
+        <p><strong>Art. 1352-8 — restitution d'une prestation de service :</strong> <span class="art-txt">"La restitution d'une prestation de service a lieu en valeur. Celle-ci est appréciée à la date à laquelle elle a été fournie."</span> La force de travail ne se restitue pas en nature — elle a été consumée. La valeur est calculée au jour de la fourniture (et non au jour de la restitution) : c'est une dette nominale, non une dette de valeur. Donc si la prestation valait 250 € à l'époque et en vaut 400 € aujourd'hui, seuls 250 € sont restitués. Applicable aussi aux prestations de service indûment fournies en matière quasi-contractuelle.</p>
+
+        <p><strong>Art. 1352-9 — report des sûretés : inapplicable à l'indu :</strong> <span class="art-txt">"Les sûretés constituées pour le paiement de l'obligation sont reportées de plein droit sur l'obligation de restituer."</span> Inapplicable à la répétition de l'indu : on ne constitue pas de sûretés à l'avance pour garantir une future restitution d'indu. Ce texte ne concerne que les restitutions contractuelles.</p>
+
+        <p><strong>Bilan : applicabilité sélective des art. 1352 à 1352-9 à l'indu :</strong> tous ces textes ne sont pas applicables à la répétition de l'indu avec le même bonheur. Les <span class="art-num">art. 1352</span>, <span class="art-num">1352-1</span>, <span class="art-num">1352-2</span>, <span class="art-num">1352-5</span>, <span class="art-num">1352-6</span>, <span class="art-num">1352-8</span> s'y appliquent selon les cas. Les <span class="art-num">art. 1352-4</span> et <span class="art-num">1352-9</span> ne s'y appliquent pas. L'<span class="art-num">art. 1352-3 al. 3</span> ne s'y applique qu'en partie. Le renvoi général de l'<span class="art-num">art. 1302-3</span> aux <span class="art-num">art. 1352 à 1352-9</span> est donc inexact dans sa prétention d'universalité.</p>
+
+      </div>
+    </div>
+
+    <!-- II. ENRICHISSEMENT INJUSTIFIÉ -->
+    <div class="subsection">
+      <div class="subsection-title">II. Enrichissement injustifié — genèse et codification (art. 1303 à 1303-4)</div>
+      <div class="block">
+
+        <p><strong>Genèse prétorienne — deux arrêts fondateurs à citer impérativement :</strong></p>
+        <ul>
+          <li><span class="juris">Ch. req., 15 juin 1892, arrêt Boudier</span> (GAJC) : arrêt fondateur, aussi important que Jand'heur ou Canal de Craponne. Créé de toutes pièces le principe de l'enrichissement sans cause — il n'existait aucun texte. L'action de in rem verso naît ici. À citer en tête de majeure.</li>
+          <li><span class="juris">Civ., 2 mars 1915</span> (GAJC) : précise la portée de l'arrêt Boudier et affirme le principe de subsidiarité. L'action de in rem verso <span class="art-txt">"ne doit être admise que dans les cas où le patrimoine d'une personne se trouvant sans cause légitime enrichie au détriment de celui d'une autre personne, celle-ci ne jouirait pour obtenir ce qui lui est dû, d'aucune action naissant d'un contrat, d'un quasi-contrat, d'un délit ou d'un quasi-délit."</span> Double règle : (1) subsidiarité par rapport à toutes les sources, (2) impossibilité d'évincer un régime contractuel applicable par le recours au QC.</li>
+        </ul>
+
+        <p><strong>Art. 1303 — principe général et quantum de l'indemnité :</strong> <span class="art-txt">"En dehors des cas de gestion d'affaires et de paiement de l'indu, celui qui bénéficie d'un enrichissement injustifié au détriment d'autrui doit, à celui qui s'en trouve appauvri, une indemnité égale à la moindre des deux valeurs de l'enrichissement et de l'appauvrissement."</span></p>
+        <ul>
+          <li>La subsidiarité est inscrite dès le premier mot : "en dehors des cas de GA et de paiement de l'indu".</li>
+          <li>L'indemnité est la plus faible des deux sommes — logique d'équité depuis le droit romain. Il ne s'agit pas de réparer intégralement un préjudice, mais de corriger à minima un transfert de valeur injustifié.</li>
+          <li>Attention : ce texte mélange les conditions (l'EI est injustifié) et les effets (l'indemnité), et passe sous silence les modalités de calcul renvoyées à l'<span class="art-num">art. 1303-4</span>. Il faut recomposer.</li>
+        </ul>
+
+        <p><strong>Art. 1303-1 — conditions : absence d'intention libérale et absence d'obligation :</strong> <span class="art-txt">"L'enrichissement est injustifié lorsqu'il ne procède ni de l'accomplissement d'une obligation par l'appauvri ni de son intention libérale."</span></p>
+        <ul>
+          <li>Intention libérale : si on a enrichi autrui avec l'intention de lui faire un cadeau, il n'y a pas d'EI — évidence codifiée.</li>
+          <li>Accomplissement d'une obligation : si l'appauvrissement résulte de l'exécution d'une obligation à laquelle l'appauvri était tenu (ex. obligation alimentaire légale), il n'y a pas d'EI. L'application de la loi n'est jamais constitutive d'un enrichissement injustifié — ni d'un préjudice au sens de la responsabilité civile. Principe fondamental.</li>
+        </ul>
+
+        <p><strong>Art. 1303-2 — exclusion si l'appauvri a agi dans son intérêt personnel :</strong> <span class="art-txt">"Il n'y a pas lieu à indemnisation si l'appauvrissement procède d'un acte accompli par l'appauvri en vue d'un profit personnel."</span></p>
+        <ul>
+          <li>Si l'appauvri a agi à ses risques et périls dans une perspective spéculative ou personnelle, et que les circonstances ont tourné contre lui, il ne peut pas invoquer l'EI de l'autre partie. Ex. : l'associé-gérant qui apporte sa marque à une société, laquelle part en déconfiture — la marque est rachetée à la barre. L'associé ne peut pas invoquer un EI de l'acquéreur : il avait agi dans son propre intérêt.</li>
+          <li>Al. 2 : <span class="art-txt">"L'indemnisation peut être modérée par le juge si l'appauvrissement procède d'une faute de l'appauvri."</span> Abandon de la JP antérieure chaotique (certaines chambres excluaient toute indemnité en cas de faute grave, d'autres l'ignoraient). Désormais : le juge peut modérer souverainement l'indemnité en fonction de la gravité de la faute de l'appauvri — mais il ne peut pas l'exclure totalement (sauf si l'acte a été accompli pour un profit personnel). Ce n'est pas de la responsabilité civile : aucun préjudice à démontrer, c'est une logique d'équité propre au QC.</li>
+        </ul>
+
+        <p><strong>Art. 1303-3 — subsidiarité : pas d'EI si une autre action existe :</strong> <span class="art-txt">"L'appauvri n'a pas d'action sur ce fondement lorsqu'une autre action lui est ouverte ou se heurte à un obstacle de droit, tel que la prescription."</span></p>
+        <ul>
+          <li>Si une action contractuelle, quasi-contractuelle spéciale ou délictuelle est ouverte à l'appauvri, même si elle est décevante ou infructueuse dans ses effets, il ne peut pas se rabattre sur l'EI. Ce n'est pas un palliatif.</li>
+          <li>Même solution si l'action se heurte à un obstacle de droit (prescription) : la prescription éteint l'action, non le droit. Mais cette irrecevabilité procédurale vaut comme obstacle — l'EI est exclu tout autant que si l'action était infondée. Pas d'EI pour contourner les effets d'une prescription.</li>
+          <li>Articulation subtile avec les QC spéciaux : si les conditions de la GA ou de la répétition de l'indu ne sont pas réunies (obstacle de droit différent d'une simple irrecevabilité procédurale), l'EI reste applicable — c'est la règle spécial/général.</li>
+        </ul>
+
+        <p><strong>Art. 1303-4 — modalités de calcul de l'indemnité :</strong> <span class="art-txt">"L'appauvrissement constaté au jour de la dépense, et l'enrichissement tel qu'il subsiste au jour de la demande, sont évalués au jour du jugement. En cas de mauvaise foi de l'enrichi, l'indemnité due est égale à la plus forte de ces deux valeurs."</span></p>
+        <ul>
+          <li>Deux repères temporels imposés au juge : l'appauvrissement est constaté au jour de la dépense ; l'enrichissement est figé au jour de la demande en justice. Ces repères ne sont pas interchangeables — la Cour de cassation peut censurer un juge qui les méconnaîtrait.</li>
+          <li>Les deux sommes sont revalorisées au jour du jugement (dette de valeur) pour tenir compte de l'inflation.</li>
+          <li>Puis on retient la plus faible des deux — règle d'équité.</li>
+          <li>Exception de mauvaise foi : si l'enrichi était de mauvaise foi (il savait qu'il bénéficiait d'un EI et l'a dissimulé ou entretenu), l'indemnité est la plus forte des deux sommes. Point très peu connu des candidats — valeur ajoutée majeure dans une copie. L'avocat de l'appauvri cherchera à caractériser cette mauvaise foi.</li>
+          <li>JP antérieure à l'ordonnance : les arrêts cités dans le code Dalloz sont à droit ancien — le calcul a été profondément restructuré. Ne pas s'y fier pour la méthode de calcul.</li>
+        </ul>
+
+      </div>
+    </div>
+
+    <!-- III. OBLIGATION NATURELLE + PRESCRIPTION -->
+    <div class="subsection">
+      <div class="subsection-title">III. Articulation enrichissement injustifié, prescription et obligation naturelle</div>
+      <div class="block">
+
+        <p><strong>Prescription : obstacle de droit à l'EI (art. 1303-3) :</strong> l'appauvri qui dispose d'une action contractuelle ou délictuelle dont l'action est prescrite (<span class="art-num">art. 2224 C. civ.</span>, prescription quinquennale de droit commun) ne peut pas contourner la prescription en invoquant l'EI. La solution est la même qu'une action infondée au fond.</p>
+
+        <p><strong>Que peut faire le créancier dont l'action est prescrite ?</strong></p>
+        <ul>
+          <li>Obtenir un paiement volontaire du débiteur, sans lui dissimuler la réalité de la prescription.</li>
+          <li>Si le débiteur paye volontairement une obligation prescrite en sachant qu'elle est prescrite : pas d'indu — la prescription éteint l'action, pas l'obligation. Ce paiement est valable et non répétible.</li>
+          <li>Si le débiteur exprime un devoir moral de conscience envers le créancier et commence à s'exécuter, ou affirme vouloir s'exécuter : transformation de l'obligation naturelle en obligation civile nouvelle (<span class="art-num">art. 1302 al. 2 C. civ.</span>). Cette nouvelle obligation civile n'est pas prescrite car elle vient de naître — le créancier peut contraindre à l'exécution forcée.</li>
+        </ul>
+
+        <p><strong>Distinction fondamentale : deux hypothèses distinctes :</strong></p>
+        <ul>
+          <li><strong>Hypothèse 1 — paiement volontaire sans devoir moral :</strong> le débiteur paye une dette prescrite pour des raisons pratiques (relations d'affaires, intérêt propre) sans se sentir moralement tenu. Pas d'obligation naturelle, pas de novation. Simplement : exécution volontaire d'une obligation dont l'action était prescrite — valide, non répétible. Le droit subsistait, seule l'action était éteinte.</li>
+          <li><strong>Hypothèse 2 — devoir de conscience affirmé :</strong> le débiteur affirme ressentir un devoir moral et s'engage à l'exécuter. Transformation de l'obligation naturelle en obligation civile nouvelle par engagement unilatéral de volonté — <span class="juris">Cass., 10 octobre 1995, JP PMU</span> (la transformation d'une obligation naturelle en obligation civile n'est pas une novation, c'est un engagement unilatéral de volonté). Cette nouvelle obligation civile est distincte de l'obligation originaire prescrite et peut être exécutée de manière forcée.</li>
+        </ul>
+
+        <p><strong>Paiement involontaire d'une obligation prescrite :</strong> si le débiteur a payé sans savoir que l'obligation était prescrite (ex. pratiques de recouvrement déloyales de certains organismes qui achètent des créances prescrites et laissent croire qu'elles sont encore exigibles), le paiement n'est pas volontaire au sens juridique — c'est un indu. La répétition est possible.</p>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ MÉTHODO ══════════ -->
+  <div class="section" id="methodo">
+    <div class="section-header">
+      <span class="section-tag tag-methodo">⚠️ Méthodo</span>
+      <span class="section-title">Conseils méthodologiques</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Droit des restitutions dans un cas pratique</div>
+      <div class="block">
+
+        <p><strong>Ne pas appliquer mécaniquement tous les art. 1352 à 1352-9 à l'indu :</strong> identifier d'abord la nature de la chose restituée (somme d'argent → <span class="art-num">art. 1352-6</span> ; chose corporelle frugifère → <span class="art-num">art. 1352-3 / 1352-7</span> ; prestation de service → <span class="art-num">art. 1352-8</span>) avant de choisir le texte. Appliquer l'<span class="art-num">art. 1352-4</span> ou l'<span class="art-num">art. 1352-9</span> à l'indu = erreur grave.</p>
+
+        <p><strong>Ne pas appliquer l'art. 1352-3 al. 3 sans réserve en matière quasi-contractuelle :</strong> l'amorce "sauf stipulations contraires" n'a aucun sens en QC — il n'y a pas de stipulation dans un indu. Signaler cette anomalie du texte général appliqué au QC. C'est une valeur ajoutée pour le correcteur.</p>
+
+        <p><strong>Enrichissement injustifié — ordre de la majeure :</strong> les textes mélangent conditions et effets (l'<span class="art-num">art. 1303</span> commence par les effets avant les conditions des <span class="art-num">art. 1303-1 et s.</span>). Recomposer dans la majeure en respectant les textes mais dans un ordre logique : subsidiarité (<span class="art-num">art. 1303-3</span>) → caractère injustifié (<span class="art-num">art. 1303-1</span>) → acte pour profit personnel (<span class="art-num">art. 1303-2 al. 1</span>) → quantum (<span class="art-num">art. 1303</span> + <span class="art-num">art. 1303-4</span>) → faute de l'appauvri (<span class="art-num">art. 1303-2 al. 2</span>) → mauvaise foi de l'enrichi (<span class="art-num">art. 1303-4</span>). Toujours viser les textes.</p>
+
+        <p><strong>Mauvaise foi de l'enrichi — point décisif en consultation :</strong> si l'enrichi est de mauvaise foi, l'indemnité est la plus forte des deux valeurs et non la plus faible. Cet effet est peu connu des candidats. Bien identifier dans les faits les indices de mauvaise foi (connaissance de l'EI, dissimulation, entretien délibéré de la situation). C'est ce qui permet de creuser l'écart entre 9 et 17 sur cette question.</p>
+
+        <p><strong>Subsidiarité de l'EI — réflexe à avoir avant toute majeure :</strong> avant d'invoquer l'enrichissement injustifié, vérifier systématiquement qu'il n'existe pas d'action contractuelle, quasi-contractuelle spéciale ou délictuelle. Même si cette action est prescrite, infructueuse ou décevante — l'EI reste exclu. Le poser en amont évite de construire une majeure nulle.</p>
+
+        <p><strong>Obligation prescrite vs obligation naturelle — ne jamais mélanger :</strong> ce sont deux hypothèses factuelles distinctes. Si le débiteur paye pour ses propres intérêts pratiques, il n'y a pas de devoir moral — pas d'obligation naturelle. Si le débiteur exprime un devoir moral de conscience, il y a transformation. Ne jamais appliquer l'obligation naturelle si les faits ne montrent pas d'affirmation d'un devoir moral.</p>
+
+        <p><strong>Taux légal (art. 1352-6) — ne pas le traiter comme une formalité :</strong> avec un taux d'environ 5 %, sur plusieurs années et des sommes importantes, les intérêts légaux peuvent représenter 20 à 30 % de la somme principale. Le signaler au client en consultation — c'est une information économique concrète, pas un détail procédural.</p>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ GRAND ORAL ══════════ -->
+  <div class="section" id="oral">
+    <div class="section-header">
+      <span class="section-tag tag-oral">🎓 Grand oral</span>
+      <span class="section-title">Culture juridique</span>
+    </div>
+    <div class="block">
+
+      <p><strong>Art. 1352-4 — protection des incapables, texte de police comportementale :</strong> les restitutions dues par un mineur ou un majeur protégé en cas d'annulation d'un contrat sont réduites au profit retiré. C'est une sanction de ceux qui contractent à la légère avec des personnes vulnérables — ils doivent tout restituer, l'incapable seulement ce qui a tourné à son profit. Texte de culture juridique exemplaire pour le GO : idée générale (protection des vulnérables) + illustration technique précise.</p>
+
+      <p><strong>Impenses — vocabulaire historique du droit des biens :</strong> les impenses nécessaires (conservation), impenses utiles (amélioration) et impenses somptuaires (embellissement pur sans valeur ajoutée) sont des catégories classiques issues du droit romain, appliquées dans les restitutions consécutives à la revendication d'un bien immobilier. L'<span class="art-num">art. 1352-5</span> en est la codification dans le régime général des restitutions.</p>
+
+      <p><strong>Syndicat des copropriétaires / syndic / loi de 1965 :</strong> distinguer syndicat des copropriétaires (personne morale regroupant tous les copropriétaires), AG des copropriétaires (organe délibératif), et syndic (mandataire et exécutif chargé de la mise en œuvre des décisions de l'AG). La loi du 10 juillet 1965 s'applique à tous les immeubles bâtis divisés par lots, d'autorité. Confondre syndicat et syndic au GO face à un avocat ou juge de droit immobilier = catastrophe. Le contentieux des contrats de syndic nuls est un terrain classique d'illustration du principe de subsidiarité de l'EI.</p>
+
+      <p><strong>L'application de la loi n'est jamais constitutive d'un préjudice ni d'un enrichissement injustifié :</strong> principe fondamental dégagé par la Cour de cassation. Si la loi conduit à un appauvrissement (ex. obligation alimentaire légale), cet appauvrissement est justifié par la volonté générale. On ne peut pas contester ce résultat par le biais de l'EI ou de la RC. Pour le contester, il faut soulever l'inconstitutionnalité ou l'inconventionnalité de la loi — rien d'autre. Sujet de GO remarquable.</p>
+
+      <p><strong>JP PMU — Cass., 10 octobre 1995 :</strong> la transformation d'une obligation naturelle en obligation civile n'est pas une novation — c'est un engagement unilatéral de volonté. La novation suppose une intention de nover qui ne se présume pas. C'est le fondement de la codification actuelle de l'obligation naturelle. À connaître pour le GO sur les sources des obligations.</p>
+
+      <p><strong>Arrêt Boudier (Ch. req., 15 juin 1892) — l'un des grands arrêts fondateurs du droit civil français :</strong> aussi important que l'arrêt Jand'heur (fait des choses) ou l'arrêt Canal de Craponne (force obligatoire des conventions). Il crée de toutes pièces une source nouvelle des obligations — l'action de in rem verso — alors qu'elle n'existait ni dans le Code civil ni dans la JP antérieure. Exemple de création jurisprudentielle audacieuse, à citer au GO sur les sources de droit ou la jurisprudence créatrice.</p>
+
+    </div>
+  </div>
+
+  <!-- ══════════ CRITIQUE ══════════ -->
+  <div class="section" id="critique">
+    <div class="section-header">
+      <span class="section-tag tag-critique">🔍 Critique des prépas</span>
+      <span class="section-title">Erreurs et manques dénoncés</span>
+    </div>
+    <div class="block">
+
+      <p><strong>Dire que la restitution post-nullité crée un indu :</strong></p>
+      <div class="quote">"Ce raisonnement existe dans beaucoup d'écrits d'avocats et même dans certains jugements de tribunaux de commerce. La restitution post-nullité est un effet automatique de la rétroactivité de l'annulation depuis 1982 — elle n'a aucun rapport avec un indu quasi-contractuel. La Cour de cassation l'affirme de manière catégorique. C'est une horreur qu'on se traîne dans des raisonnements, et c'est une erreur grave dans des corrigés CRFPA."</div>
+
+      <p><strong>Lire l'art. 1352-3 sans l'art. 1352-7 :</strong> déjà dénoncé en cours 8 — répété ici. Ce texte semble supprimer la distinction bonne foi / mauvaise foi dans la restitution des fruits. C'est faux. Les deux textes doivent être combinés impérativement.</p>
+
+      <p><strong>Invoquer l'enrichissement injustifié alors qu'une action contractuelle ou spéciale existe :</strong></p>
+      <div class="quote">"Il y a des dizaines d'arrêts sur le sujet des syndics de copropriété qui illustrent exactement ça. Le syndic dont le contrat est annulé tente de se faire rémunérer sur le terrain de l'EI. La Cour de cassation lui répond qu'il dispose d'une action contractuelle (les restitutions post-nullité) et qu'il n'a pas le droit de se rabattre sur le quasi-contrat pour compenser ses pertes. Ce ne sont pas des arrêts de droit immobilier — ce sont des arrêts purement obligationnels, incompréhensibles sans maîtrise des sources."</div>
+
+      <p><strong>Confondre l'obligation naturelle et le paiement volontaire d'une obligation prescrite :</strong></p>
+      <div class="quote">"Dans des magnifiques sujets CRFPA, tout est mélangé. On voit des candidats parler de mutation d'une obligation naturelle en obligation civile alors qu'il y a eu paiement volontaire d'une obligation prescrite sans affirmation d'un devoir de conscience. Ce ne sont pas les mêmes hypothèses, pas la même jurisprudence. La confusion résulte de personnes qui ne savent pas lire les arrêts, qui citent n'importe quoi n'importe où."</div>
+
+      <p><strong>Appliquer l'art. 1352-4 (mineurs) à la répétition de l'indu :</strong> aucun rapport. Ce texte vise exclusivement les restitutions post-annulation contractuelle pour incapacité. Il n'y a pas d'acte annulé dans la répétition de l'indu. L'appliquer démontre qu'on n'a pas compris la distinction acte juridique / fait juridique.</p>
+
+      <p><strong>Ne pas signaler la mauvaise foi de l'enrichi dans la majeure :</strong> l'effet de la mauvaise foi de l'enrichi (<span class="art-num">art. 1303-4</span>) — indemnité à la plus forte des deux valeurs au lieu de la plus faible — est très peu connu. Le passer sous silence dans une consultation = priver le client de milliers ou dizaines de milliers d'euros potentiels. C'est une faute professionnelle.</p>
+
+      <p><strong>Présenter la novation comme possible en cas de transformation d'une obligation naturelle en obligation civile :</strong> la Cour de cassation l'a exclu depuis <span class="juris">Cass., 10 octobre 1995 (JP PMU)</span>. La transformation passe par un engagement unilatéral de volonté, non par une novation qui supposerait une intention de nover non présumable.</p>
+
+    </div>
+  </div>
+
+  <!-- ══════════ ALERTES ══════════ -->
+  <div class="section" id="alerte">
+    <div class="section-header">
+      <span class="section-tag tag-alerte">⚡ Alertes examen</span>
+      <span class="section-title">Sujets susceptibles de tomber</span>
+    </div>
+    <div class="block">
+
+      <div class="alert-box">
+        <div class="alert-title">Art. 1303-4 — mauvaise foi de l'enrichi : indemnité à la plus forte valeur</div>
+        Quasi-inconnu des candidats. Sujet possible en consultation : identifier la mauvaise foi de l'enrichi (dissimulation, entretien délibéré de la situation), démontrer qu'il savait qu'il bénéficiait d'un EI. Conséquence : indemnité = la plus forte des deux valeurs (appauvrissement ou enrichissement revalorisés), au lieu de la plus faible. Enjeu financier potentiellement considérable pour le client.
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">Enrichissement injustifié + prescription (art. 1303-3)</div>
+        Articulation technique possible dans un cas pratique combinant QC, RGO et prescription. Scénario : action contractuelle ou délictuelle prescrite — le demandeur tente de se rabattre sur l'EI. Réponse : l'obstacle de droit (irrecevabilité procédurale pour prescription) exclut tout autant l'EI qu'un obstacle de fond. Mais recours possible via paiement volontaire de l'obligation prescrite ou transformation d'une obligation naturelle en obligation civile nouvelle.
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">Art. 1352-6 — taux légal dans la restitution d'une somme d'argent</div>
+        Déjà sollicité dans un sujet Deshayes, quasi-inconnu des candidats. Savoir que la restitution d'une somme d'argent inclut les intérêts légaux (aujourd'hui significatifs : ~5 %) ET les taxes acquittées (TVA). Ne pas traiter le taux légal comme un détail — sur 150 000 €, il peut représenter 40 000 € supplémentaires sur 5 ans. Le calculer par tranches selon le taux en vigueur à chaque période.
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">Art. 1352-8 — restitution d'une prestation de service en valeur au jour de la fourniture</div>
+        Régime distinct de la restitution d'une chose corporelle : valeur appréciée au jour où la prestation a été fournie (dette nominale, non dette de valeur). Le prestataire qui a fourni indûment un service ne récupère pas la valeur actualisée de sa prestation. Applicable aussi aux restitutions quasi-contractuelles d'indu de service.
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">Subsidiarité de l'EI — principe de non-cumul avec les autres sources</div>
+        Sujet structurant qui peut tomber comme objet principal ou comme piège dans un CP. L'EI est exclu si : (1) action contractuelle ouverte, même décevante ; (2) action délictuelle ouverte ; (3) QC spécial applicable (GA ou répétition de l'indu) ; (4) action prescrite (irrecevabilité = obstacle de droit). L'EI n'est pas un palliatif aux échecs des autres actions. Fonder un CP sur l'EI sans vérifier ces préalables = erreur éliminatoire.
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">Art. 1303-2 al. 2 — modération de l'indemnité pour faute de l'appauvri</div>
+        Nouveauté de l'ordonnance abandonnant la JP chaotique antérieure (tout ou rien). Le juge peut modérer souverainement l'indemnité en fonction de la gravité de la faute de l'appauvri. Pas de responsabilité civile — pas de préjudice à démontrer. Logique d'équité propre au QC. Un candidat qui identifie une faute de l'appauvri dans les faits et la soulève correctement prend un écart significatif sur ses concurrents.
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

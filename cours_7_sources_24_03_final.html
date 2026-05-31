@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours 7 — Sources des Obligations — 24 mars 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #faf9f6;
+    --surface: #ffffff;
+    --border: #e8e4dc;
+    --text: #1a1a1a;
+    --text-light: #555;
+    --article: #c0392b;
+    --juris: #6c3483;
+    --loi: #7b5e3a;
+    --citation: #1a5276;
+    --tag-cours: #2c6e49;
+    --tag-methodo: #1565c0;
+    --tag-oral: #6a0f49;
+    --tag-critique: #b71c1c;
+    --tag-alerte: #e65100;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; font-style: normal; }
+
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .page-header {
+    background: #ffffff;
+    color: #1a1a1a;
+    padding: 48px 64px 40px;
+    border-bottom: 4px solid var(--article);
+  }
+  .page-header .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 12px;
+  }
+  .page-header h1 { font-size: 2rem; font-weight: 500; margin-bottom: 8px; }
+  .page-header .subtitle { color: #ccc; font-size: 1rem; }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 64px;
+    background: #f2f0ea;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+
+  .main { max-width: 900px; margin: 0 auto; padding: 48px 32px 80px; }
+
+  .note {
+    background: #f0f4ff;
+    border: 1px solid #c5cee0;
+    border-left: 4px solid var(--citation);
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin-bottom: 32px;
+    font-size: 0.92em;
+    color: #333;
+  }
+
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin-bottom: 48px;
+  }
+  .toc-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 16px;
+  }
+  .toc ul { list-style: none; padding: 0; }
+  .toc li { padding: 5px 0; font-size: 0.97em; border-bottom: 1px solid #f0ede7; }
+  .toc li:last-child { border-bottom: none; }
+  .toc a { color: var(--text); text-decoration: none; }
+  .toc a:hover { color: var(--article); }
+  .toc .toc-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-light);
+    margin-left: 8px;
+  }
+
+  .section { margin-bottom: 64px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    color: #fff;
+    white-space: nowrap;
+  }
+  .tag-cours    { background: var(--tag-cours); }
+  .tag-methodo  { background: var(--tag-methodo); }
+  .tag-oral     { background: var(--tag-oral); }
+  .tag-critique { background: var(--tag-critique); }
+  .tag-alerte   { background: var(--tag-alerte); }
+  .section-title { font-size: 1.25rem; font-weight: 600; }
+
+  .subsection { margin-bottom: 40px; }
+  .subsection-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 18px;
+    padding-left: 16px;
+    border-left: 3px solid var(--border);
+  }
+  .block p { margin-bottom: 14px; }
+  .block strong { font-weight: 600; }
+
+  .quote {
+    background: var(--surface);
+    border-left: 3px solid #ccc;
+    padding: 14px 20px;
+    margin: 14px 0;
+    border-radius: 0 4px 4px 0;
+    color: #333;
+    font-size: 0.96em;
+  }
+
+  .art-num  { color: var(--article); font-weight: 700; }
+  .art-txt  { color: var(--citation); font-weight: 400; }
+  .juris    { color: var(--juris); font-weight: 700; }
+  .loi      { color: var(--loi); font-weight: 700; }
+
+  .alert-box {
+    background: #fff8f0;
+    border: 1px solid #e65100;
+    border-left: 4px solid #e65100;
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 16px 0;
+    font-size: 0.95em;
+  }
+  .alert-box .alert-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #e65100;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  ul, ol { padding-left: 26px; margin: 12px 0; }
+  li { margin-bottom: 6px; }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    @page { size: A4; margin: 15mm 14mm 18mm 14mm; }
+    body { font-size: 10.5pt; line-height: 1.55; background: #faf9f6 !important; color: #1a1a1a !important; }
+    .page-header { background: #ffffff !important; color: #1a1a1a !important; padding: 14pt 20pt 10pt !important; border-bottom: 3pt solid #c0392b !important; margin-bottom: 8pt; }
+    .page-header .label { color: #888 !important; font-size: 7pt !important; }
+    .page-header h1 { font-size: 15pt !important; margin-bottom: 3pt !important; color: #1a1a1a !important; }
+    .page-header .subtitle { color: #555 !important; font-size: 9pt !important; }
+    .legend { background: #f2f0ea !important; padding: 6pt 20pt !important; font-size: 7.5pt !important; gap: 10pt !important; border-bottom: 1pt solid #e8e4dc !important; margin-bottom: 8pt; }
+    .main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+    .section { margin-bottom: 16pt !important; }
+    .section-header { padding-bottom: 5pt !important; margin-bottom: 8pt !important; border-bottom: 1.5pt solid #e8e4dc !important; page-break-after: avoid; }
+    .section-tag { font-size: 6.5pt !important; padding: 2pt 6pt !important; color: #fff !important; }
+    .tag-cours    { background: #2c6e49 !important; }
+    .tag-methodo  { background: #1565c0 !important; }
+    .tag-oral     { background: #6a0f49 !important; }
+    .tag-critique { background: #b71c1c !important; }
+    .tag-orga     { background: #4a4a4a !important; }
+    .tag-alerte   { background: #e65100 !important; }
+    .section-title { font-size: 11pt !important; }
+    .subsection { margin-bottom: 10pt !important; }
+    .subsection-title { font-size: 9.5pt !important; margin-bottom: 5pt !important; }
+    .block { background: #ffffff !important; border: 0.75pt solid #e8e4dc !important; padding: 8pt 10pt !important; margin-bottom: 6pt !important; page-break-inside: avoid; }
+    .block p { margin-bottom: 5pt !important; font-size: 10pt !important; }
+    .block ul { padding-left: 14pt !important; margin: 4pt 0 !important; }
+    .block li { margin-bottom: 3pt !important; font-size: 10pt !important; }
+    h3 { font-size: 10.5pt !important; margin-top: 7pt !important; margin-bottom: 4pt !important; page-break-after: avoid; }
+    .alert-box { border: 0.75pt solid #e65100 !important; border-left: 3pt solid #e65100 !important; background: #fff8f5 !important; padding: 7pt 10pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .alert-box .alert-title { font-size: 6.5pt !important; color: #e65100 !important; margin-bottom: 4pt !important; }
+    .alert-box p, .alert-box li { font-size: 9.5pt !important; }
+    .quote { border-left: 3pt solid #1a5276 !important; background: #f0f4f8 !important; color: #1a5276 !important; padding: 7pt 10pt !important; font-size: 9.5pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .sub-section { border-top: 0.5pt solid #e8e4dc !important; margin-top: 8pt !important; padding-top: 8pt !important; }
+    .art-num { color: #c0392b !important; }
+    .art-txt { color: #1a5276 !important; }
+    .juris   { color: #6c3483 !important; }
+    .loi     { color: #7b5e3a !important; }
+    a[href]:after { content: none !important; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="label">Droit des obligations · Sources · Cours 7</div>
+  <h1>Cours 7 — Sources des Obligations</h1>
+  <div class="subtitle">24 mars 2026 · Prof. Laurent Poulet-Bellet · Cap Avocat / Formaprep</div>
+</div>
+
+<div class="legend">
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--article)"></div>
+    <span style="color:var(--article);font-weight:700">Numéro d'article</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--citation)"></div>
+    <span style="color:var(--citation)">Texte cité / Doctrine</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--juris)"></div>
+    <span style="color:var(--juris);font-weight:700">Jurisprudence</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--loi)"></div>
+    <span style="color:var(--loi);font-weight:700">Loi</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="note">
+    <strong>Note de lecture.</strong> Ce cours couvre : (I) Présentation générale des quasi-contrats — classification, textes, articulation spécial/général (<span class="art-num">art. 1300 et s.</span>). (II) Gestion d'affaires — conditions (<span class="art-num">art. 1301</span>), obligations du gérant (<span class="art-num">art. 1301-1</span>), effets à l'égard du maître (<span class="art-num">art. 1301-2</span>) : remboursement des dépenses, controverse sur les dommages ; intérêts (<span class="art-num">art. 1301-2 al. 3</span>) ; ratification (<span class="art-num">art. 1301-3</span>) ; intérêt partagé (<span class="art-num">art. 1301-4</span>) ; subsidiarité de l'enrichissement injustifié (<span class="art-num">art. 1301-5</span>). (III) Paiement de l'indu — principe (<span class="art-num">art. 1302</span>), obligations naturelles (<span class="art-num">art. 1302 al. 2</span>), <span class="art-num">art. 1302-1</span> (indu sans rapport d'obligation), <span class="art-num">art. 1302-2</span> (paiement de la dette d'autrui par erreur ou contrainte). La partie 5.2 est une duplication partielle de la partie 5.1 — les passages identiques ont été supprimés.
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Sommaire</div>
+    <ul>
+      <li><a href="#cours">📚 Cours — Contenu juridique</a> <span class="toc-tag">Quasi-contrats · Gestion d'affaires · art. 1300–1301-5 · Paiement de l'indu · art. 1302–1302-2 · Loteries publicitaires</span></li>
+      <li><a href="#methodo">⚠️ Méthodo</a> <span class="toc-tag">Lecture des textes · Modulation selon le sujet · Ordre de raisonnement · Dommages vs préjudice</span></li>
+      <li><a href="#oral">🎓 Grand oral</a> <span class="toc-tag">Quasi-contrat prétorien · Cour de cassation source de normes · Grotius · Obligation naturelle · Droit naturel</span></li>
+      <li><a href="#critique">🔍 Critique des prépas</a> <span class="toc-tag">art. 1300 mal utilisé · art. 1302-1 vs indu objectif/subjectif · Dommage ≠ préjudice · Loteries publicitaires</span></li>
+      <li><a href="#alerte">⚡ Alertes examen</a> <span class="toc-tag">Paiement de l'indu · Gestion d'affaires + enrichissement injustifié · Ratification · Obligation naturelle</span></li>
+    </ul>
+  </div>
+
+  <!-- ══════════ COURS ══════════ -->
+  <div class="section" id="cours">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📚 Cours</span>
+      <span class="section-title">Contenu juridique pur</span>
+    </div>
+
+    <!-- I. CLASSIFICATION DES QUASI-CONTRATS -->
+    <div class="subsection">
+      <div class="subsection-title">I. Classification des quasi-contrats — art. 1100-2, 1300 et s.</div>
+      <div class="block">
+
+        <p><strong>Place des quasi-contrats dans la classification des sources :</strong> les quasi-contrats sont des faits juridiques, non des actes juridiques. Ce point est désormais de droit positif depuis l'<span class="loi">ordonnance du 10 février 2016</span>. L'<span class="art-num">art. 1100-2 C. civ.</span> dispose que <span class="art-txt">les obligations qui naissent d'un fait juridique sont régies selon le cas par le sous-titre relatif à la responsabilité extra-contractuelle ou par le sous-titre relatif aux autres sources d'obligation</span> — ce sous-titre 3 contient les quasi-contrats (<span class="art-num">art. 1300 et s.</span>).</p>
+
+        <p><strong>Art. 1300 al. 1 — texte creux, à ne pas surinterpreter :</strong> <span class="art-txt">"Les quasi-contrats sont des faits purement volontaires, dont il résulte un engagement de celui qui en profite sans y avoir droit, et parfois un engagement de leur auteur envers autrui."</span> Ce texte est un héritage du code de 1804 (ex-<span class="art-num">art. 1371</span>), repris sans amélioration par l'ordonnance. Il est inutilisable en majeure pour en tirer des conditions ou des effets précis :</p>
+        <ul>
+          <li>La formule <em>faits purement volontaires</em> ne décrit pas la restitution de l'indu, où ce qui est involontaire est justement le paiement d'un indu.</li>
+          <li>Le mot <em>engagement</em> est mal choisi car il suggère un acte juridique volontaire — or on est dans le domaine du fait juridique.</li>
+        </ul>
+        <p>Conclusion : ce texte ne dit rien d'utilisable. Ne pas en tirer de conditions ou d'effets en majeure.</p>
+
+        <p><strong>Art. 1300 al. 2 — les trois quasi-contrats codifiés :</strong> <span class="art-txt">"Les quasi-contrats régis par le présent sous-titre sont la gestion d'affaires, le paiement de l'indu et l'enrichissement injustifié."</span> Cet alinéa est historique : il codifie pour la première fois l'enrichissement injustifié (ex-enrichissement sans cause), qui était jusqu'alors un quasi-contrat purement prétorien. Il ne dit pas que les quasi-contrats sont limitativement énumérés par la loi — il dit seulement que ces trois figures sont régies par le présent sous-titre.</p>
+
+        <p><strong>Quasi-contrats prétoriens — la jurisprudence reste libre :</strong> la Cour de cassation n'est pas liée par cet alinéa 2. Elle a toujours créé des quasi-contrats prétoriens (enrichissement injustifié avant 2016, loteries publicitaires depuis 2002) et rien dans l'ordonnance ne lui interdit de continuer. L'argument selon lequel l'énumération serait limitative est techniquement faux.</p>
+
+        <p><strong>Loteries publicitaires — sort incertain :</strong> <span class="juris">Cass. ch. mixte, 6 septembre 2002</span> — quasi-contrat prétorien non codifié par l'ordonnance. Deux issues possibles :</p>
+        <ul>
+          <li>La Cour de cassation maintient sa jurisprudence du 6 septembre 2002 (elle n'est pas liée par le silence de la loi).</li>
+          <li>La Cour de cassation abandonne ce quasi-contrat, auquel cas le fondement alternatif est l'engagement unilatéral de volonté, désormais codifié, qui produirait les mêmes effets avec les mêmes conditions — jurisprudence antérieure : <span class="juris">Cass. com., 28 mars 1995</span>.</li>
+        </ul>
+        <p>On ne sait pas. Il faut présenter les deux hypothèses dans un cas pratique.</p>
+
+        <p><strong>Articulation spécial / général — règle codifiée :</strong> le quasi-contrat général (enrichissement injustifié) n'est applicable que lorsque aucun des deux quasi-contrats spéciaux (gestion d'affaires, paiement de l'indu) n'est applicable. C'est la règle <em>specialia generalibus derogant</em> codifiée à l'<span class="art-num">art. 1301-5</span>. Le champ d'application des deux quasi-contrats spéciaux doit donc être maîtrisé en priorité.</p>
+
+      </div>
+    </div>
+
+    <!-- II. GESTION D'AFFAIRES -->
+    <div class="subsection">
+      <div class="subsection-title">II. Gestion d'affaires — art. 1301 à 1301-5</div>
+      <div class="block">
+
+        <p><strong>Art. 1301 — conditions :</strong> <span class="art-txt">"Celui qui, sans y être tenu, gère sciemment et utilement l'affaire d'autrui, à l'insu ou sans opposition du maître de l'affaire, est soumis, dans l'accomplissement des actes juridiques et matériels de sa gestion, à toutes les obligations d'un mandataire."</span> Conditions à relever :</p>
+        <ul>
+          <li><strong>Sans y être tenu :</strong> le gérant n'avait aucune obligation préexistante d'agir.</li>
+          <li><strong>Sciemment :</strong> l'acte est délibéré — la gestion d'affaires est un fait volontaire, non un acte accidentel.</li>
+          <li><strong>Utilement :</strong> l'intervention doit être objectivement opportune, non inopportune ou fantaisiste.</li>
+          <li><strong>À l'insu ou sans opposition du maître :</strong> si le maître a connaissance de l'intervention mais ne s'y oppose pas, il n'y a pas pour autant d'accord de volonté — pas de contrat, pas d'offre, pas d'acceptation. On reste dans le domaine du fait juridique, non de l'acte juridique.</li>
+        </ul>
+        <p>Effets à l'égard du gérant : il est tenu aux obligations d'un mandataire — la gestion d'affaires est historiquement un quasi-mandat. Ce n'est pas une obligation contractuelle (il n'y a pas de contrat), mais une obligation qui, dans ses effets sur la diligence du gérant, est calquée par analogie sur le mandat.</p>
+
+        <p><strong>Art. 1301-1 — obligations de diligence du gérant et continuité de la gestion :</strong></p>
+        <ul>
+          <li>Al. 1 — <span class="art-txt">"Il est tenu d'apporter à la gestion de l'affaire tous les soins d'une personne raisonnable."</span> Standard de la personne normalement diligente, par analogie avec les obligations du mandataire.</li>
+          <li>Al. 1 — <span class="art-txt">"Il doit poursuivre la gestion jusqu'à ce que le maître de l'affaire ou son successeur soit en mesure d'y pourvoir."</span> Le gérant qui a commencé doit continuer. Il ne peut s'arrêter que lorsque le maître est objectivement en mesure de reprendre. Si le maître est en mesure d'y pourvoir mais s'abstient délibérément, le gérant est libéré — c'est la défaillance du maître, pas du gérant.</li>
+          <li>Les difficultés financières du maître ne constituent pas une impossibilité libératoire pour le gérant (par analogie avec le principe selon lequel l'insolvabilité ne constitue pas un cas de force majeure pour une obligation monétaire).</li>
+        </ul>
+        <p><strong>Nature de la responsabilité du gérant :</strong> elle est nécessairement extra-contractuelle (délictuelle), puisqu'il n'y a pas de contrat. Il n'existe pas de responsabilité contractuelle sans contrat.</p>
+
+        <p><strong>Art. 1301-1 al. 2 — modulation de l'indemnité par le juge :</strong> <span class="art-txt">"Le juge peut, selon les circonstances, modérer l'indemnité due au maître de l'affaire en raison des fautes ou de la négligence du gérant."</span> Ce texte est atypique : il institue un pouvoir de modération en fonction de la gravité de la faute, ce qui n'existe pas en responsabilité délictuelle de droit commun (où une faute est une faute, quel que soit son degré). Ce régime est autonome, inspiré d'une logique d'équité propre aux quasi-contrats — analogue aux règles applicables aux contrats à titre gratuit. Conseil pratique : appliquer le texte à sec sans qualifier cette indemnité de réparation délictuelle au sens classique.</p>
+
+        <p><strong>Art. 1301-2 — effets à l'égard du maître de l'affaire :</strong></p>
+        <ul>
+          <li>Al. 1 — <span class="art-txt">"Celui dont l'affaire a été utilement gérée doit remplir les engagements contractés dans son intérêt par le gérant."</span> Le maître assume les engagements conclus par le gérant avec des tiers, dans son intérêt. Attention : ces engagements pèsent sur le maître directement, mais la ratification (<span class="art-num">art. 1301-3</span>) serait nécessaire pour opposer les effets aux tiers non consentants.</li>
+          <li>Al. 2 — <span class="art-txt">"Il rembourse au gérant les dépenses faites dans son intérêt et l'indemnise des dommages qu'il a subis en raison de sa gestion."</span> Deux volets à distinguer :
+            <ul>
+              <li><strong>Premier membre — remboursement des dépenses :</strong> c'est le cœur historique de la gestion d'affaires depuis l'Ancien régime. Le gérant a droit au remboursement des frais exposés (bâches, clous, matériel acheté). Ce n'est pas une rémunération — la gestion d'affaires n'est jamais un instrument de rémunération.</li>
+              <li><strong>Second membre — indemnisation des dommages :</strong> nouveau depuis l'ordonnance, aucune jurisprudence à ce jour. <em>Dommage</em> ≠ <em>préjudice</em>. Le texte vise les détriments patrimoniaux en lien direct avec la gestion (ex. outil flingué lors de la gestion), non la réparation d'un préjudice corporel ou matériel au sens du droit de la responsabilité civile. Voir section Critique.</li>
+            </ul>
+          </li>
+          <li>Al. 3 — <span class="art-txt">"Les sommes avancées par le gérant portent intérêt du jour du paiement."</span> C'est une dette de valeur, non une dette soumise au nominalisme monétaire. L'intérêt est légal (pas de contrat, donc pas d'intérêt conventionnel). Permet au gérant de ne pas subir l'effet de l'inflation sur les fonds avancés.</li>
+        </ul>
+
+        <p><strong>Art. 1301-3 — ratification :</strong> <span class="art-txt">"La ratification de la gestion par le maître vaut mandat."</span> A posteriori, le maître peut ratifier la gestion et transformer la relation quasi-contractuelle en relation contractuelle régie par les règles du mandat. Cette ratification n'est opposable aux tiers que s'ils y ont consenti (effet relatif des conventions, <span class="art-num">art. 1199 C. civ.</span>, ex-<span class="art-num">art. 1165</span>). Intérêt pratique : la ratification permet notamment d'introduire une rémunération au profit du gérant, exclue sur le seul terrain de la gestion d'affaires.</p>
+
+        <p><strong>Art. 1301-4 — intérêt partagé :</strong> <span class="art-txt">"L'intérêt personnel du gérant à se charger de l'affaire d'autrui n'exclut pas l'application des règles de la gestion d'affaires."</span> Codification de la jurisprudence antérieure. Même si le gérant avait un intérêt propre à intervenir, la qualification de gestion d'affaires reste possible. En ce cas, al. 2 : <span class="art-txt">"la charge des engagements, des dépenses et des dommages se répartit à proportion des intérêts de chacun dans l'affaire commune."</span> Le juge apprécie souverainement la proportion et réduit l'indemnité due au gérant à due concurrence.</p>
+
+        <p><strong>Art. 1301-5 — subsidiarité de l'enrichissement injustifié :</strong> <span class="art-txt">"Si l'action du gérant ne répond pas aux conditions de la gestion d'affaires, mais profite néanmoins au maître de cette affaire, celui-ci doit indemniser le gérant selon les règles de l'enrichissement injustifié."</span> Application de la règle spécial/général : si les conditions de la gestion d'affaires ne sont pas réunies mais que la situation a profité à autrui, le gérant peut invoquer l'enrichissement injustifié à titre subsidiaire. L'indemnité ne se calcule pas de la même manière : c'est le montant le plus faible entre l'enrichissement et l'appauvrissement. Attention à la formulation du texte : une fois la gestion d'affaires exclue, il ne faut plus parler de "gérant d'affaires" ni de "maître de l'affaire" — les termes sont propres à la qualification exclue.</p>
+
+      </div>
+    </div>
+
+    <!-- III. PAIEMENT DE L'INDU -->
+    <div class="subsection">
+      <div class="subsection-title">III. Paiement de l'indu — art. 1302 à 1302-2</div>
+      <div class="block">
+
+        <p><strong>Art. 1302 — principe général :</strong> <span class="art-txt">"Tout paiement suppose une dette. Ce qui a été reçu sans être dû est sujet à restitution."</span> Le paiement en droit est l'exécution volontaire d'une obligation. S'il n'existe pas de dette, le paiement n'a aucune cause : ce qui a été reçu doit être restitué. Ce texte renvoie au régime des restitutions (<span class="art-num">art. 1352 et s. C. civ.</span>).</p>
+
+        <p><strong>Art. 1302 al. 2 — obligations naturelles :</strong> <span class="art-txt">"La restitution n'est pas admise à l'égard des obligations naturelles qui ont été volontairement acquittées."</span> Codification de l'ex-<span class="art-num">art. 1235 C. civ.</span> L'obligation naturelle (devoir de conscience envers autrui) se transforme en obligation civile par l'exécution volontaire. Une fois exécutée, la restitution est exclue. Mécanisme : l'exécution volontaire génère une nouvelle obligation civile — ce n'est plus la même obligation que l'obligation initiale prescrite ou naturelle.</p>
+        <p>Cas pratique possible : exécution volontaire d'une obligation prescrite par sentiment de devoir moral → transformation en obligation civile → pas de restitution possible. À ne pas confondre avec le paiement volontaire d'une dette prescrite sans affirmation d'un devoir de conscience (autre hypothèse, autre analyse).</p>
+
+        <p><strong>Terminologie doctrinale classique (à connaître sans recopier) :</strong> la doctrine distinguait classiquement l'indu objectif et l'indu subjectif, mais cette distinction n'a pas été codifiée par l'ordonnance. L'ordonnance distingue deux hypothèses selon une logique différente, qui ne coïncide pas exactement avec l'opposition doctrinale.</p>
+        <ul>
+          <li><strong>Indu objectif (doctrinal) :</strong> aucune dette entre solvens et accipiens — le solvens a payé quelqu'un qui n'était créancier de personne.</li>
+          <li><strong>Indu subjectif (doctrinal) :</strong> il existe une dette quelque part, mais pas entre le solvens et l'accipiens — le solvens a payé la dette d'autrui sans le vouloir, ou a payé quelqu'un qui n'était pas son créancier.</li>
+        </ul>
+
+        <p><strong>Art. 1302-1 — premier cas de restitution :</strong> <span class="art-txt">"Celui qui reçoit par erreur ou sciemment ce qui ne lui est pas dû doit le restituer à celui de qui il l'a indûment reçu."</span> Ce texte se place du côté de l'accipiens. Il couvre :</p>
+        <ul>
+          <li>L'absence totale de dette (ce que la doctrine appelait indu objectif) : l'accipiens n'était créancier de personne.</li>
+          <li>Une des hypothèses de l'indu subjectif doctrinal : l'accipiens pouvait être créancier d'un tiers, mais le solvens n'était pas son débiteur et n'a pas entendu payer la dette d'autrui.</li>
+        </ul>
+        <p>Condition unique : établir que le paiement n'était pas dû. Il n'est pas nécessaire de prouver l'erreur. Le texte ne couvre pas le paiement volontaire et conscient de la dette d'autrui.</p>
+
+        <p><strong>Art. 1302-2 — second cas : paiement de la dette d'autrui par erreur ou contrainte :</strong> <span class="art-txt">"Celui qui, par erreur ou sous la contrainte, a acquitté la dette d'autrui peut agir en restitution contre le créancier. Néanmoins, ce droit cesse dans le cas où le créancier, par suite du paiement, a détruit son titre ou abandonné les sûretés qui garantissaient sa créance. La restitution peut aussi être demandée à celui dont la dette a été acquittée."</span> Ce texte se place du côté du solvens. Il couvre l'hypothèse où une dette existait bien, mais ce n'était pas la dette du solvens — il a payé la dette d'autrui sans le savoir (par erreur) ou sous contrainte.</p>
+        <ul>
+          <li>Condition : prouver l'erreur ou la contrainte. Si le paiement a été fait sciemment (volontairement), il n'y a pas d'indu — il y a paiement volontaire de la dette d'autrui, ouvrant droit à un recours (personnel ou subrogatoire) contre le véritable débiteur, mais pas à restitution contre le créancier.</li>
+          <li>Exception : si le créancier a, par suite du paiement, détruit son titre ou abandonné ses sûretés, le droit à restitution est éteint (car la restitution causerait un préjudice irréparable au créancier).</li>
+          <li>La restitution peut aussi être demandée directement au véritable débiteur dont la dette a été acquittée.</li>
+        </ul>
+
+        <p><strong>Paiement volontaire de la dette d'autrui — subrogation :</strong> si le paiement de la dette d'autrui est volontaire et conscient, on n'est pas dans un cas d'indu. Le solvens dispose d'un recours contre le véritable débiteur, soit sur un fondement personnel (droit commun des obligations), soit sur un fondement subrogatoire (transmission de la créance par le créancier désintéressé au solvens).</p>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ MÉTHODO ══════════ -->
+  <div class="section" id="methodo">
+    <div class="section-header">
+      <span class="section-tag tag-methodo">⚠️ Méthodo</span>
+      <span class="section-title">Conseils méthodologiques</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Lecture des textes de quasi-contrats</div>
+      <div class="block">
+
+        <p><strong>Ne pas réciter l'art. 1300 :</strong> ce texte est creux. L'utiliser en majeure pour en tirer des conditions ou des effets = violer le droit positif. Le bon réflexe : aller directement à l'alinéa 2 (qui énumère les trois quasi-contrats) et aux textes spécifiques à chaque figure.</p>
+
+        <p><strong>Les textes des quasi-contrats mélangent conditions et effets :</strong> ne pas supposer que les premiers articles traitent des conditions et les derniers des effets. En réalité, un même texte peut mêler les deux. Exemple : l'<span class="art-num">art. 1301</span> contient à la fois les conditions de la gestion d'affaires et les effets à l'égard du gérant. L'<span class="art-num">art. 1301-4</span>, qui semble traiter des effets, revient en réalité sur les conditions. Il faut lire texte à texte, alinéa à alinéa, sans supposer un plan scolaire que le code ne suit pas.</p>
+
+        <p><strong>Dommage ≠ préjudice — distinction fondamentale pour l'art. 1301-2 al. 2 :</strong> le second membre de l'alinéa 2 parle de <em>dommages subis en raison de la gestion</em>, pas de <em>réparation de préjudices</em>. Ces dommages sont les détriments patrimoniaux directement liés aux actes de gestion (outil détruit, matériel usé). Ils ne couvrent pas les préjudices corporels ou les préjudices matériels sans lien direct avec la gestion. Pour ces derniers, c'est le droit de la responsabilité civile extra-contractuelle qui s'applique — avec les trois éléments habituels : fait générateur, préjudice, lien de causalité. Raison : les règles de la responsabilité civile sont d'ordre public et ne peuvent pas être contournées par un texte ambigu de quasi-contrat.</p>
+
+        <p><strong>Distinction gestion d'affaires / enrichissement injustifié dans la majeure :</strong> ne pas mélanger les deux qualifications dans une même majeure. Si la gestion d'affaires est applicable, seul son régime s'applique. Si elle n'est pas applicable, alors — et seulement alors — l'enrichissement injustifié peut être envisagé à titre subsidiaire (<span class="art-num">art. 1301-5</span>). Dans ce second cas, ne plus utiliser les termes de "gérant d'affaires" et "maître de l'affaire" qui appartiennent à la qualification exclue.</p>
+
+        <p><strong>Indu objectif / indu subjectif — terminologie à connaître mais à ne pas recopier :</strong> ces catégories doctrinales ne sont pas codifiées. Ne jamais écrire dans une majeure que l'<span class="art-num">art. 1302-1</span> codifie l'indu objectif et que l'<span class="art-num">art. 1302-2</span> codifie l'indu subjectif — c'est faux. Le texte 1302-1 couvre à la fois l'indu objectif doctrinal et une hypothèse de l'indu subjectif doctrinal. Appliquer les textes tels qu'ils sont rédigés.</p>
+
+        <p><strong>Modulation des développements selon le sujet :</strong> dans une majeure, toutes les conditions ne méritent pas le même développement. Certaines doivent être liquidées rapidement (celles qui ne sont pas en cause dans le sujet), d'autres doivent être creusées (celles qui posent une difficulté spécifique). C'est ce travail de modulation qui distingue une bonne copie d'une récitation scolaire.</p>
+
+        <p><strong>Intérêt légal (art. 1301-2 al. 3) — à valoriser en consultation :</strong> indiquer au client que les sommes avancées produisent intérêt légal à compter du paiement. C'est une dette de valeur, pas une dette nominale. L'intérêt légal est actuellement élevé. Ne pas se contenter de dire "vous serez remboursé" sans préciser la valorisation.</p>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ GRAND ORAL ══════════ -->
+  <div class="section" id="oral">
+    <div class="section-header">
+      <span class="section-tag tag-oral">🎓 Grand oral</span>
+      <span class="section-title">Culture juridique</span>
+    </div>
+    <div class="block">
+
+      <p><strong>La Cour de cassation source de normes :</strong> la Cour de cassation assume désormais publiquement la portée normative de certains de ses arrêts. La prohibition des arrêts de règlement (issue de 1804, pour lutter contre l'arbitraire judiciaire) ne saurait figer le droit dans son état de 1804. Le juge peut créer des quasi-contrats prétoriens — ce qu'il a fait avec l'enrichissement injustifié et les loteries publicitaires. L'ordonnance de 2016 ne peut pas avoir pour effet de supprimer le pouvoir créateur de la jurisprudence. Question possible au grand oral.</p>
+
+      <p><strong>L'École de l'exégèse :</strong> les commentateurs du Code civil de 1804, après sa promulgation, ont produit une doctrine monumentale (Demolombe, Huc, et d'autres) analysant le code texte à texte, mot à mot, virgule après virgule. Ils étaient très critiques de l'art. 1371 (ancêtre de l'art. 1300), qu'ils jugeaient mal rédigé et inadapté à la restitution de l'indu. Question possible : citer les grands exégètes du Code civil.</p>
+
+      <p><strong>Grotius et la laïcisation du droit naturel :</strong> question régulièrement posée au grand oral — quel auteur a laïcisé le droit naturel ? Réponse : Hugo Grotius. Historiquement, le droit naturel avait une origine religieuse ; Grotius l'a détaché de tout fondement théologique pour en faire un système rationnel.</p>
+
+      <p><strong>Obligation naturelle — question de grand oral :</strong> l'obligation naturelle (devoir de conscience envers autrui) peut se transformer en obligation civile par exécution volontaire ou par promesse. Sujets possibles : la distinction entre l'obligation naturelle et l'obligation civile dégénérée par la prescription ; le fondement du devoir de conscience (morale laïque ou religieuse).</p>
+
+      <p><strong>Quasi-contrat de gestion d'affaires comme quasi-mandat :</strong> la gestion d'affaires est historiquement qualifiée de quasi-mandat — non un mandat, mais une figure dont les effets sont calqués sur ceux du mandat en termes de diligence. C'est pour cela que l'<span class="art-num">art. 1301</span> renvoie aux obligations du mandataire. Cette qualification explique l'application de la logique des contrats à titre gratuit (modulation de l'indemnité selon la gravité des fautes).</p>
+
+      <p><strong>Liberté de penser et intoxication informationnelle :</strong> question posée au grand oral sur la liberté de penser en droit, menacée par la désinformation. L'utilisation des réseaux sociaux pour diffuser du droit faux crée une forme d'empêchement à la pensée libre. Lien avec la prohibition des arrêts de règlement et la liberté du juge.</p>
+
+    </div>
+  </div>
+
+  <!-- ══════════ CRITIQUE ══════════ -->
+  <div class="section" id="critique">
+    <div class="section-header">
+      <span class="section-tag tag-critique">🔍 Critique des prépas</span>
+      <span class="section-title">Erreurs et manques dénoncés</span>
+    </div>
+    <div class="block">
+
+      <p><strong>Utiliser l'art. 1300 comme base d'une majeure :</strong></p>
+      <div class="quote">"Quand je vois des tableaux avec 1300 et ensuite une foutaise à côté dans la colonne de droite, ça veut dire que vous n'avez pas compris que ce texte est creux. Vous vous retrouvez à réciter des conditions inventées, que la Cour de cassation n'est jamais arrivée à dégager en 200 ans."</div>
+
+      <p><strong>Affirmer que l'art. 1300 al. 2 limite limitativement les quasi-contrats :</strong> erreur grave. Ce texte ne dit pas que les quasi-contrats sont limitativement énumérés. Il dit que les quasi-contrats régis par ce sous-titre sont au nombre de trois. La Cour de cassation n'est pas liée et peut continuer à créer des quasi-contrats prétoriens.</p>
+
+      <p><strong>Affirmer que le quasi-contrat des loteries publicitaires est abandonné depuis l'ordonnance :</strong> pure supposition. Aucun arrêt n'est venu l'abandonner. Il faut exposer l'incertitude, pas trancher doctoralement.</p>
+
+      <p><strong>Confondre les conditions et les effets de la gestion d'affaires en suivant l'ordre du code :</strong></p>
+      <div class="quote">"Le candidat qui suppose que les premiers textes traitent des conditions et les derniers des effets reconstruit le droit positif à lui tout seul. L'art. 1301-4 revient sur les conditions alors qu'on croit être dans les effets. Si vous récitez sans avoir lu les textes, ça se voit en deux temps trois mouvements."</div>
+
+      <p><strong>Appliquer le principe de réparation intégrale à l'indemnité de la gestion d'affaires :</strong> erreur. L'<span class="art-num">art. 1301-1 al. 2</span> autorise le juge à moduler l'indemnité selon la gravité des fautes du gérant. Ce n'est pas de la responsabilité délictuelle classique. Appliquer le principe de réparation intégrale à ce texte revient à l'ignorer.</p>
+
+      <p><strong>Qualifier la responsabilité du gérant d'affaires de contractuelle :</strong></p>
+      <div class="quote">"Il est assimilé dans la consistance des obligations à un mandataire, mais il n'est pas tenu par des obligations contractuelles. Il n'y a pas de contrat. On est dans le domaine du fait juridique. La responsabilité, évidemment, ne peut être que délictuelle."</div>
+
+      <p><strong>Écrire que l'art. 1301-2 al. 2 permet la réparation des préjudices corporels sur le terrain de la gestion d'affaires :</strong></p>
+      <div class="quote">"Vous m'avez transformé en trois secondes un texte énigmatique en un élément qui absorbe totalement les règles de la responsabilité civile. Ce texte est creux. Un juge ne va pas foutre en l'air tout le régime de responsabilité civile d'ordre public sur la base d'un texte miteux de ce genre. Si vous plaidez ça du côté du demandeur, l'assureur du défendeur vous répond qu'il ne couvre pas les dommages quasi-contractuels. Vous avez proposé un fondement contraire aux intérêts de votre client."</div>
+
+      <p><strong>Écrire que l'art. 1302-1 codifie l'indu objectif et l'art. 1302-2 codifie l'indu subjectif :</strong></p>
+      <div class="quote">"C'est faux. L'art. 1302-1 couvre à la fois ce que la doctrine appelait indu objectif et une des hypothèses de l'indu subjectif. Les gens qui écrivent ça dans les majeurs ne connaissent rien au RGO et au droit du paiement."</div>
+
+      <p><strong>Mélanger la transformation d'une obligation naturelle en obligation civile avec le paiement volontaire d'une dette prescrite :</strong> deux hypothèses différentes. Dans le premier cas, le solvens se sent moralement tenu d'un devoir de conscience et le dit — il y a transformation. Dans le second cas, le solvens paie pour des raisons pratiques sans affirmation d'un devoir de conscience — ce n'est pas de l'obligation naturelle.</p>
+
+      <p><strong>Citer des arrêts miteux dans la majeure de gestion d'affaires pour affirmer que le gérant n'a pas droit à rémunération :</strong> inutile. L'exclusion de toute rémunération est dans la nature même de la gestion d'affaires — c'est un instrument de remboursement des débours, pas de rémunération. Le citer comme si c'était une règle jurisprudentielle incertaine démontre qu'on ne comprend pas la matière.</p>
+
+    </div>
+  </div>
+
+  <!-- ══════════ ALERTES ══════════ -->
+  <div class="section" id="alerte">
+    <div class="section-header">
+      <span class="section-tag tag-alerte">⚡ Alertes examen</span>
+      <span class="section-title">Sujets susceptibles de tomber</span>
+    </div>
+    <div class="block">
+
+      <div class="alert-box">
+        <div class="alert-title">Paiement de l'indu — art. 1302-1 vs art. 1302-2 : distinction des hypothèses</div>
+        Sujet préparé pour le DST 2. Maîtriser : (1) art. 1302-1 = côté accipiens, restitution si paiement non dû, sans preuve de l'erreur ; (2) art. 1302-2 = côté solvens, paiement de la dette d'autrui par erreur ou contrainte, preuve de l'erreur ou contrainte requise, exception si le créancier a détruit son titre. Ne pas superposer la terminologie doctrinale objectif/subjectif aux deux textes.
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">Gestion d'affaires + enrichissement injustifié — articulation subsidiaire (art. 1301-5)</div>
+        Cas pratique possible : conditions de la gestion d'affaires non réunies, mais la situation a profité à autrui. Maîtriser que l'enrichissement injustifié est subsidiaire, que le calcul de l'indemnité est différent (montant le plus faible entre enrichissement et appauvrissement), et ne plus utiliser le vocabulaire de la qualification exclue.
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">Dommages de la gestion d'affaires (art. 1301-2 al. 2) — zone d'ombre</div>
+        Le second membre de l'alinéa 2 (dommages subis en raison de la gestion) est une nouveauté sans jurisprudence. Risque de piège si un cas pratique présente un préjudice corporel d'un gérant d'affaires. Raisonnement attendu : ce texte couvre les détriments patrimoniaux directs (outil détruit), pas les préjudices corporels ou matériels éloignés — pour ceux-là, responsabilité civile extra-contractuelle, avec ses règles d'ordre public.
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">Loteries publicitaires — sort après l'ordonnance</div>
+        Sujet possible en consultation. Ne pas trancher — exposer les deux hypothèses (maintien par la Cour de cassation, ou abandon et substitution par l'engagement unilatéral de volonté codifié) et leurs conséquences pratiques identiques pour le client.
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">Obligation naturelle et paiement de l'indu (art. 1302 al. 2)</div>
+        Cas pratique possible : paiement d'une dette prescrite avec sentiment de devoir moral = transformation en obligation civile = pas de restitution. À distinguer du paiement volontaire d'une dette prescrite sans affirmation de devoir de conscience (autre hypothèse). Lien avec le droit du paiement en RGO.
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-title">Nature de la responsabilité du gérant d'affaires</div>
+        Question possible dans un cas pratique : la responsabilité du gérant d'affaires en cas de défaut de diligence est-elle contractuelle ou délictuelle ? Réponse : délictuelle (pas de contrat = pas de responsabilité contractuelle). Mais ce n'est pas une responsabilité délictuelle de droit commun pur — le juge peut moduler l'indemnité selon la gravité des fautes (art. 1301-1 al. 2), logique d'équité propre aux quasi-contrats.
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

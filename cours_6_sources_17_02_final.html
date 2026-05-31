@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours 6 — Sources des Obligations — 17 février 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg: #faf9f6; --surface: #ffffff; --border: #e8e4dc;
+    --text: #1a1a1a; --text-light: #555;
+    --article: #c0392b; --juris: #6c3483; --loi: #7b5e3a; --citation: #1a5276;
+    --tag-cours: #2c6e49; --tag-methodo: #1565c0; --tag-oral: #6a0f49;
+    --tag-critique: #b71c1c; --tag-orga: #4a4a4a; --tag-alerte: #e65100;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-style: normal; }
+  body { font-family: 'EB Garamond', Georgia, serif; font-size: 18px; line-height: 1.75; background: var(--bg); color: var(--text); }
+  .page-header { background: #ffffff; color: #1a1a1a; padding: 48px 64px 40px; border-bottom: 4px solid var(--article); }
+  .page-header .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #aaa; margin-bottom: 12px; }
+  .page-header h1 { font-size: 2rem; font-weight: 500; margin-bottom: 8px; }
+  .page-header .subtitle { color: #ccc; font-size: 1rem; }
+  .legend { display: flex; flex-wrap: wrap; gap: 20px; padding: 20px 64px; background: #f2f0ea; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+  .main { max-width: 900px; margin: 0 auto; padding: 48px 32px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; padding-bottom: 12px; border-bottom: 2px solid var(--border); }
+  .section-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; color: #fff; white-space: nowrap; }
+  .tag-cours { background: var(--tag-cours); } .tag-methodo { background: var(--tag-methodo); }
+  .tag-oral { background: var(--tag-oral); } .tag-critique { background: var(--tag-critique); }
+  .tag-orga { background: var(--tag-orga); } .tag-alerte { background: var(--tag-alerte); }
+  .section-title { font-size: 1.25rem; font-weight: 600; }
+  .subsection { margin-bottom: 36px; }
+  .subsection-title { font-size: 1rem; font-weight: 600; color: var(--text-light); margin-bottom: 16px; padding-left: 16px; border-left: 3px solid var(--border); }
+  .block p { margin-bottom: 12px; }
+  .quote { background: var(--surface); border-left: 3px solid #ccc; padding: 14px 20px; margin: 12px 0; border-radius: 0 4px 4px 0; color: #333; font-size: 0.97em; }
+  .art-num { color: var(--article); font-weight: 700; }
+  .art-txt { color: var(--citation); font-weight: 400; }
+  .juris { color: var(--juris); font-weight: 700; }
+  .loi { color: var(--loi); font-weight: 700; }
+  .alert-box { background: #fff8f0; border: 1px solid #e65100; border-left: 4px solid #e65100; padding: 16px 20px; border-radius: 4px; margin: 12px 0; font-size: 0.95em; }
+  .alert-box .alert-title { font-weight: 700; color: #e65100; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .toc { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px 28px; margin-bottom: 48px; }
+  .toc-title { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-light); margin-bottom: 16px; }
+  .toc ul { list-style: none; padding: 0; }
+  .toc li { padding: 4px 0; font-size: 0.95em; }
+  .toc a { color: var(--text); text-decoration: none; }
+  .toc a:hover { color: var(--article); }
+  .toc .toc-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-light); margin-left: 6px; }
+  .note { background: #f0f4ff; border: 1px solid #c5cee0; border-left: 4px solid var(--citation); padding: 14px 18px; border-radius: 4px; margin-bottom: 32px; font-size: 0.9em; color: #333; }
+  ul { padding-left: 24px; margin: 12px 0; }
+  li { margin-bottom: 6px; }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    @page { size: A4; margin: 15mm 14mm 18mm 14mm; }
+    body { font-size: 10.5pt; line-height: 1.55; background: #faf9f6 !important; color: #1a1a1a !important; }
+    .page-header { background: #ffffff !important; color: #1a1a1a !important; padding: 14pt 20pt 10pt !important; border-bottom: 3pt solid #c0392b !important; margin-bottom: 8pt; }
+    .page-header .label { color: #888 !important; font-size: 7pt !important; }
+    .page-header h1 { font-size: 15pt !important; margin-bottom: 3pt !important; color: #1a1a1a !important; }
+    .page-header .subtitle { color: #555 !important; font-size: 9pt !important; }
+    .legend { background: #f2f0ea !important; padding: 6pt 20pt !important; font-size: 7.5pt !important; gap: 10pt !important; border-bottom: 1pt solid #e8e4dc !important; margin-bottom: 8pt; }
+    .main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+    .section { margin-bottom: 16pt !important; }
+    .section-header { padding-bottom: 5pt !important; margin-bottom: 8pt !important; border-bottom: 1.5pt solid #e8e4dc !important; page-break-after: avoid; }
+    .section-tag { font-size: 6.5pt !important; padding: 2pt 6pt !important; color: #fff !important; }
+    .tag-cours    { background: #2c6e49 !important; }
+    .tag-methodo  { background: #1565c0 !important; }
+    .tag-oral     { background: #6a0f49 !important; }
+    .tag-critique { background: #b71c1c !important; }
+    .tag-orga     { background: #4a4a4a !important; }
+    .tag-alerte   { background: #e65100 !important; }
+    .section-title { font-size: 11pt !important; }
+    .subsection { margin-bottom: 10pt !important; }
+    .subsection-title { font-size: 9.5pt !important; margin-bottom: 5pt !important; }
+    .block { background: #ffffff !important; border: 0.75pt solid #e8e4dc !important; padding: 8pt 10pt !important; margin-bottom: 6pt !important; page-break-inside: avoid; }
+    .block p { margin-bottom: 5pt !important; font-size: 10pt !important; }
+    .block ul { padding-left: 14pt !important; margin: 4pt 0 !important; }
+    .block li { margin-bottom: 3pt !important; font-size: 10pt !important; }
+    h3 { font-size: 10.5pt !important; margin-top: 7pt !important; margin-bottom: 4pt !important; page-break-after: avoid; }
+    .alert-box { border: 0.75pt solid #e65100 !important; border-left: 3pt solid #e65100 !important; background: #fff8f5 !important; padding: 7pt 10pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .alert-box .alert-title { font-size: 6.5pt !important; color: #e65100 !important; margin-bottom: 4pt !important; }
+    .alert-box p, .alert-box li { font-size: 9.5pt !important; }
+    .quote { border-left: 3pt solid #1a5276 !important; background: #f0f4f8 !important; color: #1a5276 !important; padding: 7pt 10pt !important; font-size: 9.5pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .sub-section { border-top: 0.5pt solid #e8e4dc !important; margin-top: 8pt !important; padding-top: 8pt !important; }
+    .art-num { color: #c0392b !important; }
+    .art-txt { color: #1a5276 !important; }
+    .juris   { color: #6c3483 !important; }
+    .loi     { color: #7b5e3a !important; }
+    a[href]:after { content: none !important; }
+  }
+
+</style>
+</head>
+<body>
+<div class="page-header">
+  <div class="label">Droit des obligations · Sources · Cours 6</div>
+  <h1>Cours 6 — Sources des Obligations</h1>
+  <div class="subtitle">17 février 2026 · Prof. Laurent Poulet-Bellet · Cap Avocat / Formaprep</div>
+</div>
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--article)"></div><span style="color:var(--article);font-weight:700">Numéro d'article</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--citation)"></div><span style="color:var(--citation)">Texte cité / Doctrine</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--juris)"></div><span style="color:var(--juris);font-weight:700">Jurisprudence</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--loi)"></div><span style="color:var(--loi);font-weight:700">Loi</span></div>
+</div>
+
+<div class="main">
+
+<div class="note">
+  Ce cours est la suite directe du cours 5. Il couvre : (I) Loi Badinter — suite et fin : exclusivité limitée au conducteur/gardien, tramways et voies propres, implication, accident de la circulation, imputabilité du dommage à l'accident (dommage postérieur, acte médical, accident complexe). (II) Droit des produits défectueux : textes art. 1245 et s., régime unifié parties/tiers, défectuosité intrinsèque vs extrinsèque, vice caché vs défectuosité, González-Sánchez, péremption de responsabilité (art. 1245-15), prescription (art. 1245-16), art. 1245-17 et interprétation conforme, arrêts Civ. 1re 15 nov. 2023.
+</div>
+
+<div class="toc">
+  <div class="toc-title">Sommaire</div>
+  <ul>
+    <li><a href="#cours">📚 Cours — Contenu juridique</a> <span class="toc-tag">Loi Badinter (suite) · Produits défectueux</span></li>
+    <li><a href="#methodo">⚠️ Méthodo</a></li>
+    <li><a href="#oral">🎓 Grand oral</a></li>
+    <li><a href="#critique">🔍 Critique des prépas</a></li>
+    <li><a href="#alerte">⚡ Alertes examen</a></li>
+  </ul>
+</div>
+
+<!-- ══════════ COURS ══════════ -->
+<div class="section" id="cours">
+  <div class="section-header">
+    <span class="section-tag tag-cours">📚 Cours</span>
+    <span class="section-title">Contenu juridique pur</span>
+  </div>
+
+  <!-- I. LOI BADINTER — SUITE -->
+  <div class="subsection">
+    <div class="subsection-title">I. Loi Badinter du 5 juillet 1985 — suite et fin</div>
+    <div class="block">
+
+      <p><strong>Rappel fondamental — caractère d'ordre public et exclusif :</strong></p>
+      <p>Dès que les conditions de la loi sont réunies, tout le droit commun (contractuel ET délictuel) est écarté à l'encontre du conducteur ou du gardien. Appliquer la responsabilité contractuelle là où la loi Badinter est applicable = erreur éliminatoire. Exemple classique : passager d'un bus victime d'un coup de frein brutal → loi Badinter, pas obligation de sécurité contractuelle.</p>
+
+      <p><strong>Tramways — exclusion et son contournement :</strong></p>
+      <p>Les véhicules circulant sur des voies qui leur sont propres sont exclus (<span class="art-num">art. 1er de la loi</span>). Cette exclusion est d'origine purement lobbiste (exploitants SNCF et réseaux de métro). Quand un tramway partage la voie publique (ex. à un carrefour, ou dans certains aménagements urbains sans séparation), la Cour de cassation a admis que la loi Badinter pouvait s'appliquer. But : montrer aux réseaux ferrés que leur intégration dans le champ de la loi est possible et non dramatique, pour les inciter à accepter une réforme législative. Pour l'examen : sujet anecdotique, non prioritaire.</p>
+
+      <p><strong>Passage à niveau :</strong> le train reste sur voie propre ; la voiture non. Application distributive : loi Badinter pour les victimes dans la voiture (contre le gardien du VTM), droit commun pour les victimes dans le train (contre la SNCF).</p>
+
+      <p><strong>Condition d'implication :</strong></p>
+      <p>L'implication est une rupture avec la causalité. Il suffit que le VTM soit intervenu à <strong>quelque titre que ce soit</strong> dans l'accident. Il n'est pas nécessaire qu'il soit à l'origine causale du dommage.</p>
+      <div class="quote">"Vous avez un candidat qui vous dit 'il faut qu'il soit à l'origine du dommage'. Il a voulu mettre une causalité. Mais non. Ça ne marche pas. Il faut une intervention à quelque titre que ce soit. En deuxième année, ça vaut 5 sur 5, cette confusion."</div>
+      <p>Exemple : voiture roulant lentement mais légalement, dépassée brutalement par un conducteur impatient qui percute un tracteur en haut d'une côte. La voiture lente est bien impliquée — elle est intervenue à quelque titre que ce soit (sa lenteur a motivé le dépassement).</p>
+      <p>Attention : l'implication ne signifie pas la simple présence. Il faut une forme d'intervention. Le seul fait d'être sur les lieux ne suffit pas.</p>
+
+      <p><strong>Accident de la circulation :</strong></p>
+      <p>Il faut un caractère accidentel — exclut les actes volontaires (véhicule-bélier pour attaque de DAB, meurtre à l'aide d'un VTM, etc.). Le stationnement est un fait de circulation. Exception : stationnement dans un lieu totalement détourné de sa fonction (ex. scooter balancé dans un hall d'immeuble pour être incendié) → droit commun.</p>
+
+      <p><strong>Condition du lieu — non-condition :</strong></p>
+      <p>Il n'existe aucune exigence que l'accident se soit produit dans un lieu ouvert à la circulation. La loi Badinter s'applique dans un parking souterrain privé, dans une résidence individuelle, dans une concession automobile. Toute affirmation contraire dans un corrigé = erreur grave.</p>
+
+      <p><strong>Exclusivité limitée au conducteur ou gardien :</strong></p>
+      <p>Point crucial souvent ignoré. La loi Badinter n'est d'application exclusive qu'à l'encontre du <strong>conducteur ou du gardien</strong> visé par l'<span class="art-num">art. 1er</span>. Si l'action est dirigée contre un <strong>tiers</strong> (garagiste fautif, fabricant de pièces défectueuses, etc.), le droit commun s'applique.</p>
+      <div class="quote">"Il y a des corrigés qui circulent expliquant que l'exclusivisme de la loi Badinter interdit d'agir contre un tiers. Mais c'est gravissime. La loi Badinter n'octroie aucune immunité aux tiers. Ce n'est pas possible."</div>
+      <p>Consacré par : <span class="juris">Cass. 2e civ., 30 novembre 2023</span> — la loi du 5 juillet 1985 étant d'ordre public, elle n'exclut pas l'application des règles de responsabilité civile extra-contractuelle de droit commun à l'encontre de toute personne autre que le conducteur ou le gardien.</p>
+
+      <p>Exemple cas pratique complet :</p>
+      <ul>
+        <li>Garagiste fait un travail déficient sur un véhicule → perte de contrôle → accident</li>
+        <li>Contre le conducteur du VTM co-impliqué → loi Badinter</li>
+        <li>Contre le garagiste → responsabilité contractuelle (si c'est le propriétaire du véhicule) ou délictuelle (si tiers) + possibilité d'invoquer Miro (manquement contractuel entre garagiste et propriétaire constitutif d'une faute délictuelle à l'égard du tiers)</li>
+        <li>Condamnation in solidum possible</li>
+      </ul>
+
+      <p><strong>Autre exemple — enfant saboteur :</strong> enfant met du sucre dans le réservoir de la moto de sa mère → perte de contrôle → collision mortelle. Les ayants droit peuvent agir :</p>
+      <ul>
+        <li>Contre la conductrice/gardienne → loi Badinter</li>
+        <li>Contre l'enfant → <span class="art-num">art. 1240</span> (faute, possible depuis AP 1984)</li>
+        <li>Contre les parents → <span class="art-num">art. 1242 al. 4</span> (resp. parentale, autorité parentale) avec leur assurance chef de famille</li>
+        <li>Condamnation in solidum des trois (qualités distinctes, assurances distinctes)</li>
+      </ul>
+
+      <p><strong>Conducteur vs gardien :</strong></p>
+      <ul>
+        <li>Très souvent la même personne. Lorsqu'ils sont distincts : victime a le choix d'agir contre l'un ou l'autre</li>
+        <li>Gardien = définition Franck (usage, direction, contrôle) — identique à l'art. 1242 al. 1</li>
+        <li>Préposé conducteur = bénéficie de l'immunité Costedoat → en principe, action seulement contre le gardien (employeur). Sauf dépassement de mission</li>
+        <li>Actions croisées entre conducteur et gardien (depuis 1988) — possibles même si le conducteur ou gardien est lui-même victime d'un accident solitaire (action contre celui que vous n'êtes pas)</li>
+      </ul>
+
+      <p><strong>Accident solitaire :</strong> si vous êtes à la fois conducteur et gardien, vous ne pouvez agir ni contre vous-même sur le terrain de la loi 85, ni sur le droit commun contre le gardien d'un arbre du domaine public (arbre = domaine public, pas de gardien privé → action en responsabilité administrative). Ne pas se poser la question : c'est une non-question.</p>
+
+      <p><strong>Régime d'exonération — résumé sourcier :</strong></p>
+      <ul>
+        <li>Victime non conductrice : seulement la faute inexcusable cause exclusive de l'accident — jamais opposable aux moins de 16 ans, plus de 70 ans ou IPP supérieure à 80%</li>
+        <li>Victime conductrice : faute caractérisée en relation causale avec le dommage</li>
+        <li>Force majeure : jamais prise en compte (car la loi ignore la causalité)</li>
+      </ul>
+
+      <p><strong>Imputabilité du dommage à l'accident — 4e condition, d'origine jurisprudentielle :</strong></p>
+      <p>Trois hypothèses où se pose la question :</p>
+      <ul>
+        <li><strong>Dommage postérieur à l'accident :</strong> présomption simple d'imputabilité dès lors que le laps de temps est court (<span class="juris">Cass. 2e civ., 19 février 1997</span>). Renversement possible par le défendeur si délai très distendu. Attention : le résumé Dalloz présente l'arrêt à l'envers (dit qu'il n'y a pas de présomption) — lire à contrario.</li>
+        <li><strong>Acte médical rendu nécessaire par l'accident :</strong> présomption simple d'imputabilité. L'assureur du VTM prend en charge et recourt contre le producteur ou le médecin fautif. Exemple historique : transfusion sanguine contaminée rendue nécessaire par l'accident → imputabilité à l'accident.</li>
+        <li><strong>Accident complexe (carambolage) :</strong> la Cour de cassation y voit désormais un accident unique. Tout VTM impliqué dans l'accident complexe est réputé à l'origine du dommage — imputabilité irréfragablement présumée. La victime peut agir contre n'importe lequel. La répartition entre assureurs se règle transactionnellement au stade de la contribution à la dette.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- II. DROIT DES PRODUITS DÉFECTUEUX -->
+  <div class="subsection">
+    <div class="subsection-title">II. Droit des produits défectueux — art. 1245 et s. C. civ.</div>
+    <div class="block">
+
+      <p><strong>Textes — renumérotation pure :</strong></p>
+      <p><span class="art-num">Art. 1245 à 1245-17 C. civ.</span> = ex-<span class="art-num">art. 1386-1 à 1386-18</span>, simplement renumérotés par l'ordonnance du 10 février 2016. Zéro réforme de fond. Ne jamais parler d'application de la loi dans le temps ni d'articles "nouveaux".</p>
+      <p>Source : <span class="loi">directive du 25 juillet 1985</span>, transposée par la <span class="loi">loi du 19 mai 1998</span> (en vigueur le 21 mai 1998). France = pire élève de l'Union (13 ans de retard, 4 condamnations). Lobbying assurantiel et industriel.</p>
+      <p>Une nouvelle directive existe (IA, nouvelles technologies) mais n'est pas encore transposée → impact nul sur le droit applicable aujourd'hui.</p>
+
+      <p><strong>Régime unifié — pas de distinction parties/tiers :</strong></p>
+      <p><span class="art-num">Art. 1245 C. civ.</span> — <span class="art-txt">"Le producteur est responsable du dommage causé par un défaut de son produit, qu'il soit ou non lié par contrat avec la victime."</span> Dès qu'est invoquée la défectuosité d'un produit, on ne peut appliquer ni le contractuel ni le délictuel de droit commun — seulement le droit des produits défectueux. Régime d'ordre public fondé sur la primauté du droit de l'Union.</p>
+
+      <p><strong>Défectuosité — art. 1245-3 :</strong></p>
+      <p><span class="art-num">Art. 1245-3 C. civ.</span> — <span class="art-txt">"Un produit est défectueux au sens du présent chapitre lorsqu'il n'offre pas la sécurité à laquelle on peut légitimement s'attendre."</span></p>
+      <ul>
+        <li><strong>Défectuosité intrinsèque :</strong> le produit est techniquement défaillant (ex. tondeuse qui crache sa lame à pleine vitesse → défaut de sécurité à laquelle on peut légitimement s'attendre)</li>
+        <li><strong>Défectuosité extrinsèque :</strong> le produit n'a pas donné lieu à une information suffisante sur son utilisation, rendant son usage dangereux au-delà de sa dangerosité naturelle (ex. médicaments sans notice de posologie adéquate, bouteille de gaz sans notice de connexion, scooter des mers sans notice de démarrage). Contentieux massif en matière pharmaceutique.</li>
+      </ul>
+
+      <p><strong>Vice caché ≠ défectuosité — distinction fondamentale :</strong></p>
+      <ul>
+        <li><strong>Vice caché</strong> (<span class="art-num">art. 1641 et s. C. civ.</span>) : la chose est inapte à l'usage normal auquel elle est destinée. Ex. tondeuse qui s'arrête après 15 minutes, ou qui ne ramasse pas l'herbe alors qu'elle a un bac de ramassage, ou dont le moteur consomme trop d'huile. Pas de défaut de sécurité — juste une chose qui ne fonctionne pas.</li>
+        <li><strong>Défectuosité</strong> : la chose présente un défaut de sécurité au-delà de la dangerosité naturelle du produit. Ex. tondeuse qui éjecte sa lame à pleine rotation → risque de blessure grave.</li>
+        <li>Une même chose peut présenter les deux : la tondeuse qui crache sa lame est à la fois défectueuse (dommage corporel → art. 1245 et s.) et affectée d'un vice caché (elle ne peut plus tondre → art. 1641 et s.)</li>
+      </ul>
+      <p>Dommage causé au produit défectueux lui-même (<span class="art-num">art. 1245-1</span>) : le droit des produits défectueux ne couvre pas le dommage que le produit se cause à lui-même. Pour la destruction/inutilisabilité du produit → garantie des vices cachés.</p>
+
+      <p><strong>Champ d'application — dommages couverts (art. 1245-1) :</strong></p>
+      <ul>
+        <li>Dommage corporel : toujours couvert</li>
+        <li>Dommage matériel à un bien autre que le produit défectueux lui-même : couvert si supérieur à 500 € (seuil fixé par décret). En dessous : aucune réparation. Au-dessus : franchise de 500 € déduite (pas de réparation intégrale — conquête des producteurs, jurisprudence constante depuis 2014)</li>
+      </ul>
+
+      <p><strong>Producteur — art. 1245-5 :</strong></p>
+      <p>Le producteur au sens de la directive peut être :</p>
+      <ul>
+        <li>Le fabricant du produit fini</li>
+        <li>Le producteur d'une matière première ou d'un composant (ex. fabricant de batterie dans un produit complexe)</li>
+        <li>Toute personne qui appose son nom, marque ou signe distinctif sur le produit (marque blanche/marque de distributeur — Intermarché, Carrefour, Lidl, Aldi, etc.)</li>
+        <li>L'importateur du produit dans l'Union européenne</li>
+      </ul>
+      <p>Le vendeur professionnel intermédiaire n'est pas producteur et n'est en principe pas responsable au titre du droit des produits défectueux. Exception : si le producteur ne peut être identifié, le vendeur devient responsable — sauf s'il désigne dans les 3 mois le producteur ou son propre fournisseur (<span class="art-num">art. 1245-6</span>).</p>
+
+      <p><strong>Mise en circulation — art. 1245-4 :</strong></p>
+      <p>La mise en circulation est volontaire. Il n'y en a qu'une seule par exemplaire (la première). Un produit volé n'a pas été mis en circulation par le producteur. Point de départ du délai de péremption : la mise en circulation par le producteur.</p>
+
+      <p><strong>Causes d'exonération — art. 1245-10 :</strong></p>
+      <ul>
+        <li>Le produit n'avait pas été mis en circulation (prototype volé)</li>
+        <li>Le défaut n'existait pas au moment de la mise en circulation</li>
+        <li>Le produit n'était pas destiné à la vente ou distribution</li>
+        <li><strong>Risque de développement :</strong> l'état des connaissances scientifiques et techniques ne permettait pas de déceler le défaut — cause d'exonération en droit français (victoire des producteurs, honte du système). Pas applicable aux éléments et produits du corps humain (<span class="art-num">art. 1245-11</span>, scandale du sang contaminé)</li>
+        <li>Conformité à des règles impératives d'ordre législatif ou réglementaire</li>
+      </ul>
+
+      <p><strong>Péremption de responsabilité — art. 1245-15 :</strong></p>
+      <p>Ce n'est PAS une prescription d'action. C'est l'extinction du régime de responsabilité spécial lui-même. Dix ans après la mise en circulation par le producteur, la responsabilité fondée sur le droit des produits défectueux s'éteint — et le droit commun ne réapparaît pas. Conquête des producteurs à la directive. Sauf :</p>
+      <ul>
+        <li>Si une action en justice a déjà été engagée pendant le délai de 10 ans (cristallisation du fondement en cours d'instance)</li>
+        <li>Si le producteur a commis une faute (ex. continuation de la commercialisation en sachant le produit défectueux) → faute indépendante de la défectuosité = González-Sánchez → droit commun applicable, délai de 10 ans inopposable</li>
+      </ul>
+
+      <p><strong>Prescription de l'action — art. 1245-16 :</strong></p>
+      <p>Délai de 3 ans à compter de la connaissance par le demandeur des trois éléments : défaut, dommage, identité du producteur. Pour le dommage corporel : à compter de la consolidation du dommage. Beaucoup plus court que le droit commun (5 ans patrimonial, 10 ans corporel à compter consolidation) — autre victoire des producteurs.</p>
+
+      <p><strong>Art. 1245-17 — texte absurde à lire à la lumière de González-Sánchez :</strong></p>
+      <p><span class="art-num">Art. 1245-17 C. civ.</span> — <span class="art-txt">"Les dispositions du présent chapitre ne portent pas atteinte au droit dont la victime d'un dommage peut se prévaloir au titre du droit de la responsabilité contractuelle ou extra-contractuelle ou au titre d'un régime spécial de responsabilité."</span></p>
+      <p>Prise au pied de la lettre, cette disposition semble autoriser un droit d'option entre le droit spécial et le droit commun. C'est faux. Elle doit être interprétée conformément au droit de l'Union européenne (<span class="juris">CJCE, 25 avril 2002, González-Sánchez</span>) :</p>
+      <ul>
+        <li>Quand est invoquée la défectuosité → exclusivisme du droit spécial, impossible d'aller sur le droit commun</li>
+        <li>Quand est invoqué un fait générateur indépendant de la défectuosité (faute autonome, vice caché) → droit commun applicable sans restriction</li>
+        <li>Quand est invoqué un autre régime spécial sans lien avec la défectuosité (ex. loi Badinter pour le même accident) → application cumulative possible</li>
+      </ul>
+      <p>Ce texte doit être supprimé ou réécrit à l'occasion de la réforme de la responsabilité civile.</p>
+
+      <p><strong>González-Sánchez — <span class="juris">CJCE, 25 avril 2002, María González Sánchez</span> :</strong></p>
+      <p>Arrêt fondateur sur l'articulation droit spécial / droit commun. Principe : dans le champ de la défectuosité, exclusivisme du droit de l'Union. Hors du champ de la défectuosité : liberté d'application du droit national. Les deux exemples donnés par l'arrêt (garantie des vices cachés, faute indépendante) ne sont pas limitatifs.</p>
+
+      <p><strong>Arrêts Civ. 1re, 15 novembre 2023 (4 arrêts) :</strong></p>
+      <p><span class="juris">Cass. 1re civ., 15 novembre 2023</span> — la Cour de cassation incite les victimes à rechercher un fait générateur autonome indépendant de la défectuosité (faute du producteur qui continue à commercialiser en sachant le produit défectueux) pour échapper au régime spécial et bénéficier du droit commun : délai de 10 ans inopposable, prescription décennale pour le préjudice corporel, réparation intégrale. Également : <span class="juris">Cass. 1re civ., 6 décembre 2014</span>.</p>
+
+      <p><strong>Application pratique — tondeuse (exemple pivot) :</strong></p>
+      <ul>
+        <li>Tondeuse qui s'arrête après 15 min → vice caché (art. 1641 et s.) — action rédhibitoire ou estimatoire</li>
+        <li>Tondeuse qui crache sa lame → produit défectueux (art. 1245 et s.) — action contre le producteur pour dommages corporels et matériels aux biens autres</li>
+        <li>Destruction de la tondeuse elle-même par la défectuosité → vice caché (la chose ne satisfait plus l'usage auquel elle est destinée)</li>
+        <li>Pour le dommage corporel : art. 1245 et s. à titre exclusif</li>
+        <li>Pour le remplacement de la tondeuse : art. 1641 et s. (vice caché), avec possibilité d'agir contre le fabricant sur le terrain des chaînes de contrats translatives (arrêt Lamborghini, Civ. 1re, 9 oct. 1979)</li>
+      </ul>
+
+      <p><strong>Chaînes de contrats et droit des produits défectueux — articulation :</strong></p>
+      <p>Un même fabricant peut être poursuivi simultanément :</p>
+      <ul>
+        <li>En tant que producteur au sens du droit de l'Union (<span class="art-num">art. 1245 et s.</span>) pour le défaut de sécurité (dommage corporel/matériel aux tiers)</li>
+        <li>En tant que vendeur de premier rang (chaînes translatives, <span class="juris">arrêt Lamborghini, Civ. 1re, 9 oct. 1979</span>) pour le vice caché (inaptitude de la chose à l'usage)</li>
+      </ul>
+      <p>C'était l'objet d'une annale nationale qui avait été catastrophiquement traitée. Vos camarades qui avaient compris ont eu 7/7 sur la question.</p>
+
+      <p><strong>Loi Badinter + droit des produits défectueux — cumul possible :</strong></p>
+      <p>Les deux régimes ne se concurrencent pas. On peut agir simultanément contre :</p>
+      <ul>
+        <li>Le conducteur ou gardien du VTM → loi Badinter</li>
+        <li>Le fabricant du véhicule dont un composant était défectueux → droit des produits défectueux</li>
+      </ul>
+      <p>Art. 1245-17 al. 2 confirme cette complémentarité.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ METHODO ══════════ -->
+<div class="section" id="methodo">
+  <div class="section-header">
+    <span class="section-tag tag-methodo">⚠️ Méthodo</span>
+    <span class="section-title">Conseils méthodologiques</span>
+  </div>
+  <div class="block">
+
+    <p><strong>Réflexe sourcier en cas pratique — ordre de raisonnement :</strong></p>
+    <ol style="padding-left:24px;margin:12px 0;">
+      <li>Y a-t-il un VTM impliqué dans un accident de la circulation ? → si oui : loi Badinter (mais seulement contre conducteur/gardien)</li>
+      <li>Y a-t-il un produit défectueux ? → si oui : art. 1245 et s. à titre exclusif (mais seulement si défectuosité invoquée)</li>
+      <li>Si ni loi Badinter ni produits défectueux n'est applicable → droit commun (contractuel ou délictuel selon les conditions)</li>
+      <li>Pour les tiers à la loi Badinter et pour les faits générateurs hors défectuosité → droit commun toujours possible</li>
+    </ol>
+
+    <p><strong>Lecture de l'art. 1245-15 (péremption) :</strong> ne jamais appeler ça une prescription. C'est une extinction du fondement de la responsabilité. Résoudre d'abord la question des 10 ans, puis la prescription de 3 ans. Si une action a déjà été engagée dans les 10 ans, la péremption ne joue pas.</p>
+
+    <p><strong>Lecture de l'art. 1245-17 :</strong> ne jamais en déduire un droit d'option libre entre droit commun et droit spécial. Toujours l'interpréter à la lumière de González-Sánchez. Ce texte ne vaut que hors champ de la défectuosité.</p>
+
+    <p><strong>Vice caché vs défectuosité :</strong> si vous confondez les deux dans un cas pratique → 0 sur la question. La distinction est l'objet de la question, pas le détail. Se demander : est-ce un défaut de sécurité (dangerosité inattendue) ou un défaut d'aptitude à l'usage normal (la chose ne fonctionne pas) ?</p>
+
+    <p><strong>Ne jamais agir contre le vendeur professionnel sur le terrain du droit des produits défectueux</strong> (sauf impossibilité d'identifier le producteur). Le vendeur n'est pas producteur. Agir contre lui sur ce fondement = violer le droit de l'Union européenne.</p>
+
+    <p><strong>Dommage causé au produit lui-même :</strong> toujours sur le terrain de la garantie des vices cachés (art. 1641 et s.), jamais sur le terrain des produits défectueux.</p>
+
+    <p><strong>Communauté européenne → Union européenne :</strong> le texte de l'art. 1245-5 dit encore "communauté européenne". Ne pas recopier. Écrire "Union européenne".</p>
+  </div>
+</div>
+
+<!-- ══════════ GRAND ORAL ══════════ -->
+<div class="section" id="oral">
+  <div class="section-header">
+    <span class="section-tag tag-oral">🎓 Grand oral</span>
+    <span class="section-title">Culture juridique</span>
+  </div>
+  <div class="block">
+
+    <p><strong>Spécificité de la loi Badinter par rapport au droit commun :</strong> la loi Badinter se singularise par l'émancipation de la causalité. Il suffit d'une implication (intervention à quelque titre que ce soit) et non d'un lien causal. C'est la réponse attendue en trois mots si on vous demande ce qui distingue la loi 85 du droit commun.</p>
+
+    <p><strong>Tramways et exclusion de la loi Badinter :</strong> l'exclusion des véhicules circulant sur voies propres est d'origine purement lobbiste (SNCF, réseaux de métro en 1985). Il n'y a aucune justification technique ou juridique. Question possible : "Pourquoi les tramways sont-ils exclus ?" → répondre honnêtement : lobbying historique, pas de justification rationnelle.</p>
+
+    <p><strong>Péremption de responsabilité en droit des produits défectueux :</strong> exemple unique en droit positif d'une responsabilité temporaire. Aucun équivalent dans les autres branches. Victoire des producteurs à la directive. Incompatible avec le droit fondamental à réparation (sujet grand oral possible).</p>
+
+    <p><strong>Risque de développement :</strong> cause d'exonération en droit français, pas dans tous les États membres. Option ouverte par la directive aux États. La France a sacrifié la victime à l'autel du lobbying industriel. En Allemagne par exemple, le risque de développement pèse sur le producteur.</p>
+
+    <p><strong>Jacques Ghestin :</strong> grande figure du droit privé français, négociateur pour la France de la directive sur les produits défectueux et la directive sur les clauses abusives. Témoin du lobbying qui a conduit aux compromis défavorables aux victimes (délai de 10 ans, prescription de 3 ans, risque de développement).</p>
+
+    <p><strong>Prohibition des arrêts de règlement et jurisprudence créatrice :</strong> la Cour de cassation, dans ses arrêts du 15 novembre 2023, incite les victimes à chercher une faute autonome pour échapper au régime spécial. C'est une forme de création jurisprudentielle en faveur des victimes face à un régime législatif défavorable.</p>
+
+    <p><strong>Articulation loi Badinter + produits défectueux :</strong> les deux régimes sont complémentaires (pas concurrents). Exemple : défaillance du système de freinage d'un VTM → action contre le conducteur (loi Badinter) et contre le fabricant (produits défectueux). Illustration des complexités du droit du dommage corporel en droit français.</p>
+  </div>
+</div>
+
+<!-- ══════════ CRITIQUE ══════════ -->
+<div class="section" id="critique">
+  <div class="section-header">
+    <span class="section-tag tag-critique">🔍 Critique des prépas</span>
+    <span class="section-title">Erreurs et manques dénoncés</span>
+  </div>
+  <div class="block">
+
+    <p><strong>Appliquer le droit commun contractuel là où la loi Badinter est applicable :</strong></p>
+    <div class="quote">"Il y a des candidats qui, en présence d'un passager de bus blessé, appliquent l'obligation de sécurité contractuelle. Ça valait 1 sur 20. La loi Badinter est d'ordre public et exclusive. Tout le droit commun est écarté."</div>
+
+    <p><strong>Dire que l'exclusivisme de la loi Badinter interdit d'agir contre un tiers :</strong> erreur grave. La loi Badinter ne vise que le conducteur ou le gardien. Contre tout autre personne, le droit commun s'applique librement (confirmé par Cass. 2e civ., 30 nov. 2023).</p>
+
+    <p><strong>Conditionner l'application de la loi Badinter à un lieu ouvert à la circulation :</strong> non-condition. Des centaines d'arrêts appliquent la loi Badinter à des accidents en parking souterrain privé.</p>
+
+    <p><strong>Dire que la péremption de l'art. 1245-15 est une prescription :</strong></p>
+    <div class="quote">"Quand vous qualifiez le délai de 10 ans de prescription, ça veut dire que vous ne connaissez rien à la matière et au droit de l'Union européenne. Ce n'est pas une prescription d'action, c'est une extinction du régime de responsabilité."</div>
+
+    <p><strong>Appliquer l'art. 1245-17 littéralement en déduisant un droit d'option :</strong> ce texte doit être interprété conformément à González-Sánchez. Lire sa lettre sans connaître González-Sánchez, c'est violer le droit de l'Union européenne.</p>
+
+    <p><strong>Confondre vice caché et défectuosité :</strong> erreur fondamentale. Les deux notions ont des conditions, des défendeurs et des délais totalement différents. C'est tombé comme sujet principal d'une annale nationale — catastrophe pour 80% des candidats.</p>
+
+    <p><strong>Parler de la "communauté européenne" :</strong> ça n'existe plus. C'est l'Union européenne. Recopier le texte de l'art. 1245-5 = passer pour un vieux tromblon.</p>
+
+    <p><strong>Parler d'articles "nouveaux" du droit des produits défectueux :</strong> les art. 1245 et s. ne sont pas nouveaux. C'est une simple renumérotation des art. 1386-1 et s. Aucune réforme de fond.</p>
+  </div>
+</div>
+
+<!-- ══════════ ALERTES ══════════ -->
+<div class="section" id="alerte">
+  <div class="section-header">
+    <span class="section-tag tag-alerte">⚡ Alertes examen</span>
+    <span class="section-title">Sujets susceptibles de tomber</span>
+  </div>
+  <div class="block">
+    <div class="alert-box">
+      <div class="alert-title">Loi Badinter — exclusivité limitée au conducteur/gardien</div>
+      Confirmé par Cass. 2e civ., 30 nov. 2023. Cas pratique classique : garagiste fautif + VTM co-impliqué. Maîtriser qui peut être poursuivi sur quel fondement, et qui est immunisé (préposé/Costedoat). Déjà tombé plusieurs fois.
+    </div>
+    <div class="alert-box">
+      <div class="alert-title">Droit des produits défectueux — vice caché vs défectuosité + González-Sánchez</div>
+      Tombé en annale nationale (Désay) — catastrophe pour 80% des candidats. 7 points sur 20 sur cette seule question. Maîtriser : champ d'application exclusif, dommage au produit lui-même (vices cachés), faute autonome (droit commun), péremption de 10 ans ≠ prescription de 3 ans, arrêts 15 nov. 2023.
+    </div>
+    <div class="alert-box">
+      <div class="alert-title">Péremption de responsabilité (art. 1245-15) vs prescription (art. 1245-16)</div>
+      Ne jamais confondre. La péremption éteint le fondement. La prescription éteint l'action. Deux textes distincts, deux logiques distinctes. Si une action a été engagée dans les 10 ans → péremption inopposable.
+    </div>
+    <div class="alert-box">
+      <div class="alert-title">Imputabilité du dommage à l'accident (loi Badinter) — 3 hypothèses</div>
+      Présomption simple d'imputabilité si laps de temps court (dommage postérieur) ou si acte médical rendu nécessaire. Accident complexe : imputabilité irréfragablement présumée depuis la jurisprudence actuelle. Lire l'arrêt Cass. 2e civ., 19 fév. 1997 à contrario (le Dalloz le présente à l'envers).
+    </div>
+    <div class="alert-box">
+      <div class="alert-title">Cumul loi Badinter + droit des produits défectueux</div>
+      Les deux régimes sont complémentaires, non exclusifs l'un de l'autre. Action contre conducteur/gardien (loi Badinter) + action contre fabricant du VTM défectueux (art. 1245 et s.) → condamnation in solidum possible.
+    </div>
+    <div class="alert-box">
+      <div class="alert-title">Art. 1245-17 — interprétation conforme González-Sánchez</div>
+      Ce texte ne crée pas un droit d'option. Il doit être interprété à la lumière de CJCE 25 avril 2002. Tomber dans le piège de la lettre = violer le droit de l'Union européenne dans la copie.
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

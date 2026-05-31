@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours 4 — Sources des Obligations — 2 février 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #faf9f6;
+    --surface: #ffffff;
+    --border: #e8e4dc;
+    --text: #1a1a1a;
+    --text-light: #555;
+    --article: #c0392b;
+    --juris: #6c3483;
+    --loi: #7b5e3a;
+    --citation: #1a5276;
+    --tag-cours: #2c6e49;
+    --tag-methodo: #1565c0;
+    --tag-oral: #6a0f49;
+    --tag-critique: #b71c1c;
+    --tag-orga: #4a4a4a;
+    --tag-alerte: #e65100;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; font-style: normal; }
+
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .page-header {
+    background: #ffffff;
+    color: #1a1a1a;
+    padding: 48px 64px 40px;
+    border-bottom: 4px solid var(--article);
+  }
+
+  .page-header .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 12px;
+  }
+
+  .page-header h1 { font-size: 2rem; font-weight: 500; margin-bottom: 8px; }
+  .page-header .subtitle { color: #ccc; font-size: 1rem; }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 64px;
+    background: #f2f0ea;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+
+  .main { max-width: 900px; margin: 0 auto; padding: 48px 32px 80px; }
+
+  .section { margin-bottom: 56px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .section-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    color: #fff;
+    white-space: nowrap;
+  }
+
+  .tag-cours    { background: var(--tag-cours); }
+  .tag-methodo  { background: var(--tag-methodo); }
+  .tag-oral     { background: var(--tag-oral); }
+  .tag-critique { background: var(--tag-critique); }
+  .tag-orga     { background: var(--tag-orga); }
+  .tag-alerte   { background: var(--tag-alerte); }
+
+  .section-title { font-size: 1.25rem; font-weight: 600; color: var(--text); }
+
+  .subsection { margin-bottom: 36px; }
+
+  .subsection-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 16px;
+    padding-left: 16px;
+    border-left: 3px solid var(--border);
+  }
+
+  .block { margin-bottom: 20px; }
+  .block p { margin-bottom: 12px; color: var(--text); }
+
+  .quote {
+    background: var(--surface);
+    border-left: 3px solid #ccc;
+    padding: 14px 20px;
+    margin: 12px 0;
+    border-radius: 0 4px 4px 0;
+    color: #333;
+    font-size: 0.97em;
+  }
+
+  .art-num { color: var(--article); font-weight: 700; }
+  .art-txt { color: var(--citation); font-weight: 400; }
+  .juris   { color: var(--juris); font-weight: 700; }
+  .loi     { color: var(--loi); font-weight: 700; }
+  .cit     { color: var(--citation); font-weight: 400; }
+
+  .alert-box {
+    background: #fff8f0;
+    border: 1px solid #e65100;
+    border-left: 4px solid #e65100;
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 12px 0;
+    font-size: 0.95em;
+  }
+
+  .alert-box .alert-title {
+    font-weight: 700;
+    color: #e65100;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin-bottom: 48px;
+  }
+
+  .toc-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 16px;
+  }
+
+  .toc ul { list-style: none; padding: 0; }
+  .toc li { padding: 4px 0; font-size: 0.95em; }
+  .toc a { color: var(--text); text-decoration: none; }
+  .toc a:hover { color: var(--article); }
+  .toc .toc-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-light); margin-left: 6px; }
+
+  .note {
+    background: #f0f4ff;
+    border: 1px solid #c5cee0;
+    border-left: 4px solid var(--citation);
+    padding: 14px 18px;
+    border-radius: 4px;
+    margin-bottom: 32px;
+    font-size: 0.9em;
+    color: #333;
+  }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    @page { size: A4; margin: 15mm 14mm 18mm 14mm; }
+    body { font-size: 10.5pt; line-height: 1.55; background: #faf9f6 !important; color: #1a1a1a !important; }
+    .page-header { background: #ffffff !important; color: #1a1a1a !important; padding: 14pt 20pt 10pt !important; border-bottom: 3pt solid #c0392b !important; margin-bottom: 8pt; }
+    .page-header .label { color: #888 !important; font-size: 7pt !important; }
+    .page-header h1 { font-size: 15pt !important; margin-bottom: 3pt !important; color: #1a1a1a !important; }
+    .page-header .subtitle { color: #555 !important; font-size: 9pt !important; }
+    .legend { background: #f2f0ea !important; padding: 6pt 20pt !important; font-size: 7.5pt !important; gap: 10pt !important; border-bottom: 1pt solid #e8e4dc !important; margin-bottom: 8pt; }
+    .main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+    .section { margin-bottom: 16pt !important; }
+    .section-header { padding-bottom: 5pt !important; margin-bottom: 8pt !important; border-bottom: 1.5pt solid #e8e4dc !important; page-break-after: avoid; }
+    .section-tag { font-size: 6.5pt !important; padding: 2pt 6pt !important; color: #fff !important; }
+    .tag-cours    { background: #2c6e49 !important; }
+    .tag-methodo  { background: #1565c0 !important; }
+    .tag-oral     { background: #6a0f49 !important; }
+    .tag-critique { background: #b71c1c !important; }
+    .tag-orga     { background: #4a4a4a !important; }
+    .tag-alerte   { background: #e65100 !important; }
+    .section-title { font-size: 11pt !important; }
+    .subsection { margin-bottom: 10pt !important; }
+    .subsection-title { font-size: 9.5pt !important; margin-bottom: 5pt !important; }
+    .block { background: #ffffff !important; border: 0.75pt solid #e8e4dc !important; padding: 8pt 10pt !important; margin-bottom: 6pt !important; page-break-inside: avoid; }
+    .block p { margin-bottom: 5pt !important; font-size: 10pt !important; }
+    .block ul { padding-left: 14pt !important; margin: 4pt 0 !important; }
+    .block li { margin-bottom: 3pt !important; font-size: 10pt !important; }
+    h3 { font-size: 10.5pt !important; margin-top: 7pt !important; margin-bottom: 4pt !important; page-break-after: avoid; }
+    .alert-box { border: 0.75pt solid #e65100 !important; border-left: 3pt solid #e65100 !important; background: #fff8f5 !important; padding: 7pt 10pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .alert-box .alert-title { font-size: 6.5pt !important; color: #e65100 !important; margin-bottom: 4pt !important; }
+    .alert-box p, .alert-box li { font-size: 9.5pt !important; }
+    .quote { border-left: 3pt solid #1a5276 !important; background: #f0f4f8 !important; color: #1a5276 !important; padding: 7pt 10pt !important; font-size: 9.5pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .sub-section { border-top: 0.5pt solid #e8e4dc !important; margin-top: 8pt !important; padding-top: 8pt !important; }
+    .art-num { color: #c0392b !important; }
+    .art-txt { color: #1a5276 !important; }
+    .juris   { color: #6c3483 !important; }
+    .loi     { color: #7b5e3a !important; }
+    a[href]:after { content: none !important; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="label">Droit des obligations · Sources · Cours 4</div>
+  <h1>Cours 4 — Sources des Obligations</h1>
+  <div class="subtitle">2 février 2026 · Prof. Laurent Poulet-Bellet · Cap Avocat / Formaprep</div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--article)"></div><span style="color:var(--article);font-weight:700">Numéro d'article du code</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--citation)"></div><span style="color:var(--citation)">Texte cité de l'article / Doctrine</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--juris)"></div><span style="color:var(--juris);font-weight:700">Jurisprudence</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--loi)"></div><span style="color:var(--loi);font-weight:700">Loi</span></div>
+</div>
+
+<div class="main">
+
+  <div class="note">
+    Note de lecture : Ce cours couvre 5 grands blocs. (I) Suite des chaînes de contrats — rappel et Miro. (II) La jurisprudence Miro en détail : Civ. 1re 13 fév. 2001, AP Miro 6 oct. 2006, AP Bois Rouge 13 jan. 2020, Cass. com. 3 juillet 2024 (Clamagérant), Cass. com. 17 déc. 2025. (III) Art. 1200 et opposabilité du contrat. (IV) Fait des choses — art. 1242 al. 1 : Téphen 1896, Jand'heur 1930, Franck 1941. (V) Responsabilité des parents — art. 1242 al. 4 : arrêt Bertrand 1997, AP 28 juin 2024, loi Attal 25 juin 2025. La transcription contient plusieurs sections dupliquées (bug d'enregistrement) — elles ont été supprimées.
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Sommaire</div>
+    <ul>
+      <li><a href="#cours">📚 Cours — Contenu juridique</a> <span class="toc-tag">Miro · Art. 1200 · Fait des choses · Resp. parents</span></li>
+      <li><a href="#methodo">⚠️ Méthodo — Conseils pédagogiques</a></li>
+      <li><a href="#oral">🎓 Grand oral — Culture juridique</a></li>
+      <li><a href="#critique">🔍 Critique des prépas</a></li>
+      <li><a href="#alerte">⚡ Alertes examen</a></li>
+    </ul>
+  </div>
+
+  <!-- ══════════════════════════════════════════ COURS ══════════════════════════════════════════ -->
+  <div class="section" id="cours">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📚 Cours</span>
+      <span class="section-title">Contenu juridique pur</span>
+    </div>
+
+    <!-- I. Miro -->
+    <div class="subsection">
+      <div class="subsection-title">I. La faute délictuelle définie par référence à un manquement contractuel — Jurisprudence Miro</div>
+      <div class="block">
+
+        <p><strong>Le problème de principe :</strong></p>
+        <div class="quote">"Dans la logique que je vous ai exposée de distinction entre l'acte juridique et le fait juridique, une faute délictuelle ne peut pas se définir par rapport à un manquement à des obligations découlant d'un acte juridique. [...] Si vous commencez à tout mélanger, ça devient un véritable foutoir."</div>
+        <p>La position classique de toutes les chambres jusqu'en 1991 : interdiction de définir une faute délictuelle par référence à un manquement contractuel. Ce sont deux sphères étanches.</p>
+
+        <p><strong>Premier arrêt — Civ. 1re, 13 février 2001 (transfusion sanguine) :</strong></p>
+        <p><span class="juris">Cass. 1re civ., 13 février 2001</span> — premier arrêt admettant qu'un tiers peut définir une faute civile délictuelle en se prévalant d'un manquement contractuel entre les parties, dès lors que ce manquement lui a causé un préjudice.</p>
+        <p>Faits : une femme hémophile hospitalisée pour une transfusion reçoit du sang contaminé au VIH. Elle décède. Mari et enfant, victimes par ricochet, veulent agir. Ils ne peuvent pas se prévaloir de la responsabilité contractuelle (pas parties au contrat entre l'établissement et le centre de transfusion). La Cour de cassation leur permet d'invoquer le manquement contractuel comme faute délictuelle à leur égard.</p>
+        <p>Contexte : affaire du sang contaminé. À l'époque, la directive sur les produits défectueux n'était pas encore transposée (elle le sera en 1998). Donc raisonnement en droit commun.</p>
+
+        <p><strong>Arrêt de référence — AP, 6 octobre 2006, Miro / Boot Shop :</strong></p>
+        <p><span class="juris">AP, 6 octobre 2006, arrêt Miro (dit aussi Boot Shop)</span> — arrêt le plus commenté de l'histoire du droit français, toutes disciplines confondues.</p>
+        <p>Faits : un locataire-gérant d'un fonds de commerce (Boot Shop — magasin de chaussures) ne peut plus exercer son activité car les locaux sont non conformes. Il n'est pas locataire des murs — seulement du fonds. Il ne peut donc pas agir contractuellement contre le bailleur des murs. L'assemblée plénière lui permet d'invoquer le manquement contractuel entre le propriétaire et le locataire des murs pour constituer une faute délictuelle à son égard.</p>
+        <p><strong>Solution :</strong> un tiers peut invoquer le manquement contractuel entre les parties pour caractériser une faute civile délictuelle à son égard, dès lors que ce manquement lui a causé un préjudice. Régime applicable : le régime délictuel (réparation intégrale, clauses limitatives non opposables au tiers).</p>
+        <p>L'assemblée plénière adopte la position de la 1re chambre civile contre la chambre commerciale (qui était attachée à l'effet relatif des conventions).</p>
+        <p>Orthographe exacte : <strong>M-Y-R-H-O</strong> (et non Miro, ni Niro).</p>
+
+        <p><strong>Art. 1200 nouveau — opposabilité du contrat — ne codifie PAS Miro :</strong></p>
+        <p><span class="art-num">Art. 1200 C. civ.</span> — <span class="art-txt">"Les contrats ne créent d'obligations qu'entre les parties. Les tiers ne peuvent ni demander l'exécution du contrat ni se voir contraints de l'exécuter. [...] Les tiers doivent respecter la situation juridique créée par le contrat. Ils peuvent s'en prévaloir notamment pour apporter la preuve d'un fait."</span></p>
+        <p>Ce texte codifie le principe d'opposabilité du contrat — à la fois par les parties à l'encontre des tiers (ex. participation d'un tiers à la violation d'une obligation de non-concurrence post-contractuelle) et par les tiers à l'encontre des parties (Miro en est une illustration).</p>
+        <div class="quote">"L'article 1200 nouveau codifie le principe d'opposabilité du contrat. Il ne contredit pas Miro. Mais il ne codifie pas Miro. C'est beaucoup plus subtil. Quand on a des corrigés qui disent que l'article 1200 codifie ou confirme la jurisprudence Miro, on jette le corrigé."</div>
+        <p>L'enjeu : la codification de Miro est précisément l'un des enjeux majeurs de la réforme de la responsabilité civile, toujours en suspens. L'article 1234 du projet consolidé de 2017 proposait une solution — il n'a pas été adopté.</p>
+
+        <p><strong>AP, 13 janvier 2020, Bois Rouge — confirmation et claque doctrinale :</strong></p>
+        <p><span class="juris">AP, 13 janvier 2020, arrêt Bois Rouge</span> — arrêt à motivation enrichie. La Cour de cassation réaffirme Miro, défonce les interprétations doctrinales selon lesquelles des arrêts intermédiaires de la 3e chambre civile auraient opéré un revirement.</p>
+        <div class="quote">"La cause de cassation dit qu'il n'y a jamais eu d'arrêt d'ici là, que ça ne relevait que de lectures érodées de certains arrêts intermédiaires. Elle réaffirme sa jurisprudence Miro. [...] Elle dit, écoutez, vous arrêtez avec vos conneries, j'en ai ras-le-bol."</div>
+        <p>Point technique essentiel : une chambre ne peut pas revirer sur une assemblée plénière. Ce n'est pas un revirement, c'est une dissidence ou une contradiction. Écrire le contraire dans une copie = erreur grave sur la hiérarchie interne de la Cour de cassation.</p>
+        <p>À citer dans une majeure : <strong>Miro (AP 6 oct. 2006) confirmé par Bois Rouge (AP 13 jan. 2020)</strong>.</p>
+
+        <p><strong>Conséquence paradoxale de Miro — le tiers mieux traité que le créancier contractuel :</strong></p>
+        <div class="quote">"Vous en arrivez à la situation qui est assez ubuesque [...] d'un tiers qui est mieux traité que le créancier contractuel lui-même. Le créancier contractuel [...] va se voir opposer les aménagements conventionnels. [...] Le tiers qui se prévaut de la même inexécution contractuelle a droit à la réparation intégrale de son préjudice, sans limitation aucune."</div>
+        <p>En matière contractuelle : seul le préjudice prévisible est réparable (<span class="art-num">art. 1231-3 C. civ.</span>, ex-<span class="art-num">art. 1150</span>). Les clauses limitatives de responsabilité sont opposables au créancier. En matière délictuelle (Miro) : réparation intégrale, clauses limitatives inopposables au tiers. Résultat : le tiers est mieux traité que le créancier contractuel. C'est pour cela que les assureurs veulent la peau de Miro.</p>
+
+        <p><strong>Cass. com., 3 juillet 2024, arrêt Clamagérant — anticipation provocatrice :</strong></p>
+        <p><span class="juris">Cass. com., 3 juillet 2024</span> — dit « arrêt Clamagérant » (C-L-A-M-A-G-E-R-A-N-T).</p>
+        <p>La chambre commerciale applique Miro sur le principe (fondement délictuel), mais oppose au tiers les limitations de responsabilité contractuelles entre les parties. Elle refuse ainsi d'appliquer le régime purement délictuel à l'action du tiers.</p>
+        <div class="quote">"La chambre commerciale dit : ok, le fondement sera délictuel, mais on appliquera quand même les limitations contractuelles. [...] C'est presque de la provocation. Elle dit, j'applique Miro. Mais j'applique Miro en émettant quelques réserves quant aux effets de Miro."</div>
+        <p>Objectif : provoquer la 1re chambre civile en dissidence, conduire à une assemblée plénière.</p>
+        <p>Problème conceptuel : on applique des aménagements conventionnels (régime de l'acte juridique) dans la sphère délictuelle (régime du fait juridique). Cela mélange les deux ordres.</p>
+        <p>Critiques doctrinales : David Bakouche et Yves-Marie Serinet au JCP parlent de solution « incompréhensible » qui défie les principes les plus fondamentaux.</p>
+        <p>Cet arrêt était dans le corrigé national de septembre 2024. Les candidats qui n'en avaient pas parlé ont été sanctionnés dans certains IEJ.</p>
+
+        <p><strong>Cass. com., 17 décembre 2025 — suite Clamagérant :</strong></p>
+        <p><span class="juris">Cass. com., 17 décembre 2025</span> — numéro de pourvoi 24-20.154. Reprend et confirme la solution Clamagérant.</p>
+        <p>Apport : le tiers qui invoque Miro peut se voir opposer non seulement les clauses limitatives de responsabilité, mais aussi les conditions de mise en œuvre de la responsabilité contractuelle — notamment les clauses de médiation ou conciliation préalable obligatoire, les délais de prescription contractuels.</p>
+        <div class="quote">"Le tiers a un contrat qui invoque sur le fondement de la responsabilité délictuelle des manquements contractuels relatifs à la forclusion, à la prescription, au défaut de tentative de conciliation préalable, peut se voir opposer les conditions et limites de la responsabilité qui s'appliquent dans les relations entre contractants."</div>
+        <p>Logique de la chambre commerciale : si tu invoques le manquement contractuel, tu en assumes les conséquences — tu ne peux pas avoir le beurre et l'argent du beurre.</p>
+
+        <p><strong>État du droit positif à la date du cours :</strong></p>
+        <ul style="padding-left:24px;margin:12px 0;">
+          <li>1re chambre civile et 3e chambre civile : appliquent Miro classique (régime délictuel pur, clauses limitatives inopposables au tiers)</li>
+          <li>Chambre commerciale : Miro sur le principe, mais régime contractuel opposable au tiers (Clamagérant + 17 déc. 2025)</li>
+          <li>Assemblée plénière à venir : quasi-certaine, permettra de trancher le conflit</li>
+        </ul>
+        <p>En consultation : pour un contentieux civil → citer Miro classique + signaler la position de la chambre commerciale comme position dissidente. Pour un contentieux commercial → risque d'application de Clamagérant.</p>
+      </div>
+    </div>
+
+    <!-- II. Art. 1200 -->
+    <div class="subsection">
+      <div class="subsection-title">II. Art. 1200 — Opposabilité du contrat</div>
+      <div class="block">
+        <p><span class="art-num">Art. 1200 C. civ.</span> — codifie l'opposabilité du contrat dans les deux sens :</p>
+        <ul style="padding-left:24px;margin:12px 0;">
+          <li><strong>Par les parties à l'encontre des tiers :</strong> un tiers ne peut pas participer à la violation d'une obligation contractuelle sans commettre une faute délictuelle. Ex. classique : employeur qui embauche un salarié tenu par une clause de non-concurrence post-contractuelle — sa responsabilité délictuelle peut être engagée.</li>
+          <li><strong>Par les tiers à l'encontre des parties :</strong> un tiers peut se prévaloir du contrat comme d'un fait juridique, notamment pour démontrer un manquement contractuel constitutif d'une faute délictuelle à son égard (Miro).</li>
+        </ul>
+        <p>Ce texte ne codifie pas Miro mais ne le contredit pas. Il laisse ouverte la question de la codification de Miro à la réforme de la responsabilité civile.</p>
+        <p>Placement dans le Dalloz : sous <span class="art-num">art. 1199</span> (effet relatif) au lieu de <span class="art-num">art. 1200</span> (opposabilité) — erreur éditoriale car depuis l'ordonnance, l'opposabilité a son propre texte et n'est plus rattachée à l'effet relatif.</p>
+      </div>
+    </div>
+
+    <!-- III. Responsabilité médicale et notariale -->
+    <div class="subsection">
+      <div class="subsection-title">III. Responsabilité médicale et notariale — responsabilités délictuelles pour faute</div>
+      <div class="block">
+
+        <p><strong>Responsabilité médicale :</strong></p>
+        <p><span class="loi">Loi du 4 mars 2002</span> (dite loi Kouchner) — décontractualise la responsabilité médicale. Il n'existe plus de contrat médical. La responsabilité du médecin est désormais fondée sur la faute délictuelle.</p>
+        <p>Abandon de la jurisprudence Mercier (contrat médical) par : <span class="juris">Cass. 1re civ., 3 juin 2010</span> — arrêt commenté par Pierre Sargos, ancien président de la chambre sociale de la Cour de cassation, sous le titre « Peu la remercier ».</p>
+        <p>Texte applicable : <span class="art-num">art. L. 1142-1 du Code de la santé publique</span> + <span class="art-num">art. 1240 C. civ.</span></p>
+        <p>Seule exception à la responsabilité pour faute : infections nosocomiales contractées en établissement de santé collectif (public ou privé) → responsabilité sans faute. Pour un médecin libéral en ville : faute prouvée uniquement.</p>
+        <p>L'ONIAM n'est pas de la responsabilité — c'est un régime d'indemnisation mutualisé pour les accidents médicaux non fautifs.</p>
+        <p>Formule de la faute médicale : manquement à l'obligation de dispenser des soins consciencieux et diligents conformes aux données acquises de la science.</p>
+
+        <p><strong>Responsabilité notariale :</strong></p>
+        <p>Responsabilité délictuelle dans 99% des cas — le notaire est un officier ministériel exerçant une charge publique (authentification des actes juridiques). Il n'y a pas de contrat entre le notaire et son usager.</p>
+        <p>Exception rarissime : quand le notaire agit en tant que simple conseil privé (hors statut d'officier public) → responsabilité contractuelle possible. Représente environ 2% du contentieux.</p>
+        <div class="quote">"Ne pas savoir que la responsabilité notariale est délictuelle, c'est une honte. La responsabilité du médecin est délictuelle pour faute depuis la loi du 4 mars 2002. Ces deux vérités élémentaires doivent être connues."</div>
+        <p>Erreur éditoriale du Dalloz : la responsabilité notariale est classée sous la responsabilité contractuelle (<span class="art-num">art. 1231-1</span>) — c'est faux. Dans le Lexis de Laurent Leveneur, cette erreur n'existe pas.</p>
+      </div>
+    </div>
+
+    <!-- IV. Fait des choses -->
+    <div class="subsection">
+      <div class="subsection-title">IV. Responsabilité du fait des choses — art. 1242 al. 1 C. civ.</div>
+      <div class="block">
+
+        <p><strong>Texte — pas de portée normative propre dans le code de 1804 :</strong></p>
+        <p><span class="art-num">Art. 1242 al. 1 C. civ.</span> (ex-<span class="art-num">art. 1384 al. 1</span>) — <span class="art-txt">"On est responsable non seulement du dommage que l'on cause par son propre fait, mais encore de celui qui est causé par le fait des personnes dont on doit répondre ou des choses que l'on a sous sa garde."</span></p>
+        <p>Ce texte était, dans la pensée des rédacteurs de 1804, un simple chapeau introductif des alinéas suivants. Il n'avait pas de portée normative autonome. C'est la jurisprudence qui lui a conféré un principe général de responsabilité du fait des choses.</p>
+
+        <p><strong>Genèse doctrinale — querelle Saleilles/Josserand vs Ripper :</strong></p>
+        <p>Raymond Saleilles et Louis Josserand (partisans de la théorie du risque) ont proposé de réinterpréter l'alinéa 1er pour y voir une responsabilité sans faute du gardien d'une chose. Georges Ripper s'y est opposé fermement (responsabilité pour faute seulement). La querelle a duré plus d'une décennie par voie de Dalloz interposé — querelle doctrinale la plus célèbre de l'histoire du droit français.</p>
+
+        <p><strong>Arrêt Téphen (arrêt du remorqueur) — 16 juin 1896 :</strong></p>
+        <p><span class="juris">Cass. civ., 16 juin 1896, arrêt Téphen</span> — explosion d'une chaudière à vapeur. Premier arrêt posant une présomption de responsabilité. Mais sa portée était ambiguë : faute présumée (Ripper) ou responsabilité sans faute (Saleilles/Josserand) ? La querelle a duré jusqu'en 1930.</p>
+
+        <p><strong>Arrêt Jand'heur — Chambres réunies, 13 février 1930 :</strong></p>
+        <p><span class="juris">Ch. réunies, 13 février 1930, arrêt Jand'heur</span> (J-A-N-D apostrophe H-E-U-R) — petite fille écrasée par un camion des Galeries Belfortaises. Arrêt des chambres réunies (ancêtre de l'Assemblée plénière, avant la réforme post-WWII) au visa de l'<span class="art-num">art. 1384 al. 1</span> (devenu <span class="art-num">art. 1242 al. 1</span>).</p>
+        <p>Portée : tranche définitivement la querelle. La présomption de responsabilité <strong>ne cède pas par la preuve de l'absence de faute</strong>. C'est donc une responsabilité sans faute. Josserand co-rédige officieusement l'arrêt.</p>
+        <div class="quote">"Si dans votre majeure, vous dites que l'article 1242 alinéa 1er dispose que le gardien de la chose est objectivement responsable, vous racontez n'importe quoi. Le texte ne dispose de rien. C'est la jurisprudence, chambre réunie, 13 février 1930, qui a créé ce régime."</div>
+        <p>Précision : avant la Seconde Guerre mondiale, il n'y avait qu'une seule chambre civile. Ne jamais écrire « Cass. 1re civ. » pour des arrêts antérieurs à 1947.</p>
+        <p>Terminologie à abandonner : « présomption de responsabilité » ne veut rien dire. Il s'agit d'une <strong>responsabilité sans faute de plein droit</strong>.</p>
+
+        <p><strong>Arrêt Franck — Chambres réunies, 2 décembre 1941 :</strong></p>
+        <p><span class="juris">Ch. réunies, 2 décembre 1941, arrêt Franck</span> — définit le gardien comme le titulaire des <strong>pouvoirs matériels d'usage, de direction et de contrôle</strong> sur la chose. Définition matérielle (et non juridique) de la garde.</p>
+        <p>Conséquences :</p>
+        <ul style="padding-left:24px;margin:12px 0;">
+          <li>Le <strong>propriétaire est présumé gardien</strong> — présomption simple qui peut être renversée</li>
+          <li>La garde peut être transférée volontairement (<strong>par acte juridique</strong> : prêt, bail, dépôt, contrat de réparation) ou involontairement (<strong>par fait juridique</strong> : le vol)</li>
+          <li>En cas de vol : le propriétaire perd la garde, le voleur en devient gardien. La responsabilité pèse sur le voleur, non sur le propriétaire.</li>
+        </ul>
+
+        <p><strong>La "responsabilité contractuelle du fait des choses" n'existe pas :</strong></p>
+        <div class="quote">"La responsabilité contractuelle du fait des choses, ça ne peut pas exister à l'instar de la responsabilité délictuelle du fait des choses. Ça veut simplement dire que si un débiteur contractuel utilise une chose, il sera tenu pour responsable comme s'il ne l'avait pas utilisée. Qu'il travaille avec ses mains ou avec un outil, on n'en a rien à cirer."</div>
+        <p>Origine de l'erreur : Geneviève Viney, commentant l'arrêt Planète Batom (<span class="juris">Cass. 1re civ., 17 janvier 1985</span>, dit arrêt du cerceau brisé), avait utilisé cette formule dans un contexte très particulier — transposition prétorienne de la directive sur les produits défectueux avant la loi de 1998. Des auteurs ont décontextualisé le propos et créé une catégorie inexistante.</p>
+        <p>Règle de qualification pour les cas pratiques :</p>
+        <ul style="padding-left:24px;margin:12px 0;">
+          <li>Si on est dans le champ d'exécution d'une obligation contractuelle → responsabilité contractuelle</li>
+          <li>Si on est hors champ contractuel (accident, dommage extérieur à la prestation) → responsabilité délictuelle</li>
+          <li>Si la chose utilisée est défectueuse → droit des produits défectueux (<span class="art-num">art. 1245 et s. C. civ.</span>)</li>
+        </ul>
+        <p>Il n'existe pas non plus de <strong>principe général de responsabilité du fait d'autrui</strong> — contrairement à la responsabilité du fait des choses. Il existe seulement des cas spéciaux de responsabilité du fait d'autrui.</p>
+      </div>
+    </div>
+
+    <!-- V. Responsabilité des parents -->
+    <div class="subsection">
+      <div class="subsection-title">V. Responsabilité des parents du fait de l'enfant mineur — art. 1242 al. 4 C. civ.</div>
+      <div class="block">
+
+        <p><strong>Texte actuel (depuis loi Attal, 25 juin 2025) :</strong></p>
+        <p><span class="art-num">Art. 1242 al. 4 C. civ.</span> — <span class="art-txt">"Les parents, en tant qu'ils exercent l'autorité parentale, sont de plein droit, solidairement responsables du dommage causé par leur enfant mineur, sauf lorsque ceux-ci ont été confiés à un tiers par une décision administrative ou judiciaire."</span></p>
+
+        <p><strong>Évolution historique :</strong></p>
+        <ul style="padding-left:24px;margin:12px 0;">
+          <li><strong>Code civil 1804 :</strong> responsabilité pour faute des parents dans l'éducation et la surveillance de leur enfant</li>
+          <li><strong>Fin 19e–début 20e :</strong> présomption simple de faute dans l'éducation et la surveillance → renversable par preuve de l'absence de faute. Condition : cohabitation matérielle avec l'enfant</li>
+          <li><strong>AP, 9 mai 1984 (arrêts Fullenwarth et Derguigny) :</strong> plus besoin d'une faute de l'enfant pour engager la responsabilité des parents</li>
+          <li><strong>Cass. 2e civ., 19 février 1997, arrêt Bertrand + arrêt Samda :</strong> transformation en responsabilité sans faute, fondée sur l'autorité parentale. La cohabitation redéfinie comme résidence habituelle (cohabitation juridique et non matérielle)</li>
+          <li><strong>AP, 13 décembre 2002 :</strong> confirme que la responsabilité des parents ne suppose pas la preuve d'une faute de l'enfant</li>
+          <li><strong>AP, 28 juin 2024 :</strong> suppression de la condition de cohabitation — critère unique = exercice de l'autorité parentale</li>
+          <li><span class="loi">Loi Attal du 25 juin 2025</span> : modifie le texte de l'<span class="art-num">art. 1242 al. 4</span> pour l'aligner sur la jurisprudence. Supprime la mention de cohabitation. Seul critère : l'autorité parentale.</li>
+        </ul>
+
+        <p><strong>Pourquoi la loi Attal était nécessaire :</strong></p>
+        <div class="quote">"L'arrêt [du 28 juin 2024] était borderline. Il faisait abstraction de la condition de cohabitation alors qu'elle était encore dans le code. Donc ce n'était plus de l'interprétation. On pouvait se demander si ce n'était pas une lecture contra legem."</div>
+        <p>La Cour de cassation a donc incité le législateur à modifier le texte. La loi Attal (loi sur la minorité délinquante, n'ayant a priori aucun rapport) a saisi l'occasion pour aligner le texte.</p>
+        <p>Risque d'un recours CEDH des assureurs (des pères privés de droit de résidence habituelle) avait possiblement accéléré l'intervention législative.</p>
+
+        <p><strong>Solidarité légale :</strong> la responsabilité des parents est une solidarité légale (≠ obligation in solidum). N'importe lequel des deux parents peut être actionné pour le tout, à charge de recours contre l'autre.</p>
+
+        <p><strong>Exonération :</strong> uniquement si l'enfant a été confié à un tiers par décision administrative ou judiciaire (ex. mesure d'assistance éducative en milieu fermé). Dans ce cas, c'est la responsabilité objective du tiers qui prend le relais.</p>
+
+        <p><strong>Responsabilité des commettants du fait des préposés — art. 1242 al. 5 :</strong></p>
+        <p><span class="art-num">Art. 1242 al. 5 C. civ.</span> (ex-<span class="art-num">art. 1384 al. 5</span>) — responsabilité sans faute du commettant (employeur) pour les faits du préposé dans l'exercice de ses fonctions. Le préposé bénéficie d'une immunité dès lors qu'il agit sans excéder les limites de sa mission.</p>
+        <p>Arrêt de référence : <span class="juris">AP, 25 février 2000, Costedoat</span>.</p>
+      </div>
+    </div>
+
+    <!-- VI. Application de la loi dans le temps -->
+    <div class="subsection">
+      <div class="subsection-title">VI. Application de la loi dans le temps — loi de ratification de l'ordonnance</div>
+      <div class="block">
+        <p>La loi de ratification de l'ordonnance du 10 février 2016 (loi du 20 avril 2018) distingue :</p>
+        <ul style="padding-left:24px;margin:12px 0;">
+          <li><strong>Dispositions interprétatives :</strong> applicables aux contrats conclus postérieurement au 1er octobre 2016 (date d'entrée en vigueur de l'ordonnance)</li>
+          <li><strong>Dispositions modificatives :</strong> applicables aux contrats conclus postérieurement au 1er octobre 2018 (date d'entrée en vigueur de la loi de ratification)</li>
+        </ul>
+        <p>Pour les contrats conclus avant le 1er octobre 2016 : principe de survie de la loi ancienne (les effets légaux et dispositions d'ordre public impérieux constituent l'exception).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- METHODO -->
+  <div class="section" id="methodo">
+    <div class="section-header">
+      <span class="section-tag tag-methodo">⚠️ Méthodo</span>
+      <span class="section-title">Conseils méthodologiques et pédagogiques</span>
+    </div>
+
+    <div class="block">
+      <p><strong>Toujours commencer par la faute si les faits le permettent :</strong></p>
+      <div class="quote">"La faute civile délictuelle, très vivace, contrairement à ce que certains pensent, et cela les conduit à l'oublier dans les cas pratiques. [...] Quand on commence à parler de responsabilité civile, on pense d'abord faute. [...] La faute est le droit commun de la responsabilité civile extra-contractuelle."</div>
+
+      <p><strong>Comment citer Miro dans une majeure :</strong></p>
+      <ul style="padding-left:24px;margin:12px 0;">
+        <li>Citer : <span class="juris">AP, 6 oct. 2006, Miro / Boot Shop</span>, confirmé par <span class="juris">AP, 13 jan. 2020, Bois Rouge</span></li>
+        <li>Préciser que ce n'est pas une codification de l'<span class="art-num">art. 1200</span></li>
+        <li>Pour un contentieux commercial : signaler <span class="juris">Cass. com., 3 juil. 2024, Clamagérant</span> comme position de la seule chambre commerciale</li>
+        <li>Nuancer : les clauses limitatives restent normalement inopposables au tiers en vertu de Miro classique</li>
+      </ul>
+
+      <p><strong>Sur l'arrêt Jand'heur dans une majeure :</strong></p>
+      <div class="quote">"Si dans votre majeure, vous ne liez pas les deux [l'art. 1242 al. 1 et l'arrêt Jand'heur chambre réunie 13 fév. 1930], ça ne vaut rien. Si vous dites que l'article 1242 alinéa 1er dispose que le gardien de la chose est objectivement responsable [...], votre copie avec un bon correcteur, elle vaut 3."</div>
+
+      <p><strong>Qualification contractuel vs délictuel — les conditions :</strong></p>
+      <p>Pour que la responsabilité contractuelle s'applique, trois conditions cumulatives :</p>
+      <ul style="padding-left:24px;margin:12px 0;">
+        <li>Un contrat</li>
+        <li>L'inexécution d'une obligation née du contrat ou rattachée à celui-ci</li>
+        <li>Une demande en réparation émanant du créancier contractuel</li>
+      </ul>
+      <p>Si l'une de ces conditions manque → responsabilité délictuelle. Ne pas mélanger.</p>
+
+      <p><strong>Enjeu de la qualification — clauses limitatives :</strong></p>
+      <div class="quote">"Quand la responsabilité est délictuelle, ça a une conséquence énorme : les clauses limitatives de responsabilité ne sont pas applicables. [...] Avec ces clés, vous allez relire complètement autrement les annales."</div>
+
+      <p><strong>Sur la nuance dans les cas pratiques — différence entre 8 et 16 :</strong></p>
+      <div class="quote">"Un candidat zélé et cultivé ne va pas s'abstenir de préciser que l'arrêt [Clamagérant] existe. Il va le mettre en relief. Mais il va essayer de dire quoi à son client ? Va essayer de soutenir le contraire. Parce que ça reste la position, pour l'instant, de la seule chambre commerciale."</div>
+
+      <p><strong>Ne pas utiliser le vocabulaire pénal dans une copie de droit des obligations :</strong> "coupable", "infraction", etc. On dit "responsable", "agissement fautif". Le principe d'identité de la faute pénale et de la faute civile existe mais ce n'est pas la même chose.</p>
+
+      <p><strong>Sur les cas frontières contractuel/délictuel :</strong> en cas d'ambiguïté sur le champ de l'exécution du contrat, traiter les deux hypothèses. L'interprétation souveraine des juges du fond est le déterminant — un juge ne peut interpréter que ce qui est obscur ou ambigu.</p>
+    </div>
+  </div>
+
+  <!-- GRAND ORAL -->
+  <div class="section" id="oral">
+    <div class="section-header">
+      <span class="section-tag tag-oral">🎓 Grand oral</span>
+      <span class="section-title">Culture juridique et préparation orale</span>
+    </div>
+
+    <div class="block">
+      <p><strong>La jurisprudence comme source de droit — prohibition des arrêts de règlement :</strong></p>
+      <p><span class="art-num">Art. 5 C. civ.</span> — interdit les arrêts de règlement. Contexte historique : réaction contre les parlements d'Ancien Régime qui se comportaient comme des législateurs. Mais cette prohibition ne signifie pas que la jurisprudence n'est pas source de droit.</p>
+      <div class="quote">"La Cour de cassation elle-même, sur son site internet, vise la portée normative des arrêts. Elle admet que la jurisprudence puisse être source de droit. [...] Pour les publicistes, tout le droit administratif historique s'est bâti comment ? De manière purement jurisprudentielle."</div>
+
+      <p><strong>Saleilles et Josserand :</strong> auteurs de la théorie du risque. Ont proposé et influencé la création de la responsabilité du fait des choses sans faute. Josserand a co-rédigé l'arrêt Jand'heur et était conseiller extraordinaire à la Cour de cassation.</p>
+
+      <p><strong>Georges Ripper :</strong> civiliste brillant, adversaire de la théorie du risque, tenant d'une responsabilité uniquement pour faute. Passage à vide sous Vichy (secrétaire d'État à l'instruction) — blanchi à la Libération.</p>
+
+      <p><strong>Geneviève Viney :</strong> papesse de la responsabilité civile. Seule femme à avoir atteint ce niveau de reconnaissance mondiale en droit français. Ses propositions ont directement inspiré plusieurs revirements de jurisprudence (Bertrand, Costedoat). Ses positions sur la "responsabilité contractuelle du fait des choses" ont été décontextualisées — elle ne l'a jamais posée comme règle générale.</p>
+
+      <p><strong>Pierre Sargos :</strong> ancien président de la chambre sociale de la Cour de cassation, spécialiste de la responsabilité médicale. A commenté l'arrêt du 3 juin 2010 mettant fin au contrat médical.</p>
+
+      <p><strong>Vincent Vigneau :</strong> président de la chambre commerciale de la Cour de cassation — auteur des arrêts Clamagérant (3 juil. 2024) et 17 déc. 2025. Stratégie délibérément provocatrice pour forcer une assemblée plénière.</p>
+
+      <p><strong>Assemblée plénière :</strong> ancêtre = chambres réunies (avant 1947). Ne pas écrire "Cass. 1re civ." pour un arrêt antérieur à la Seconde Guerre mondiale. Une chambre ne peut pas revirer sur une assemblée plénière — ce serait une dissidence ou une contradiction, pas un revirement.</p>
+
+      <p><strong>Art. 5 du Code civil et prohibition des arrêts de règlement :</strong> ne pas présenter ça de façon naïve. La jurisprudence crée bien du droit — la Cour de cassation l'admet elle-même. Jand'heur est en réalité une forme d'arrêt de règlement qui prolonge le travail du législateur plutôt qu'il ne le contredit.</p>
+
+      <p><strong>L'animal en droit positif :</strong> l'animal est un "être vivant doué de sensibilité" depuis la réforme de 2014, mais il reste soumis au régime des biens. Il constitue un élément du patrimoine de son propriétaire. Sa mort → préjudice patrimonial (et potentiellement moral).</p>
+    </div>
+  </div>
+
+  <!-- CRITIQUE -->
+  <div class="section" id="critique">
+    <div class="section-header">
+      <span class="section-tag tag-critique">🔍 Critique des prépas</span>
+      <span class="section-title">Erreurs et manques de formation dénoncés</span>
+    </div>
+
+    <div class="block">
+      <p><strong>Écrire que l'art. 1200 codifie Miro :</strong></p>
+      <div class="quote">"Quand vous avez des corrigés qui disent que l'article 1200 du code civil qui codifie ou confirme la jurisprudence Miro, c'est la honte. Vous prenez le corrigé et vous le jetez."</div>
+
+      <p><strong>Évoquer un revirement de la 3e chambre civile sur Miro :</strong></p>
+      <div class="quote">"Comment voulez-vous qu'un arrêt de la troisième chambre civile puisse revirer sur un arrêt solennel de l'Assemblée plénière ? Les règles organiques d'autorité l'interdisent. La formulation relève de l'incurie."</div>
+
+      <p><strong>Penser qu'un arrêt de juillet ne peut pas tomber à l'examen de septembre :</strong></p>
+      <div class="quote">"Les rigolos, là encore un culte, qui vous disent, oh, non, en droit privé, on ne sait pas, un arrêt de juillet, ça ne peut pas tomber. [...] C'est la préparation couillon. [...] L'arrêt Clamagérant était dans le corrigé de 2024."</div>
+
+      <p><strong>Parler de "responsabilité contractuelle du fait des choses" en droit commun :</strong></p>
+      <div class="quote">"Ça n'existe pas. [...] Des candidats qui ont l'impression d'être des princes en faisant ça. Parce qu'ils ont appris des trucs par cœur dans lesquels il y avait ça. C'est complètement faux."</div>
+
+      <p><strong>Parler d'un "principe général de responsabilité du fait d'autrui" :</strong> il n'existe pas. Il y a des cas spéciaux créés sur le fondement de l'art. 1242 al. 1, mais pas de principe général comparable au principe général du fait des choses.</p>
+
+      <p><strong>Écrire "présomption de responsabilité" :</strong></p>
+      <div class="quote">"Ça ne veut rien dire. Le gardien n'est pas présumé responsable, il est responsable. [...] Il faudra que le codificateur, à l'occasion de la réforme, n'utilise plus jamais cette terminologie."</div>
+
+      <p><strong>Confondre responsabilité contractuelle du médecin et délictuelle :</strong></p>
+      <div class="quote">"Ne pas savoir que la responsabilité médicale est délictuelle pour faute depuis la loi du 4 mars 2002 et l'arrêt du 3 juin 2010, c'est une honte. [...] Vous avez des corrigés CRFPA qui vous disent que c'est encore contractuel. Elle vous dit : 'Mais attendez, t'es qui pour écrire des conneries pareilles ?'"</div>
+
+      <p><strong>Écrire "Cass. 1re civ." pour un arrêt d'avant 1947 :</strong> il n'y avait qu'une seule chambre civile avant la réforme post-Seconde Guerre mondiale. Cette erreur trahit une méconnaissance totale de l'histoire de la Cour de cassation.</p>
+    </div>
+  </div>
+
+  <!-- ALERTES -->
+  <div class="section" id="alerte">
+    <div class="section-header">
+      <span class="section-tag tag-alerte">⚡ Alertes examen</span>
+      <span class="section-title">Sujets susceptibles de tomber</span>
+    </div>
+
+    <div class="block">
+      <div class="alert-box">
+        <div class="alert-title">Miro + Clamagérant + AP à venir</div>
+        Sujet central en droit des sources. La dissidence de la chambre commerciale (Clamagérant juil. 2024 + déc. 2025) et l'assemblée plénière attendue en font un sujet brûlant. Exige de distinguer la position de chaque chambre + le terrain (civil vs commercial).
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Responsabilité des parents — AP 28 juin 2024 + loi Attal 25 juin 2025</div>
+        Texte modifié en juin 2025 — texte actuel à connaître par cœur. Fondement = autorité parentale seule, plus de cohabitation. Solidarité légale des deux parents. Déjà tombé au grand oral en commentaire d'arrêt.
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Frontière contractuel / délictuel — qualification des sources</div>
+        Sujet classique dans les annales Olivier Désay. Exige de maîtriser les trois conditions de la responsabilité contractuelle + la conséquence sur les clauses limitatives. Arrêts sur la frontière contractuel/délictuel tombés plusieurs fois.
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Responsabilité du fait des choses — Jand'heur + Franck</div>
+        Fondement jurisprudentiel à toujours lier au texte. Définition matérielle du gardien (usage, direction, contrôle). Transfert de la garde par acte ou fait juridique. Distinction présomption de garde (simple) vs responsabilité sans faute (de plein droit).
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Responsabilité médicale et notariale — régime délictuel</div>
+        Déjà tombé en annales (2017 — responsabilité notariale). 2 points faciles perdus par 90% des candidats. Faute grave de ne pas savoir que ces deux responsabilités sont délictuelles.
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Cass. com., 17 décembre 2025 — numéro de pourvoi 24-20.154</div>
+        Arrêt très récent, à citer dans toute majeure sur Miro en contentieux commercial. Extension aux clauses de médiation/conciliation préalable.
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours 5 — Sources des Obligations — 10 février 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg: #faf9f6; --surface: #ffffff; --border: #e8e4dc;
+    --text: #1a1a1a; --text-light: #555;
+    --article: #c0392b; --juris: #6c3483; --loi: #7b5e3a; --citation: #1a5276;
+    --tag-cours: #2c6e49; --tag-methodo: #1565c0; --tag-oral: #6a0f49;
+    --tag-critique: #b71c1c; --tag-orga: #4a4a4a; --tag-alerte: #e65100;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-style: normal; }
+  body { font-family: 'EB Garamond', Georgia, serif; font-size: 18px; line-height: 1.75; background: var(--bg); color: var(--text); }
+  .page-header { background: #ffffff; color: #1a1a1a; padding: 48px 64px 40px; border-bottom: 4px solid var(--article); }
+  .page-header .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #aaa; margin-bottom: 12px; }
+  .page-header h1 { font-size: 2rem; font-weight: 500; margin-bottom: 8px; }
+  .page-header .subtitle { color: #ccc; font-size: 1rem; }
+  .legend { display: flex; flex-wrap: wrap; gap: 20px; padding: 20px 64px; background: #f2f0ea; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+  .main { max-width: 900px; margin: 0 auto; padding: 48px 32px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; padding-bottom: 12px; border-bottom: 2px solid var(--border); }
+  .section-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; color: #fff; white-space: nowrap; }
+  .tag-cours { background: var(--tag-cours); } .tag-methodo { background: var(--tag-methodo); }
+  .tag-oral { background: var(--tag-oral); } .tag-critique { background: var(--tag-critique); }
+  .tag-orga { background: var(--tag-orga); } .tag-alerte { background: var(--tag-alerte); }
+  .section-title { font-size: 1.25rem; font-weight: 600; color: var(--text); }
+  .subsection { margin-bottom: 36px; }
+  .subsection-title { font-size: 1rem; font-weight: 600; color: var(--text-light); margin-bottom: 16px; padding-left: 16px; border-left: 3px solid var(--border); }
+  .block { margin-bottom: 20px; }
+  .block p { margin-bottom: 12px; }
+  .quote { background: var(--surface); border-left: 3px solid #ccc; padding: 14px 20px; margin: 12px 0; border-radius: 0 4px 4px 0; color: #333; font-size: 0.97em; }
+  .art-num { color: var(--article); font-weight: 700; }
+  .art-txt { color: var(--citation); font-weight: 400; }
+  .juris { color: var(--juris); font-weight: 700; }
+  .loi { color: var(--loi); font-weight: 700; }
+  .alert-box { background: #fff8f0; border: 1px solid #e65100; border-left: 4px solid #e65100; padding: 16px 20px; border-radius: 4px; margin: 12px 0; font-size: 0.95em; }
+  .alert-box .alert-title { font-weight: 700; color: #e65100; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .toc { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px 28px; margin-bottom: 48px; }
+  .toc-title { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-light); margin-bottom: 16px; }
+  .toc ul { list-style: none; padding: 0; }
+  .toc li { padding: 4px 0; font-size: 0.95em; }
+  .toc a { color: var(--text); text-decoration: none; }
+  .toc a:hover { color: var(--article); }
+  .toc .toc-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-light); margin-left: 6px; }
+  .note { background: #f0f4ff; border: 1px solid #c5cee0; border-left: 4px solid var(--citation); padding: 14px 18px; border-radius: 4px; margin-bottom: 32px; font-size: 0.9em; color: #333; }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    @page { size: A4; margin: 15mm 14mm 18mm 14mm; }
+    body { font-size: 10.5pt; line-height: 1.55; background: #faf9f6 !important; color: #1a1a1a !important; }
+    .page-header { background: #ffffff !important; color: #1a1a1a !important; padding: 14pt 20pt 10pt !important; border-bottom: 3pt solid #c0392b !important; margin-bottom: 8pt; }
+    .page-header .label { color: #888 !important; font-size: 7pt !important; }
+    .page-header h1 { font-size: 15pt !important; margin-bottom: 3pt !important; color: #1a1a1a !important; }
+    .page-header .subtitle { color: #555 !important; font-size: 9pt !important; }
+    .legend { background: #f2f0ea !important; padding: 6pt 20pt !important; font-size: 7.5pt !important; gap: 10pt !important; border-bottom: 1pt solid #e8e4dc !important; margin-bottom: 8pt; }
+    .main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+    .section { margin-bottom: 16pt !important; }
+    .section-header { padding-bottom: 5pt !important; margin-bottom: 8pt !important; border-bottom: 1.5pt solid #e8e4dc !important; page-break-after: avoid; }
+    .section-tag { font-size: 6.5pt !important; padding: 2pt 6pt !important; color: #fff !important; }
+    .tag-cours    { background: #2c6e49 !important; }
+    .tag-methodo  { background: #1565c0 !important; }
+    .tag-oral     { background: #6a0f49 !important; }
+    .tag-critique { background: #b71c1c !important; }
+    .tag-orga     { background: #4a4a4a !important; }
+    .tag-alerte   { background: #e65100 !important; }
+    .section-title { font-size: 11pt !important; }
+    .subsection { margin-bottom: 10pt !important; }
+    .subsection-title { font-size: 9.5pt !important; margin-bottom: 5pt !important; }
+    .block { background: #ffffff !important; border: 0.75pt solid #e8e4dc !important; padding: 8pt 10pt !important; margin-bottom: 6pt !important; page-break-inside: avoid; }
+    .block p { margin-bottom: 5pt !important; font-size: 10pt !important; }
+    .block ul { padding-left: 14pt !important; margin: 4pt 0 !important; }
+    .block li { margin-bottom: 3pt !important; font-size: 10pt !important; }
+    h3 { font-size: 10.5pt !important; margin-top: 7pt !important; margin-bottom: 4pt !important; page-break-after: avoid; }
+    .alert-box { border: 0.75pt solid #e65100 !important; border-left: 3pt solid #e65100 !important; background: #fff8f5 !important; padding: 7pt 10pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .alert-box .alert-title { font-size: 6.5pt !important; color: #e65100 !important; margin-bottom: 4pt !important; }
+    .alert-box p, .alert-box li { font-size: 9.5pt !important; }
+    .quote { border-left: 3pt solid #1a5276 !important; background: #f0f4f8 !important; color: #1a5276 !important; padding: 7pt 10pt !important; font-size: 9.5pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .sub-section { border-top: 0.5pt solid #e8e4dc !important; margin-top: 8pt !important; padding-top: 8pt !important; }
+    .art-num { color: #c0392b !important; }
+    .art-txt { color: #1a5276 !important; }
+    .juris   { color: #6c3483 !important; }
+    .loi     { color: #7b5e3a !important; }
+    a[href]:after { content: none !important; }
+  }
+
+</style>
+</head>
+<body>
+<div class="page-header">
+  <div class="label">Droit des obligations · Sources · Cours 5</div>
+  <h1>Cours 5 — Sources des Obligations</h1>
+  <div class="subtitle">10 février 2026 · Prof. Laurent Poulet-Bellet · Cap Avocat / Formaprep</div>
+</div>
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--article)"></div><span style="color:var(--article);font-weight:700">Numéro d'article</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--citation)"></div><span style="color:var(--citation)">Texte cité / Doctrine</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--juris)"></div><span style="color:var(--juris);font-weight:700">Jurisprudence</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--loi)"></div><span style="color:var(--loi);font-weight:700">Loi</span></div>
+</div>
+
+<div class="main">
+
+<div class="note">
+  Ce cours couvre : (I) Responsabilité des commettants du fait des préposés — Costedoat, dépassement de mission, abus de fonction. (II) Responsabilité contractuelle du fait d'autrui — notion inexistante. (III) Nouveaux cas de responsabilité du fait d'autrui fondés sur art. 1242 al. 1 : AP Bliek 1991, arr. Notre-Dame-des-Flots 1997, clubs sportifs amateurs, tuteur mineur, refus grands-parents / syndicats / tuteur majeur. (IV) Arrêt Civ. 2e, 18 mars 1981 — obsolescence et portée à restreindre. (V) Loi Badinter du 5 juillet 1985 : champ d'application, VTM, nouvelles mobilités. (VI) Droit des produits défectueux : directive 25 juillet 1985, transpositions.
+</div>
+
+<div class="toc">
+  <div class="toc-title">Sommaire</div>
+  <ul>
+    <li><a href="#cours">📚 Cours — Contenu juridique</a> <span class="toc-tag">Costedoat · Abus de fonction · Bliek · Loi Badinter · Produits défectueux</span></li>
+    <li><a href="#methodo">⚠️ Méthodo — Conseils pédagogiques</a></li>
+    <li><a href="#oral">🎓 Grand oral — Culture juridique</a></li>
+    <li><a href="#critique">🔍 Critique des prépas</a></li>
+    <li><a href="#alerte">⚡ Alertes examen</a></li>
+  </ul>
+</div>
+
+<!-- ══════════ COURS ══════════ -->
+<div class="section" id="cours">
+  <div class="section-header">
+    <span class="section-tag tag-cours">📚 Cours</span>
+    <span class="section-title">Contenu juridique pur</span>
+  </div>
+
+  <!-- I. Resp. commettants/préposés -->
+  <div class="subsection">
+    <div class="subsection-title">I. Responsabilité des commettants du fait des préposés — art. 1242 al. 5 C. civ.</div>
+    <div class="block">
+
+      <p><strong>Texte :</strong> <span class="art-num">art. 1242 al. 5 C. civ.</span> (ex-<span class="art-num">art. 1384 al. 5</span>) — renumérotation seule, zéro réforme. Responsabilité des maîtres et commettants du fait des domestiques et préposés. La mention des "domestiques" est une incongruité du code de 1804 qui n'a pas été supprimée.</p>
+
+      <p><strong>Genèse historique :</strong> responsabilité initialement pour faute (faute dans la direction et la surveillance), objectivée dès le milieu du 19e siècle sous l'influence de Saleilles. Logique : on va chercher le solvable. Le préposé est insolvable ; le commettant a une assurance. L'objectivation a progressé avec le développement de l'assurance à partir de la fin du 19e.</p>
+
+      <p><strong>AP, 25 février 2000, arrêt Costedoat — immunité du préposé :</strong></p>
+      <p><span class="juris">AP, 25 février 2000, arrêt Costedoat</span> — parachèvement de l'objectivation. Solution : le commettant est seul responsable sans faute. Le préposé bénéficie d'une <strong>immunité de responsabilité civile</strong> dès lors qu'il agit dans les limites de sa mission.</p>
+      <div class="quote">"La seule hypothèse dans laquelle vous pouvez espérer bénéficier d'une immunité de responsabilité civile, c'est en votre qualité de préposé. [...] C'est un principe constitutionnel que le principe de responsabilité individuelle. Il est constitutionnellement posé par le Conseil constitutionnel depuis 1982."</div>
+      <p>Inspiré de la jurisprudence du Conseil d'État en matière de fonctionnaires et proposé par Geneviève Viney depuis 1985. René Chapus l'avait également soutenu.</p>
+
+      <p><strong>Exception à l'immunité — le dépassement de mission :</strong></p>
+      <p>L'immunité cesse quand le préposé a commis un dépassement de mission. Cela correspond, dans 99% des cas, à une <strong>faute intentionnelle</strong> (pénale ou civile). La simple faute d'imprudence ou d'inattention ne fait pas tomber l'immunité.</p>
+      <p>Origine : <span class="juris">Cass. com., arrêt Société des Parfums Rochas, 1993</span> — la chambre commerciale avait déjà dégagé l'idée d'une "faute personnelle" faisant tomber l'immunité.</p>
+      <div class="quote">"Le dépassement de mission, c'est simplement un équivalent d'une faute personnelle qui fait tomber l'immunité. Le commettant sera responsable sans faute, et le préposé pourra être responsable pour faute s'il a commis une faute intentionnelle dans 99% des cas."</div>
+      <p>Conséquence : quand il y a dépassement de mission, on peut agir contre le commettant (sans faute, <span class="art-num">art. 1242 al. 5</span>) ET contre le préposé (pour faute, <span class="art-num">art. 1240</span>), et obtenir leur condamnation in solidum.</p>
+
+      <p><strong>Abus de fonction — notion totalement distincte :</strong></p>
+      <p>L'abus de fonction n'est PAS un dépassement de mission. C'est un facteur d'exclusion de la responsabilité du commettant : si l'abus de fonction est caractérisé, le préposé cesse d'être préposé et le commettant cesse d'être commettant. La responsabilité des commettants du fait des préposés ne peut alors plus être engagée.</p>
+      <p>Définition ternaire et cumulative (<span class="juris">AP, 19 mai 1988</span> — après 6 arrêts d'assemblée plénière, record absolu) :</p>
+      <ul style="padding-left:24px;margin:12px 0;">
+        <li>Agissement <strong>hors des fonctions</strong> — appréciation purement matérielle et contextuelle : lien temporel ou matériel avec les fonctions → premier critère non satisfait. Ex. : professeur de musique pédophile agissant pendant les cours = dans ses fonctions. Collègue qui viole ses collègues lors des pots de l'entreprise = dans ses fonctions.</li>
+        <li><strong>Sans autorisation</strong> du commettant</li>
+        <li>À des <strong>fins étrangères à ses attributions</strong></li>
+      </ul>
+      <p>Ces trois critères cumulatifs sont quasi impossibles à réunir : la Cour de cassation les a conçus pour rendre l'abus de fonction pratiquement inapplicable et maintenir la responsabilité du commettant dans presque tous les cas.</p>
+      <div class="quote">"L'abus de fonction obéit à une définition qui est extrêmement rude et qui est destinée à renforcer la portée de la responsabilité du commettant. [...] Les avocats plaident systématiquement l'abus de fonction et ils se cassent les dents dans 99% des cas."</div>
+
+      <p><strong>Abus de fonction ≠ cause d'exonération :</strong> l'abus de fonction est un obstacle à l'établissement de la responsabilité (avant qu'elle ne soit constituée), non une cause d'exonération (qui intervient après). Certains arrêts de la Cour de cassation utilisent à tort le terme "exonération" — erreur à signaler.</p>
+
+      <p><strong>Application cas pratique — plombier voleur :</strong></p>
+      <p>Un plombier salarié intervient pour une réparation, et en profite pour voler des tableaux et bijoux. Qualification :</p>
+      <ul style="padding-left:24px;margin:12px 0;">
+        <li>Responsabilité contractuelle → impossible : le vol n'est pas dans le champ d'exécution du contrat</li>
+        <li>Responsabilité délictuelle du fait des préposés (<span class="art-num">art. 1242 al. 5</span>) → applicable, sans faute, car il a rencontré le client à l'occasion de ses fonctions (lien temporel et matériel) → pas d'abus de fonction</li>
+        <li>Responsabilité du préposé lui-même → oui, car dépassement de mission (faute pénale intentionnelle)</li>
+        <li>Condamnation in solidum du commettant et du préposé</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- II. Resp. contractuelle du fait d'autrui — notion inexistante -->
+  <div class="subsection">
+    <div class="subsection-title">II. La "responsabilité contractuelle du fait d'autrui" n'existe pas</div>
+    <div class="block">
+      <p>Quand une entreprise (personne morale) exécute sa prestation via un salarié et que ce salarié inexécute, c'est une simple responsabilité contractuelle personnelle du débiteur contractuel. Le salarié est transparent : il est le bras de la personne morale.</p>
+      <div class="quote">"Une personne morale contractante va agir par le biais de personnes physiques, des salariés. Le salarié est complètement transparent. Il n'est que le bras de son employeur. [...] Ce n'est pas une responsabilité contractuelle du fait d'autrui. Votre préposé n'est pas autrui, c'est vous-même."</div>
+      <p>Cette notion apparaît sous <span class="art-num">art. 1231-1</span> dans le code Dalloz (rubrique inventée) — absente du code Lexis, car inexistante. L'erreur vient d'une décontextualisation de la formule de Geneviève Viney commentant un arrêt de transposition prétorienne de la directive sur les produits défectueux.</p>
+      <p>En revanche, "autrui" existe bien en délictuel : dans la responsabilité des commettants du fait des préposés, la victime n'a pas contracté avec le commettant. Le préposé est bien un tiers pour elle.</p>
+    </div>
+  </div>
+
+  <!-- III. Nouveaux cas de resp. du fait d'autrui — art. 1242 al. 1 -->
+  <div class="subsection">
+    <div class="subsection-title">III. Nouveaux cas de responsabilité du fait d'autrui — art. 1242 al. 1 C. civ.</div>
+    <div class="block">
+
+      <p><strong>Fondement textuel :</strong> <span class="art-num">art. 1242 al. 1 C. civ.</span> (ex-<span class="art-num">art. 1384 al. 1</span>) — même texte que pour le fait des choses. Mais contrairement au fait des choses, il n'existe pas de principe général de responsabilité du fait d'autrui. Il y a seulement des cas spéciaux nouveaux, circonstanciés.</p>
+
+      <p><strong>Arrêt fondateur — AP, 29 mars 1991, arrêt Bliek (B-L-I-E-K) :</strong></p>
+      <p><span class="juris">AP, 29 mars 1991, arrêt Bliek</span> — arrêt de rejet. Commentaires de référence : Geneviève Viney au Dalloz, Jacques Ghestin au JCP.</p>
+      <p>Faits : une association accueillant à titre permanent des majeurs handicapés dans un régime de réinsertion (avec liberté de promenade) est tenue pour responsable sans faute d'un majeur handicapé pyromane qui a incendié la parcelle forestière des époux Bliek. Ni la responsabilité des parents (majeur), ni celle des commettants (pas de lien de subordination) n'étaient applicables.</p>
+      <p>Condition de la solution : la personne morale doit avoir <strong>accepté à titre permanent d'organiser et contrôler le mode de vie</strong> d'une personne susceptible de causer des dommages aux tiers, et lui soumettre des <strong>mesures de liberté surveillée</strong>.</p>
+      <p>Inspiré de la jurisprudence du Conseil d'État sur les permissions de sortie des détenus (même raisonnement : celui qui octroie une liberté à une personne sur laquelle il exerce une autorité doit répondre objectivement des dommages causés pendant cette liberté).</p>
+
+      <p><strong>Extension — mineurs délinquants en milieu fermé :</strong></p>
+      <p><span class="juris">Cass. crim., 26 mars 1997, arrêt Notre-Dame-des-Flots</span> — responsabilité objective d'une institution accueillant des mineurs délinquants dans le cadre d'une mesure d'assistance éducative <strong>en milieu fermé</strong>. L'institution se substitue aux parents dans l'éducation → transfert d'autorité → responsabilité de l'institution sur <span class="art-num">art. 1242 al. 1</span>, parents exonérés.</p>
+      <p>À contrario : si la mesure est en milieu ouvert (l'enfant rentre chez ses parents le soir), il n'y a pas de transfert d'autorité → parents toujours responsables, institution non responsable objectivement (seulement pour faute).</p>
+      <p>Codifié désormais : <span class="art-num">art. 1242 al. 4</span> nouvelle rédaction (<span class="loi">loi Attal, 25 juin 2025</span>) — la responsabilité des parents cesse en cas de transfert d'autorité à un tiers par décision administrative ou judiciaire.</p>
+
+      <p><strong>Clubs sportifs amateurs :</strong></p>
+      <p>Depuis mai 1995, responsabilité objective des clubs sportifs amateurs sur <span class="art-num">art. 1242 al. 1</span> pour le fait de leurs membres. Logique : transposition de la responsabilité des clubs professionnels (qui sont commettants au sens de <span class="art-num">art. 1242 al. 5</span>) dans le monde amateur. Critiqué : les clubs amateurs n'ont pas les ressources pour s'assurer. Cette solution ne survivra pas à la réforme de la responsabilité civile.</p>
+
+      <p><strong>Tuteur de mineur :</strong></p>
+      <p>Le tuteur d'un mineur est responsable objectivement sur <span class="art-num">art. 1242 al. 1</span> : il se substitue aux parents défaillants ou déchus (ex. Fourniret/Olivier). Il est couvert par l'<strong>assurance chef de famille</strong> (incluse dans l'assurance habitation) → assurance disponible → solution possible.</p>
+
+      <p><strong>Refus d'extension — grands-parents :</strong></p>
+      <p>Refus d'appliquer <span class="art-num">art. 1242 al. 1</span> aux grands-parents qui élèvent leurs petits-enfants, même depuis des années. Raison : l'autorité parentale reste juridiquement sur les parents (même absents), et les grands-parents ne disposent pas d'une assurance chef de famille adaptée. Ils peuvent être recherchés uniquement pour faute (<span class="art-num">art. 1240</span>) — là, leur assurance RC individuelle joue.</p>
+
+      <p><strong>Refus d'extension — syndicats :</strong></p>
+      <p>Refus d'appliquer <span class="art-num">art. 1242 al. 1</span> aux syndicats pour le fait de leurs membres lors de manifestations. Raison : aucune assurance n'accepterait de couvrir un syndicat pour une responsabilité objective illimitée → ruine du syndicat → atteinte à la liberté syndicale. Le syndicat peut néanmoins être recherché pour faute (<span class="art-num">art. 1240</span>) si son organisation a activement provoqué des violences.</p>
+
+      <p><strong>Refus d'extension — tuteur de majeur :</strong></p>
+      <p>Refus d'appliquer <span class="art-num">art. 1242 al. 1</span> au tuteur d'un majeur. Raison : institution bénévole d'intérêt général, sans assurance adaptée disponible. Application tuerait la tutelle au majeur. Le tuteur peut être recherché pour faute s'il a mal guidé la personne dont il avait la charge.</p>
+
+      <div class="quote">"Finalité assurantielle de la solution : la responsabilité objective n'est retenue que si une assurance peut couvrir la charge indemnitaire, et seulement en l'absence d'autres responsables."</div>
+    </div>
+  </div>
+
+  <!-- IV. Arrêt 1981 -->
+  <div class="subsection">
+    <div class="subsection-title">IV. Arrêt Civ. 2e, 18 mars 1981 — portée à restreindre impérativement</div>
+    <div class="block">
+      <p><span class="juris">Cass. 2e civ., 18 mars 1981</span> — "Les responsabilités du fait d'autrui sont alternatives et non cumulatives." Repérable dans le Dalloz sous la note 115 : "Caractère alternatif des régimes de responsabilité du fait d'autrui."</p>
+      <p>Contexte de 1981 : la responsabilité des parents était fondée sur une double présomption de faute dans l'éducation et la surveillance, conditionnée à la cohabitation matérielle. La responsabilité du commettant était fondée sur le lien de préposition. Un mineur salarié ne pouvait satisfaire les deux conditions à la fois (pas de cohabitation matérielle en travaillant, et la faute des parents n'avait plus d'objet).</p>
+      <p>Aujourd'hui, cet arrêt est obsolète : la responsabilité des parents est désormais fondée sur la seule autorité parentale (<span class="loi">loi Attal 2025</span>), sans condition de cohabitation. La responsabilité du commettant est fondée sur le lien de préposition. Les deux critères sont parfaitement compatibles.</p>
+      <div class="quote">"Il serait possible aujourd'hui d'envisager, au titre d'un dommage causé par l'enfant dans le cadre de l'exécution d'un contrat de travail, la responsabilité de l'employeur et la responsabilité des parents, et d'obtenir leur condamnation in solidum."</div>
+      <p>Dans une copie : citer l'arrêt de 1981 pour montrer qu'on le connaît, puis en restreindre immédiatement la portée : il raisonnait sur des conditions aujourd'hui révolues, et ne peut pas être extrapolé à l'état actuel du droit.</p>
+    </div>
+  </div>
+
+  <!-- V. Loi Badinter -->
+  <div class="subsection">
+    <div class="subsection-title">V. Loi Badinter du 5 juillet 1985 — régime spécial d'indemnisation</div>
+    <div class="block">
+
+      <p><strong>Nature de la loi :</strong> <span class="loi">Loi du 5 juillet 1985</span> — non codifiée dans le code civil (présente dans l'édition Dalloz pour commodité éditoriale, mais ce n'est pas du droit codifié). Régime d'ordre public, dérogatoire au droit commun, plus dérogatoire que le droit des produits défectueux car il nie l'exigence de causalité (il suffit d'une "implication").</p>
+
+      <p><strong>Champ d'application — art. 1er de la loi :</strong></p>
+      <p><span class="art-txt">"Les dispositions du présent chapitre s'appliquent, même lorsqu'elles sont transportées en vertu d'un contrat, aux victimes d'un accident de la circulation dans lequel est impliqué un véhicule terrestre à moteur, ainsi que ses remorques ou semi-remorques, à l'exception des chemins de fer et des tramways circulant sur des voies qui leur sont propres."</span></p>
+      <p>Conséquence : dès que les conditions sont réunies, tout le droit commun (contractuel et délictuel) est écarté. Régime unifié qui ne distingue pas parties et tiers.</p>
+
+      <p><strong>Critère n°1 — Véhicule terrestre à moteur (VTM) :</strong></p>
+      <p>Critère : terrestre (exclut nautique et aérien), à moteur. L'immatriculation n'est PAS le critère. Un véhicule non immatriculé peut être un VTM.</p>
+      <ul style="padding-left:24px;margin:12px 0;">
+        <li>Avion sur le tarmac → non (par nature aérien, même s'il roule)</li>
+        <li>Bateau sur une plage → non (bateau)</li>
+        <li>Minivoto non immatriculée → oui (VTM)</li>
+        <li>Fauteuil roulant électrique → non (palliatif de handicap motorisé, non un "véhicule" au sens de la loi — jugé par la 2e chambre civile)</li>
+        <li>Tracteur tondeuse autoporté → oui (VTM, même non immatriculé)</li>
+        <li>Véhicule de travaux publics → oui dans sa fonction de déplacement / non dans sa fonction utilitaire exclusive</li>
+      </ul>
+
+      <p><strong>Distinction fonction de déplacement / fonction utilitaire :</strong></p>
+      <div class="quote">"Il faut distinguer entre la fonction de déplacement qui permet de qualifier le véhicule en tant que VTM, et la fonction utilitaire proprement dite qui exclut l'application de la loi Badinter. Parce que dans ce cas-là, vous ne considérez pas le véhicule, vous considérez l'instrument de travail."</div>
+      <p>Exemples :</p>
+      <ul style="padding-left:24px;margin:12px 0;">
+        <li>Grue solidaire d'un camion en train de charger des grumes → fonction utilitaire → droit commun</li>
+        <li>Pelleteuse en train de creuser à l'arrêt → droit commun ; pelleteuse en déplacement sur le chantier → loi Badinter</li>
+        <li>Van équestre : ouverture du plateau de débarquement → fonction utilitaire → droit commun ; van en déplacement → loi Badinter</li>
+        <li>Tracteur tondeuse : lame embrayée, véhicule à l'arrêt → droit commun ; tracteur en déplacement → loi Badinter</li>
+        <li>Véhicule en panne poussé à la main → loi Badinter (VTM dans sa fonction de déplacement, même moteur éteint)</li>
+      </ul>
+
+      <p><strong>Nouvelles mobilités :</strong></p>
+      <p>Pas d'arrêt de la Cour de cassation tranché sur tous les cas. Pour les vélos électriques et trottinettes puissants (assistance principale, 250W+, transport de deux personnes) → qualification VTM quasi certaine. Pour les modèles bridés à 25 km/h → question ouverte. Le code des assurances prévoit désormais l'assurance obligatoire dès qu'il y a une motorisation principale. En cas pratique : si la Cour n'a pas jugé, ne pas postuler une qualification absolue — débattre dans la mineure selon les caractéristiques du véhicule.</p>
+
+      <p><strong>Lignes ferroviaires et tramways :</strong> exclus s'ils circulent sur des voies qui leur sont propres.</p>
+    </div>
+  </div>
+
+  <!-- VI. Produits défectueux -->
+  <div class="subsection">
+    <div class="subsection-title">VI. Droit des produits défectueux — régime spécial unifié</div>
+    <div class="block">
+
+      <p><strong>Directive du 25 juillet 1985</strong> (droit de l'Union européenne) — transposée en France par la <span class="loi">loi du 19 mai 1998</span>, entrée en vigueur le 21 mai 1998. Transposition tardive : délai de 3 ans → France a mis 13 ans → pire élève de l'Union.</p>
+
+      <p><strong>Deux périodes :</strong></p>
+      <ul style="padding-left:24px;margin:12px 0;">
+        <li><strong>1988–1998</strong> : transposition prétorienne par la Cour de cassation (notamment arrêt Planète Batom, Civ. 1re, 17 janvier 1985 = arrêt du cerceau brisé) — droit national réinterprété à la lumière de la directive. Régime applicable aux produits mis en circulation pendant cette période.</li>
+        <li><strong>À partir du 21 mai 1998</strong> : transposition légale — <span class="art-num">art. 1245 et s. C. civ.</span> (ex-<span class="art-num">art. 1386 et s.</span>, simple renumérotation).</li>
+      </ul>
+
+      <p><strong>Caractéristique fondamentale :</strong> régime unifié, indifférent à la distinction contractuel/délictuel. La directive ne distingue pas entre parties et tiers — transcende les clivages français. Si on est dans le champ du droit des produits défectueux, on ne peut appliquer ni la responsabilité contractuelle ni la délictuelle de droit commun.</p>
+
+      <p><strong>Délais :</strong> délai de prescription de <strong>3 ans</strong> à compter de la consolidation du dommage + délai de forclusion de <strong>10 ans</strong> à compter de la mise en circulation du produit. La consolidation pouvant intervenir des décennies après le fait générateur (ex. DES, Mediator), la transposition prétorienne peut encore être applicable.</p>
+
+      <p><strong>Comparaison avec la loi Badinter :</strong> le droit des produits défectueux a pu être intégré au code civil car il conserve la trilogie fait générateur / dommage / lien de causalité. La loi Badinter, plus dérogatoire encore (pas de causalité, seulement une "implication"), n'a pas été codifiée dans le code civil.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ METHODO ══════════ -->
+<div class="section" id="methodo">
+  <div class="section-header">
+    <span class="section-tag tag-methodo">⚠️ Méthodo</span>
+    <span class="section-title">Conseils méthodologiques et pédagogiques</span>
+  </div>
+  <div class="block">
+
+    <p><strong>Dépassement de mission ≠ abus de fonction — ne jamais confondre :</strong></p>
+    <div class="quote">"La question n'a aucun sens. [...] Le dépassement de mission fait que l'immunité tombe. Le commettant reste responsable. L'abus de fonction exclut la responsabilité du commettant. Ce n'est pas rien ce truc, cet arrêt de 81, parce que selon comment on présente les choses, il est débile."</div>
+
+    <p><strong>Sur l'arrêt de 1981 dans une copie :</strong> le citer pour montrer qu'on le connaît, puis réduire immédiatement sa portée : "cet arrêt raisonnait sur des conditions d'application aujourd'hui révolues et ne peut pas être extrapolé dès lors qu'il y a compatibilité des critères respectifs des responsabilités en cause."</p>
+
+    <p><strong>Raisonnement par les sources en cas pratique :</strong></p>
+    <ol style="padding-left:24px;margin:12px 0;">
+      <li>Identifier si on est dans le champ contractuel, délictuel, ou d'un régime spécial (loi Badinter, produits défectueux)</li>
+      <li>Si régime spécial → appliquer exclusivement ce régime, écarter le droit commun</li>
+      <li>Si contractuel → conditions : contrat + inexécution d'une obligation née du contrat + demande du créancier contractuel</li>
+      <li>Si délictuel → identifier le fait générateur : faute (1240), fait des choses (1242 al. 1), fait d'autrui (1242 al. 4 ou al. 5 ou nouveaux cas)</li>
+    </ol>
+
+    <p><strong>Sur le VTM en cas pratique :</strong> poser d'abord le critère (terrestre + moteur), exclure l'immatriculation, vérifier si c'est la fonction de déplacement ou la fonction utilitaire qui est en cause. Pour les nouvelles mobilités sans jurisprudence de la Cour de cassation : débattre dans la mineure, ne pas postuler une qualification absolue.</p>
+
+    <p><strong>Sur la forme — écriture manuscrite :</strong></p>
+    <div class="quote">"Il faut s'entraîner à écrire. Composez de manière manuscrite. Ce que je vous dis ne peut se travailler que si vous composez à la main. Parce que votre écriture pourrait se dégrader sous le coup de la fatigue et du stress. [...] Au début, c'est bien calligraphié, et à la fin, c'est limite l'écriture patte d'animal. Le correcteur se dit, il n'a pas très bien géré son temps."</div>
+    <p>Deux points sont à la discrétion du correcteur pour qualité rédactionnelle et orthographe dans toutes les épreuves. Ne pas utiliser de stylos effaçables (problème de scan). Limiter les ratures.</p>
+
+    <p><strong>Sur la longueur des sujets :</strong> adapter le niveau de développement à la longueur du sujet. Sujet long → synthèse maximale. Sujet court → développement. Ce n'est pas le même travail, et il faut y être préparé.</p>
+  </div>
+</div>
+
+<!-- ══════════ GRAND ORAL ══════════ -->
+<div class="section" id="oral">
+  <div class="section-header">
+    <span class="section-tag tag-oral">🎓 Grand oral</span>
+    <span class="section-title">Culture juridique et préparation orale</span>
+  </div>
+  <div class="block">
+
+    <p><strong>Immunités en droit — sujet de note de synthèse tombé :</strong> la jurisprudence Costedoat était un document pivot. Immunités fonctionnelles : préposés, fonctionnaires (Conseil d'État), dirigeants sociaux sans faute détachable, diplomates (droit international). Principe : le principe de responsabilité individuelle est constitutionnel (Conseil constitutionnel depuis 1982). Une immunité ne peut être absolue — il y a toujours un cas où elle cède.</p>
+
+    <p><strong>Code civil de 1804 — code bourgeois :</strong> les rédacteurs (Portalis, Bigot de Préameneu, Tronchet, Maleville) représentent la grande bourgeoisie post-révolutionnaire. Le code est égalitariste "par le haut" — ce n'est pas un code de sans-culottes. La responsabilité des maîtres du fait des domestiques en est un reflet direct.</p>
+
+    <p><strong>René Chapus</strong> — plus grand auteur administrativiste de son époque, avait soutenu l'unification des régimes de responsabilité entre fonctionnaires et salariés.</p>
+
+    <p><strong>Geneviève Viney</strong> — à l'origine de l'arrêt Bliek (via René Rodière, Robert Savatier) et de l'arrêt Costedoat. Elle proposait depuis 1985 que l'on s'inspire de la jurisprudence du Conseil d'État pour exonérer les préposés.</p>
+
+    <p><strong>Jean Carbonnier</strong> — a rédigé la <span class="loi">loi du 3 janvier 1968</span> (art. 489-2 devenu <span class="art-num">art. 414-3</span>) permettant de tenir un majeur privé de facultés mentales responsable civilement. Conseiller du garde des Sceaux Jean Foyer sous de Gaulle. Les lois carbonnières ont été adoptées à la virgule près.</p>
+
+    <p><strong>Gaston Jèze</strong> — administrativiste à qui est attribuée la formule "Je n'ai jamais déjeuné avec une personne morale" (parfois attribuée à Duguit ou Michoud). Formule soulignant l'anthropomorphisme dangereux dans le raisonnement sur les personnes morales.</p>
+
+    <p><strong>Loi Badinter — non codifiée :</strong> au grand oral, ne jamais dire qu'elle est intégrée au code civil. Elle est dans l'édition commerciale du code pour commodité éditoriale, mais n'est pas codifiée. Distinctions directive/règlement : la directive doit être transposée (délai de 3 ans), le règlement est d'application immédiate.</p>
+
+    <p><strong>Prohibition des arrêts de règlement — art. 5 C. civ. :</strong> ne pas la présenter de manière naïve. La jurisprudence crée bien du droit — exemple : AP Bliek sur le fait d'autrui, AP Jand'heur sur le fait des choses.</p>
+
+    <p><strong>Responsabilité du fait d'autrui et liberté syndicale :</strong> refus d'appliquer <span class="art-num">art. 1242 al. 1</span> aux syndicats pour protéger la liberté syndicale. Beau sujet d'intersection RC / libertés fondamentales.</p>
+  </div>
+</div>
+
+<!-- ══════════ CRITIQUE ══════════ -->
+<div class="section" id="critique">
+  <div class="section-header">
+    <span class="section-tag tag-critique">🔍 Critique des prépas</span>
+    <span class="section-title">Erreurs et manques de formation dénoncés</span>
+  </div>
+  <div class="block">
+
+    <p><strong>Confondre dépassement de mission et abus de fonction :</strong></p>
+    <div class="quote">"Un candidat qui au bout d'un an se demande encore, sur des groupes WhatsApp, si un dépassement de mission et un abus de fonction peuvent avoir quelque chose à voir... ça veut dire qu'il ne sait rien. Je ne sais pas comment ça passe."</div>
+
+    <p><strong>Parler de "responsabilité contractuelle du fait d'autrui" :</strong> notion inexistante en droit commun. Présente dans le Dalloz sous <span class="art-num">art. 1231-1</span>, absente du Lexis. Utiliser cette formule dans une copie → correcteur de bon niveau → copie détruite.</p>
+
+    <p><strong>Présenter l'arrêt de 1981 comme du droit positif :</strong> il est dans le code, mais ne reflète plus l'état du droit. Le citer comme si les responsabilités étaient toujours alternatives → erreur grave depuis Bertrand (1997), Attal (2025).</p>
+
+    <p><strong>Dire que la loi Badinter est codifiée dans le code civil :</strong> au grand oral, deux examinateurs qui "vous sautent à la gorge".</p>
+
+    <p><strong>Confondre le critère d'immatriculation avec le critère de VTM :</strong> l'immatriculation n'est pas le critère. Ce n'est pas parce qu'un véhicule n'est pas immatriculé qu'il n'est pas un VTM.</p>
+
+    <p><strong>Appliquer la loi Badinter à un fauteuil roulant électrique :</strong></p>
+    <div class="quote">"Je pense qu'un fauteuil roulant, c'est un palliatif de handicap motorisé. [...] C'est plaidé par des assureurs pour qualifier le handicapé de 'conducteur' et lui opposer sa propre faute. La Cour de cassation a jugé que ce n'était pas un VTM."</div>
+
+    <p><strong>Appliquer systématiquement la loi Badinter à tous les véhicules de nouvelle mobilité sans nuance :</strong> sur Internet, des avocats d'assureurs le soutiennent pour des raisons commerciales (assurance obligatoire). Ce n'est pas une position juridique tranchée par la Cour de cassation pour tous les types de véhicules.</p>
+  </div>
+</div>
+
+<!-- ══════════ ALERTES ══════════ -->
+<div class="section" id="alerte">
+  <div class="section-header">
+    <span class="section-tag tag-alerte">⚡ Alertes examen</span>
+    <span class="section-title">Sujets susceptibles de tomber</span>
+  </div>
+  <div class="block">
+    <div class="alert-box">
+      <div class="alert-title">Costedoat + dépassement de mission + abus de fonction</div>
+      Jamais vraiment tombé au niveau national au titre des sources. Un spécialiste de RC à la commission = chaud. Maîtriser les trois notions, leur articulation, et la distinction entre les deux exceptions. Savoir que l'arrêt Société Parfums Rochas (ch. com., 1993) était l'ancêtre de Costedoat.
+    </div>
+    <div class="alert-box">
+      <div class="alert-title">Immunités en droit — note de synthèse</div>
+      Déjà tombé. Peut retomber sous différentes formes. Costedoat est un document pivot de tout dossier sur les immunités. Connaître aussi les immunités fonctionnelles en droit public, diplomatique, des dirigeants sociaux.
+    </div>
+    <div class="alert-box">
+      <div class="alert-title">Bliek + Notre-Dame-des-Flots + nouveaux cas de resp. du fait d'autrui</div>
+      Sujet source par excellence. Savoir exactement quand la responsabilité de <span class="art-num">art. 1242 al. 1</span> est retenue (centres pour handicapés, centres en milieu fermé pour mineurs délinquants, tuteur de mineur, clubs sportifs amateurs depuis 1995) et quand elle est refusée (grands-parents, syndicats, tuteur de majeur). Raisonnement assurantiel derrière chaque solution.
+    </div>
+    <div class="alert-box">
+      <div class="alert-title">Loi Badinter — champ d'application, VTM, fonction de déplacement vs utilitaire</div>
+      Jamais clairement tombé en sources au national. Un commissaire civiliste spécialisé en RC peut le mettre. Maîtriser : art. 1er, critère VTM (pas l'immatriculation), distinction déplacement/utilitaire, fauteuil roulant (non), nouvelles mobilités (débat en mineure).
+    </div>
+    <div class="alert-box">
+      <div class="alert-title">Droit des produits défectueux — articulation droit commun / régime spécial</div>
+      Déjà tombé (arrêt du cerceau brisé, Planète Batom). La directive du 25 juillet 1985 ≠ règlement. Deux périodes (transposition prétorienne 1988–1998, légale à partir de mai 1998). Vice caché ≠ défectuosité. Régime unifié parties/tiers.
+    </div>
+    <div class="alert-box">
+      <div class="alert-title">Arrêt Civ. 2e, 18 mars 1981 — à mentionner pour le dépasser</div>
+      Si sujet sur cumul des responsabilités du fait d'autrui ou sur enfant salarié. Citer + restreindre immédiatement la portée. L'IUJ Paris 1 rappelle lui-même que cet arrêt ne reflète plus le droit positif.
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
