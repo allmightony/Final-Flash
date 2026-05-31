@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preuve — Cours 5 — 21 avril — Fin du droit de la preuve</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg: #faf9f6; --surface: #ffffff; --border: #e8e4dc;
+    --text: #1a1a1a; --text-light: #555;
+    --article: #c0392b; --juris: #6c3483; --loi: #7b5e3a; --citation: #1a5276;
+    --tag-cours: #2c6e49; --tag-methodo: #1565c0; --tag-oral: #6a0f49;
+    --tag-critique: #b71c1c; --tag-orga: #4a4a4a; --tag-alerte: #e65100;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'EB Garamond', Georgia, serif; font-size: 18px; line-height: 1.75; background: var(--bg); color: var(--text); }
+  .page-header { background: #1a1a1a; color: #fff; padding: 48px 64px 40px; border-bottom: 4px solid var(--article); }
+  .page-header .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #aaa; margin-bottom: 12px; }
+  .page-header h1 { font-size: 2rem; font-weight: 500; margin-bottom: 8px; }
+  .page-header .subtitle { color: #ccc; font-size: 1rem; }
+  .legend { display: flex; flex-wrap: wrap; gap: 20px; padding: 20px 64px; background: #f2f0ea; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+  .main { max-width: 920px; margin: 0 auto; padding: 48px 32px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--border); }
+  .section-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; color: #fff; flex-shrink: 0; }
+  .tag-cours { background: var(--tag-cours); }
+  .tag-methodo { background: var(--tag-methodo); }
+  .tag-oral { background: var(--tag-oral); }
+  .tag-critique { background: var(--tag-critique); }
+  .tag-alerte { background: var(--tag-alerte); }
+  .tag-orga { background: var(--tag-orga); }
+  .section-title { font-size: 1.25rem; font-weight: 500; color: var(--text); }
+  .block { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px 28px; margin-bottom: 18px; }
+  .block p { margin-bottom: 14px; } .block p:last-child { margin-bottom: 0; }
+  .block ul { padding-left: 24px; margin: 12px 0; } .block li { margin-bottom: 8px; }
+  .art-num { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--article); font-weight: 500; }
+  .juris { color: var(--juris); font-weight: 500; }
+  .loi-ref { color: var(--loi); font-weight: 500; }
+  .quote { border-left: 4px solid var(--citation); margin: 16px 0; padding: 12px 20px; background: #f0f4f8; color: var(--citation); font-size: 0.95em; border-radius: 0 4px 4px 0; }
+  .alert-box { border: 1px solid var(--tag-alerte); border-left: 5px solid var(--tag-alerte); background: #fff8f5; padding: 16px 20px; border-radius: 4px; margin: 16px 0; }
+  .alert-box .alert-title { font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--tag-alerte); margin-bottom: 8px; }
+  .sub-section { border-top: 1px solid var(--border); margin-top: 18px; padding-top: 18px; }
+  .sub-section-title { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); margin-bottom: 12px; }
+  h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 10px; margin-top: 18px; color: #222; }
+  .separator { border: none; border-top: 3px solid var(--border); margin: 48px 0; }
+  .part-title { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-light); margin-bottom: 28px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="label">Droit de la preuve — Cours 5</div>
+  <h1>Fin du droit de la preuve</h1>
+  <div class="subtitle">Serment décisoire · Serment déféré d'office · Portée générale</div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-cours)"></div> Cours / Doctrine</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-methodo)"></div> Méthodologie</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-alerte)"></div> Alerte examen</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-oral)"></div> Grand oral</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-critique)"></div> Erreurs fréquentes</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tag-orga)"></div> Organisation</div>
+</div>
+
+<div class="main">
+
+  <!-- ═══════════════════ PARTIE I — FIN PREUVE ═══════════════════ -->
+  <!-- I. AVEU — RAPPELS ET COMPLEMENTS -->
+  <div class="section" id="aveu-suite">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1383</span>
+      <span class="section-title">Aveu — Rappels et compléments</span>
+    </div>
+
+    <div class="block">
+      <h3>Aveu extrajudiciaire vs. judiciaire — récapitulatif</h3>
+      <p><strong>Aveu extrajudiciaire</strong> (<span class="art-num">art. 1383-1</span>) : laissé à l'appréciation souveraine du juge du fond. Valeur relative — simple élément de fait parmi d'autres, même si verbal. Contre-intuitif : un aveu hors de la procédure judiciaire ne s'impose pas au juge.</p>
+      <p><strong>Aveu judiciaire</strong> (<span class="art-num">art. 1383-2</span>) : fait en justice par la partie ou son représentant <em>spécialement mandaté</em>. Mandat général de représentation de l'avocat ne suffit pas — il faut un mandat spécial exprès pour formuler l'aveu. L'aveu judiciaire : (1) fait foi contre son auteur, (2) est indivisible, (3) est irrévocable sauf erreur de fait.</p>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Indivisibilité — arme à double tranchant</div>
+        <p>L'indivisibilité de l'aveu judiciaire signifie que celui qui s'en prévaut doit en subir toutes les mentions, y compris celles qui lui sont défavorables. Si l'aveu contient à la fois une reconnaissance favorable au demandeur et un élément défavorable, les deux doivent être pris en compte. Stratégiquement dangereux.</p>
+      </div>
+
+      <h3>Irrévocabilité — erreur de fait seulement</h3>
+      <p>L'aveu judiciaire est irrévocable sauf erreur de <em>fait</em>. On peut revenir sur l'aveu si l'on démontre une confusion factuelle sur ce que l'on avouait (ex. avoir confondu deux situations distinctes). Mais on ne peut pas simplement se dédire à périmètre constant : on ne peut pas dire que ce qu'on a avoué pour vrai est faux.</p>
+
+      <h3>Aveu judiciaire — supplétif de l'écrit (<span class="art-num">art. 1361</span>)</h3>
+      <p>C'est l'utilisation stratégique majeure : l'aveu judiciaire peut supplée à l'exigence de la preuve littérale pour les actes juridiques. Si l'adversaire avoue en justice l'existence et le contenu du contrat, le défaut d'écrit est sans importance. La stratégie consiste à amener l'adversaire à avouer dans le cadre de la procédure judiciaire — un aveu une fois fait ne peut être retiré (irrévocable).</p>
+    </div>
+  </div>
+
+  <!-- II. SERMENT DÉCISOIRE -->
+  <div class="section" id="serment-decisoire">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1384–1385-4</span>
+      <span class="section-title">Section 5 — Le serment décisoire</span>
+    </div>
+
+    <div class="block">
+      <h3>Nature et origines</h3>
+      <p>Le serment est un mode de preuve ancestral renvoyant aux racines judéo-chrétiennes du droit civil. Provoquer quelqu'un en serment, c'est le mettre en face du risque du parjure — sanction morale, voire dans certains esprits, sanction céleste. L'ordonnance de 2016 n'a pas modifié le régime du serment, qu'elle a simplement recodifié.</p>
+      <p>Le serment peut être <strong>décisoire</strong> (déféré par une partie à l'autre — le plus puissant) ou <strong>déféré d'office</strong> par le juge (portée plus relative).</p>
+
+      <div class="alert-box">
+        <div class="alert-title">Grand oral — question fréquente</div>
+        <p>Le serment et ses origines métajuridiques, son rapport à la morale, aux libertés fondamentales (CEDH, droit à un procès équitable), son inutilisation pratique et ses dangers stratégiques — tout cela est typiquement ce qu'un jury de praticiens posera sur « preuve et droits fondamentaux » ou « morale et droit ». Le succès à un procès du seul fait de refuser de jurer interroge fondamentalement l'accès au droit.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="art-num">Art. 1385</span> — Serment décisoire : portée générale</h3>
+      <p>Le serment décisoire peut être déféré sur <em>quelque espèce de contestation que ce soit</em> et <em>en tout état de cause</em>. Pas de limitation de matière ni de stade procédural.</p>
+
+      <h3><span class="art-num">Art. 1385-1</span> — Conditions de fond</h3>
+      <ul>
+        <li>Le serment ne peut être déféré que sur un <strong>fait personnel</strong> à la partie à laquelle on le défère. On ne peut pas demander à quelqu'un de jurer sur ce qu'il ne connaît pas personnellement.</li>
+        <li>Le serment peut être <strong>référé</strong> (renvoyé) par celui à qui il a été déféré — sauf si le fait est purement personnel à la partie qui l'a reçu (auquel cas il ne peut pas renvoyer la balle).</li>
+      </ul>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ La stratégie du poker — déférer le serment avec prudence</div>
+        <p>Déférer le serment expose à ce qu'il vous soit référé. Si le fait n'est pas purement personnel à l'adversaire, il peut vous provoquer à votre tour. Il faut donc s'assurer avant de déférer que soit le fait est purement personnel à l'adversaire (empêchant le renvoi), soit on est soi-même prêt à prêter serment si le serment est référé. Stratégie hyper-risquée, rarement utilisée en pratique pour cette raison.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="art-num">Art. 1385-2</span> — Effets du refus ou du non-renvoi</h3>
+      <div class="quote">« Celui à qui le serment est déféré et qui le refuse, ou ne veut pas le référer, ou celui à qui il a été référé et qui le refuse, succombe dans sa prétention. »</div>
+      <p>C'est la mécanique la plus archaïque du droit de la preuve : le simple refus de jurer entraîne la défaite judiciaire. La logique est moralo-juridique : pourquoi refuser de jurer si l'on a raison ? Le refus est lu comme un aveu implicite. C'est pour cela que le texte est dit « de bourrin » — il est d'une brutalité rare.</p>
+      <p>L'autre partie ne peut pas prouver la fausseté du serment une fois qu'il a été prêté — c'est du point de vue civil. Des poursuites pénales pour parjure restent théoriquement possibles (art. 434-13 C. pénal), mais le plan civil ne permet pas de remettre en cause le serment fait.</p>
+
+      <h3><span class="art-num">Art. 1385-3</span> — Irrétractabilité du déféré</h3>
+      <p>Une fois que la partie à qui le serment a été déféré a déclaré être prête à le prêter, le déférant ne peut plus se rétracter. C'est une partie de poker : si l'adversaire ne se « dégonfle » pas, le déférant est coincé et doit assumer les conséquences. D'où la rareté de cette pratique.</p>
+    </div>
+
+    <div class="block">
+      <h3><span class="art-num">Art. 1385-4</span> — Effets à l'égard des tiers (solidarité et cautionnement)</h3>
+      <p>Texte rédigé dans le désordre le plus total (solidarité active / cautionnement / solidarité passive / cautionnement à nouveau) — lacune légistique manifeste signalée en cours.</p>
+      <p>La logique sous-jacente est la suivante :</p>
+      <ul>
+        <li><strong>Al. 2 — Solidarité active :</strong> le serment déféré par <em>un créancier solidaire</em> au débiteur ne libère celui-ci que pour la part de ce créancier. Le risque pris par un créancier solidaire ne se répercute pas sur les autres.</li>
+        <li><strong>Al. 3 — Cautionnement :</strong> le serment déféré au <em>débiteur principal</em> libère également les cautions. Logique : si la dette principale est niée par le serment, il n'y a rien à garantir (caractère accessoire du cautionnement).</li>
+        <li><strong>Al. 4 — Solidarité passive :</strong> le serment déféré à <em>l'un des débiteurs solidaires</em> profite aux autres co-débiteurs. Si la dette est niée à l'égard de l'un, elle ne peut pas exister à l'égard des autres (même dette solidaire).</li>
+        <li><strong>Al. 5 — Précision essentielle :</strong> les règles des al. 3 et 4 ne jouent que si le serment portait sur <em>la dette elle-même</em> et non sur le simple fait de la solidarité ou du cautionnement. Si le serment ne porte que sur le principe du lien de garantie ou de solidarité, il n'a d'effet que pour celui qui l'a prêté.</li>
+      </ul>
+
+      <div class="alert-box">
+        <div class="alert-title">⚠️ Sujet possible — serment + solidarité ou cautionnement</div>
+        <p>Un cas pratique combinant serment décisoire et solidarité passive ou cautionnement est concevable. Pour le traiter correctement, il faut : (1) identifier sur quoi porte le serment (la dette ou le lien de garantie ?), (2) déterminer si les effets profitent aux co-débiteurs ou à la caution en conséquence de l'al. 5, (3) connaître le régime de la solidarité et du cautionnement (RGO). Sujet à l'intersection des deux matières — type Hamelin.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- III. SERMENT DÉFÉRÉ D'OFFICE -->
+  <div class="section" id="serment-office">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Art. 1386–1386-1</span>
+      <span class="section-title">Serment déféré d'office par le juge</span>
+    </div>
+
+    <div class="block">
+      <h3><span class="art-num">Art. 1386</span> — Régime et portée</h3>
+      <p>Le juge peut <em>d'office</em> déférer le serment à l'une des parties. Conséquences immédiates :</p>
+      <ul>
+        <li>Le serment ne peut pas être référé à l'autre partie (ce n'est pas une provocation de l'adversaire, mais du juge).</li>
+        <li>Sa valeur probante est <strong>laissée à l'appréciation souveraine du juge</strong> — portée bien inférieure au serment décisoire.</li>
+      </ul>
+      <p>Le serment déféré d'office est une technique psycho-judiciaire : le juge teste la solidité d'un plaideur dont il ne sait pas encore quoi penser. La réaction de la partie — refus ou acceptation sans hésitation — peut conforter ou ébranler la conviction du juge. C'est un outil subjectif par nature.</p>
+
+      <h3><span class="art-num">Art. 1386-1</span> — Encadrement (texte intercalé après coup)</h3>
+      <p>Le juge ne peut déférer d'office le serment que si la demande ou l'exception n'est <em>ni pleinement justifiée</em> (déjà prouvée), <em>ni totalement dénuée de preuves</em>. En d'autres termes :</p>
+      <ul>
+        <li>Si c'est déjà prouvé → inutile d'y recourir, ce serait arbitraire.</li>
+        <li>S'il n'y a aucun élément de preuve → même chose, le serment deviendrait trop subjectif.</li>
+        <li>Le serment d'office est réservé aux zones grises probatoires, là où le juge hésite.</li>
+      </ul>
+
+      <div class="alert-box">
+        <div class="alert-title">Grand oral — preuve et libertés fondamentales</div>
+        <p>Cet encadrement est directement lié à l'impartialité du juge et au droit à un procès équitable (art. 6 CEDH). Donner au juge un outil aussi subjectif que le serment déféré d'office sans le canaliser permettrait des abus judiciaires évidents. L'art. 1386-1 y répond. À articuler avec la présomption judiciaire : si le juge dispose d'indices graves, précis et concordants, il a déjà un outil moins subjectif — il n'a pas besoin du serment d'office.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- IV. PORTÉE GÉNÉRALE DU DROIT DE LA PREUVE -->
+  <div class="section" id="portee-preuve">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📖 Bilan</span>
+      <span class="section-title">Portée générale du droit de la preuve des obligations</span>
+    </div>
+
+    <div class="block">
+      <p>Le droit de la preuve codifié aux art. 1353 à 1386-1 est conçu autour du droit des obligations, mais son application est <strong>universelle</strong> : il est transposé à toutes les matières du droit privé (famille, biens, responsabilité) en l'absence de dispositions spéciales. Le droit des obligations est le laboratoire du droit de la preuve en France — anomalie ou incurie française, selon les auteurs.</p>
+      <p>Deux exemples de lacunes : (1) pas un mot dans le Code civil sur la preuve de la propriété (preuve libre car fait juridique) ; (2) pas de régime probatoire général couvrant toutes les matières — seule l'extrapolation des règles obligationnelles permet d'avancer.</p>
+      <p>Une réforme plus ample du droit de la preuve reste attendue. L'ordonnance de 2016 est, sur ce point, une « réformette ».</p>
+    </div>
+  </div>
+
+  
+</div>
+</body>
+</html>
