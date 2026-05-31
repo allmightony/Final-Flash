@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours 1 — Sources des Obligations — 20 janvier</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #faf9f6;
+    --surface: #ffffff;
+    --border: #e8e4dc;
+    --text: #1a1a1a;
+    --text-light: #555;
+    --article: #c0392b;
+    --juris: #6c3483;
+    --loi: #7b5e3a;
+    --citation: #1a5276;
+    --tag-cours: #2c6e49;
+    --tag-methodo: #1565c0;
+    --tag-oral: #6a0f49;
+    --tag-critique: #b71c1c;
+    --tag-orga: #4a4a4a;
+    --tag-alerte: #e65100;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; font-style: normal; }
+
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    background: var(--bg);
+    color: var(--text);
+    padding: 0;
+  }
+
+  .page-header {
+    background: #ffffff;
+    color: #1a1a1a;
+    padding: 36px 64px 28px;
+    border-bottom: 4px solid var(--article);
+  }
+
+  .page-header .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 12px;
+  }
+
+  .page-header h1 {
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+
+  .page-header .subtitle {
+    color: #555;
+    font-size: 1rem;
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 64px;
+    background: #f2f0ea;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+  }
+
+  .section { margin-bottom: 56px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .section-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    color: #fff;
+    white-space: nowrap;
+  }
+
+  .tag-cours    { background: var(--tag-cours); }
+  .tag-methodo  { background: var(--tag-methodo); }
+  .tag-oral     { background: var(--tag-oral); }
+  .tag-critique { background: var(--tag-critique); }
+  .tag-orga     { background: var(--tag-orga); }
+  .tag-alerte   { background: var(--tag-alerte); }
+
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .subsection { margin-bottom: 36px; }
+
+  .subsection-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 16px;
+    padding-left: 16px;
+    border-left: 3px solid var(--border);
+  }
+
+  .block { margin-bottom: 20px; }
+  .block p { margin-bottom: 12px; color: var(--text); }
+
+  /* Citations du prof */
+  .quote {
+    background: var(--surface);
+    border-left: 3px solid #ccc;
+    padding: 14px 20px;
+    margin: 12px 0;
+    border-radius: 0 4px 4px 0;
+    color: #333;
+    font-size: 0.97em;
+  }
+
+  /* Numéro d'article : rouge gras */
+  .art-num {
+    color: var(--article);
+    font-weight: 700;
+  }
+
+  /* Texte cité d'un article : bleu, non gras */
+  .art-txt {
+    color: var(--citation);
+    font-weight: 400;
+  }
+
+  /* Jurisprudence : violet gras */
+  .juris {
+    color: var(--juris);
+    font-weight: 700;
+  }
+
+  /* Loi : marron gras */
+  .loi {
+    color: var(--loi);
+    font-weight: 700;
+  }
+
+  /* Citation de doctrine : bleu non gras */
+  .cit {
+    color: var(--citation);
+    font-weight: 400;
+  }
+
+  .alert-box {
+    background: #fff8f0;
+    border: 1px solid #e65100;
+    border-left: 4px solid #e65100;
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 12px 0;
+    font-size: 0.95em;
+  }
+
+  .alert-box .alert-title {
+    font-weight: 700;
+    color: #e65100;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin-bottom: 48px;
+  }
+
+  .toc-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 16px;
+  }
+
+  .toc ul { list-style: none; padding: 0; }
+  .toc li { padding: 4px 0; font-size: 0.95em; }
+  .toc a { color: var(--text); text-decoration: none; }
+  .toc a:hover { color: var(--article); }
+  .toc .toc-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-light); margin-left: 6px; }
+
+  .note {
+    background: #f0f4ff;
+    border: 1px solid #c5cee0;
+    border-left: 4px solid var(--citation);
+    padding: 14px 18px;
+    border-radius: 4px;
+    margin-bottom: 32px;
+    font-size: 0.9em;
+    color: #333;
+  }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    @page { size: A4; margin: 15mm 14mm 18mm 14mm; }
+    body { font-size: 10.5pt; line-height: 1.55; background: #faf9f6 !important; color: #1a1a1a !important; }
+    .page-header { background: #ffffff !important; color: #1a1a1a !important; padding: 14pt 20pt 10pt !important; border-bottom: 3pt solid #c0392b !important; margin-bottom: 8pt; }
+    .page-header .label { color: #888 !important; font-size: 7pt !important; }
+    .page-header h1 { font-size: 15pt !important; margin-bottom: 3pt !important; color: #1a1a1a !important; }
+    .page-header .subtitle { color: #555 !important; font-size: 9pt !important; }
+    .legend { background: #f2f0ea !important; padding: 6pt 20pt !important; font-size: 7.5pt !important; gap: 10pt !important; border-bottom: 1pt solid #e8e4dc !important; margin-bottom: 8pt; }
+    .main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+    .section { margin-bottom: 16pt !important; page-break-inside: avoid; }
+    .section-header { padding-bottom: 5pt !important; margin-bottom: 8pt !important; border-bottom: 1.5pt solid #e8e4dc !important; page-break-after: avoid; }
+    .section-tag { font-size: 6.5pt !important; padding: 2pt 6pt !important; border-radius: 2pt !important; color: #fff !important; }
+    .tag-cours    { background: #2c6e49 !important; }
+    .tag-methodo  { background: #1565c0 !important; }
+    .tag-oral     { background: #6a0f49 !important; }
+    .tag-critique { background: #b71c1c !important; }
+    .tag-orga     { background: #4a4a4a !important; }
+    .tag-alerte   { background: #e65100 !important; }
+    .section-title { font-size: 11pt !important; }
+    .subsection-title { font-size: 10pt !important; }
+    .block p { margin-bottom: 5pt !important; font-size: 10pt !important; }
+    .block ul { padding-left: 14pt !important; margin: 4pt 0 !important; }
+    .block li { margin-bottom: 3pt !important; font-size: 10pt !important; }
+    h3 { font-size: 10.5pt !important; margin-top: 7pt !important; margin-bottom: 4pt !important; page-break-after: avoid; }
+    .alert-box { border: 0.75pt solid #e65100 !important; border-left: 3pt solid #e65100 !important; background: #fff8f5 !important; padding: 7pt 10pt !important; margin: 6pt 0 !important; page-break-inside: avoid; }
+    .quote { border-left: 3pt solid #1a5276 !important; background: #f0f4f8 !important; color: #1a5276 !important; padding: 7pt 10pt !important; font-size: 9.5pt !important; margin: 6pt 0 !important; }
+    .art-num { color: #c0392b !important; }
+    .art-txt { color: #1a5276 !important; }
+    .juris   { color: #6c3483 !important; }
+    .loi     { color: #7b5e3a !important; }
+    a[href]:after { content: none !important; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="label">Droit des obligations · Sources · Cours 1</div>
+  <h1>Cours 1 — Sources des Obligations</h1>
+  <div class="subtitle">20 janvier · Prof. Laurent Poulet-Bellet · Cap Avocat / Formaprep</div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--article)"></div><span style="color:var(--article);font-weight:700">Numéro d'article du code</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--citation)"></div><span style="color:var(--citation)">Texte cité de l'article / Doctrine</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--juris)"></div><span style="color:var(--juris);font-weight:700">Jurisprudence</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--loi)"></div><span style="color:var(--loi);font-weight:700">Loi</span></div>
+</div>
+
+<div class="main">
+
+  <div class="note">
+    Note de lecture : Ce cours est presque exclusivement une annonce du programme. Le contenu juridique substantiel (articles, exégèse mot par mot) commence au cours 2. Ce document est donc surtout riche en méthodo, alertes examen et critique des prépas.
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Sommaire</div>
+    <ul>
+      <li><a href="#cours">📚 Cours — Contenu juridique</a> <span class="toc-tag">Sources · Preuve · RGO · RC</span></li>
+      <li><a href="#methodo">⚠️ Méthodo — Conseils pédagogiques</a></li>
+      <li><a href="#oral">🎓 Grand oral — Culture juridique</a></li>
+      <li><a href="#critique">🔍 Critique des prépas</a></li>
+      <li><a href="#alerte">⚡ Alertes examen</a></li>
+      <li><a href="#orga">🗓️ Organisation</a></li>
+    </ul>
+  </div>
+
+  <!-- COURS -->
+  <div class="section" id="cours">
+    <div class="section-header">
+      <span class="section-tag tag-cours">📚 Cours</span>
+      <span class="section-title">Contenu juridique pur</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Plan général du cours annoncé</div>
+      <div class="block">
+        <p>Structure d'ensemble :</p>
+        <div class="quote">"D'abord, évidemment, le droit général des obligations [...] avec une première partie sur les sources. Énorme. Attention, vous ne l'avez jamais fait. Ça va consister, si vous voulez, à travailler toutes les sources des obligations, c'est-à-dire des liens de créanciers à débiteurs, sous un angle, on va dire, un peu panoramique, et voir comment elles s'articulent. C'est-à-dire les sources contractuelles et les sources extra-contractuelles."</div>
+        <p>Sources non contractuelles :</p>
+        <div class="quote">"Les sources non contractuelles, c'est plus compliqué. Parce que vous avez des sources qui relèvent de l'acte juridique unilatéral, que vous ne connaissez pas, l'engagement unilatéral de volonté, on va en parler beaucoup, c'est jamais tombé, mais ça va finir par tomber [...] Et puis vous avez des sources aussi qui ne sont pas du tout en lien avec l'acte juridique, mais qui sont en lien avec les faits juridiques, c'est-à-dire les faits générateurs de responsabilités. Ou encore les faits quasi... les contrats actuels, c'est-à-dire les quasi-contrats."</div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">La distinction acte / fait juridique — codifiée par l'ordonnance</div>
+      <div class="block">
+        <p>Codifiée à l'<span class="art-num">art. 1100 C. civ.</span> — <span class="art-txt">"Les obligations naissent d'actes juridiques, de faits juridiques ou de l'autorité seule de la loi."</span></p>
+        <div class="quote">"Les sources, ça suppose de maîtriser parfaitement la distinction entre l'acte et le fait juridique, qui est d'ailleurs codifié par l'ordonnance dans le Code civil. L'acte et le fait juridique sont présentés comme les deux sources d'obligation."</div>
+        <p>Pourquoi c'est la clé du raisonnement :</p>
+        <div class="quote">"Il faut être capable, dans un cas pratique, évidemment, de déterminer immédiatement si le sujet est un sujet sur les actes juridiques ou sur les faits juridiques. Parce que sinon, vous racontez n'importe quoi."</div>
+        <p>Exemple — pourparlers précontractuels : la responsabilité ne peut être que délictuelle car on est chronologiquement avant la conclusion du contrat (fait juridique précontractuel, pas acte juridique).</p>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Principe de non-cumul = principe de non-option</div>
+      <div class="block">
+        <div class="quote">"C'est la justification du principe de non-cumul entre les deux ordres de responsabilité qu'on appelle également le principe de non-option. Vous avez des candidats qui apprennent par cœur le principe de non-option, mais qui n'ont toujours pas compris qu'en réalité, ce n'est que l'application de la divergence des sources des obligations. C'est parce qu'à chaque source, ce sont les régimes. C'est tout."</div>
+        <p>Fondement purement jurisprudentiel — pas de texte. Arrêt de référence absolu : <span class="juris">Civ. 11 janvier 1922</span>.</p>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Droit de la preuve — la source commande le régime probatoire</div>
+      <div class="block">
+        <div class="quote">"La preuve d'un acte juridique est déterminée en principe selon des modes de preuve légaux, dont l'écrit est évidemment la colonne vertébrale, électronique ou papier, alors que les faits juridiques, eux, se prouvent par tout moyen. C'est-à-dire que les sources des obligations commandent le régime probatoire."</div>
+
+        <p><strong>Preuve des vices du consentement :</strong></p>
+        <div class="quote">"En réalité, l'erreur, le dol et la violence sont des faits juridiques précontractuels, qui se prouvent par tout moyen, laissés à l'appréciation souveraine des juges du fond, y compris, bien évidemment, des éléments postérieurs à la formation du contrat qui viennent démontrer de manière vraisemblable la réalité du vice au jour de la formation. C'est tout."</div>
+
+        <p><strong>Preuve de l'inexécution :</strong></p>
+        <div class="quote">"L'inexécution, c'est un fait. C'est un fait juridique et il se prouve par tout moyen. [...] Il faut distinguer entre l'existence et le contenu d'une part, et l'exécution et l'inexécution d'autre part."</div>
+
+        <p><strong>Preuve déloyale / droit à la preuve :</strong></p>
+        <div class="quote">"Le droit européen des droits de l'homme a ouvert de nombreuses pistes d'utilisation de la preuve illicite ou déloyale au nom du droit à la preuve."</div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">RGO — annonce des grandes notions</div>
+      <div class="block">
+        <p><strong>"Contrat conditionnel" n'existe pas — erreur capitale :</strong></p>
+        <div class="quote">"Le contrat n'est pas conditionnel [...]. Le contrat, il est là. Simplement, les obligations qu'il engendre peuvent être pures et simples ou peuvent être conditionnelles."</div>
+
+        <p><strong>Terme suspensif :</strong> suspend l'exigibilité de l'obligation. Cœur du droit du crédit. Depuis l'ordonnance, seul le terme suspensif figure dans le code — le terme extinctif a été intégré à la durée du contrat.</p>
+
+        <p><strong>Solidarité légale vs obligation in solidum :</strong></p>
+        <div class="quote">"L'obligation in solidum n'est pas le modèle de l'obligation solidaire. Pourquoi ? Parce qu'elle n'est pas prévue par le Code, l'obligation in solidum. C'est une création jurisprudentielle. L'obligation solidaire véritable, elle est soit conventionnelle, soit légale."</div>
+        <p>Exemple : responsabilité des parents du fait de l'enfant mineur — <span class="art-num">art. 1242 al. 4 C. civ.</span> — solidarité légale, pas obligation in solidum.</p>
+
+        <p><strong>Indivisibilité ≠ interdépendance contractuelle :</strong></p>
+        <div class="quote">"L'indivisibilité de l'obligation, cela veut dire qu'elle ne peut pas être divisée à l'occasion de son exécution. [...] La question du lien entre des contrats, ça n'a rien à voir. Ça s'appelle l'interdépendance contractuelle. Donc si dans une copie, vous me parlez d'indivisibilité entre les contrats, aujourd'hui, vous allez vous faire défoncer."</div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Transmission des obligations</div>
+      <div class="block">
+        <p><strong>Double nature de la créance — bien et lien :</strong></p>
+        <div class="quote">"La créance est un lien en droit français, mais c'est aussi un bien. C'est la double nature de la créance."</div>
+
+        <p><strong>Cession de créance :</strong> instrument spéculatif (ex. escompte). Cessible sans le consentement du débiteur car bien du patrimoine du cédant. Réglementée aux <span class="art-num">art. 1321 et s. C. civ.</span></p>
+
+        <p><strong>Subrogation personnelle — distinction avec la cession :</strong></p>
+        <div class="quote">"La subrogation est souvent confondue avec la cession. Ça n'a aucun rapport. Aucun. C'est une transmission de l'obligation [...] dans un contexte [...] d'un paiement de la dette d'autrui."</div>
+        <div class="quote">"Est-ce que la subrogation vous rapporte de l'argent ? Pas du tout. [...] C'est juste pour essayer de récupérer ce que vous avez payé à la place d'autrui."</div>
+        <p>Depuis l'ordonnance : subrogation légale étendue à toute personne ayant payé la dette d'autrui avec un intérêt légitime.</p>
+
+        <p><strong>Cession de dette :</strong> impossible sans le consentement du créancier. Jamais tombée — vrai sujet.</p>
+
+        <p><strong>Cession de position contractuelle :</strong> nécessite le consentement du cocontractant. Ex. : cession d'un portefeuille d'assurance (Aviva → Abeille).</p>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Articles à repérer dans le code</div>
+      <div class="block">
+        <p>
+          <span class="art-num">Art. 1100 et s. C. civ.</span> — Sources des obligations (Titre 3, Livre 3)<br>
+          <span class="art-num">Art. 1353 et s. C. civ.</span> — Preuve des obligations (Titre 4 bis)<br>
+          <span class="art-num">Art. 1304 à 1352-9 C. civ.</span> — Régime général des obligations (Titre 4)
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- METHODO -->
+  <div class="section" id="methodo">
+    <div class="section-header">
+      <span class="section-tag tag-methodo">⚠️ Méthodo</span>
+      <span class="section-title">Conseils méthodologiques et pédagogiques</span>
+    </div>
+
+    <div class="block">
+      <p><strong>Ne pas apprendre par cœur sans comprendre :</strong></p>
+      <div class="quote">"Vous avez des candidats qui apprennent par cœur le principe de non-option, mais qui n'ont toujours pas compris qu'en réalité, ce n'est que l'application de la divergence des sources des obligations."</div>
+
+      <p><strong>Code Dalloz en droit des obligations — avertissement :</strong></p>
+      <div class="quote">"En droit des obligations, les annotations sont anarchiques. [...] Dans le Litec, c'est beaucoup plus clair. C'est parce que dans le LexisNexis, c'est Laurent Leveneur qui fait tout tout seul, c'est un très grand juriste. [...] En termes de rigueur juridique et de pédagogie, ça n'a rien à voir."</div>
+
+      <p><strong>Ne jamais chercher au hasard dans le code le jour J :</strong></p>
+      <div class="quote">"Il faut déjà connaître la matière. Il faut avoir repéré dans votre code, notamment à vos stabilos, les arrêts qui sont importants à citer. [...] Si vous cherchez à la redécouvrir le jour J, vous n'allez pas finir votre copie."</div>
+
+      <p><strong>Voir le problème de droit avant tout :</strong></p>
+      <div class="quote">"La personne qui ne voit pas le problème de droit, en général, c'est très simple. C'est parce qu'elle ne connaît rien. [...] Vous ne pouvez pas voir l'éléphant dans un magasin de porcelaine si vous ne savez pas ce qu'est un éléphant."</div>
+
+      <p><strong>Sur la tenue de la copie :</strong></p>
+      <div class="quote">"Même si vous êtes confronté à un sujet épouvantable, ce qui peut arriver, l'idée c'est que vous ne descendiez jamais en dessous de 8. Jamais."</div>
+    </div>
+  </div>
+
+  <!-- GRAND ORAL -->
+  <div class="section" id="oral">
+    <div class="section-header">
+      <span class="section-tag tag-oral">🎓 Grand oral</span>
+      <span class="section-title">Culture juridique et préparation orale</span>
+    </div>
+
+    <div class="block">
+      <p><strong>Théorie du patrimoine — Aubry et Rau :</strong> notions de première année à absolument maîtriser. Orthographe : <strong>Aubry</strong> et <strong>Rau</strong> (pas "Aubriéro"). Deux auteurs strasbourgeois distincts.</p>
+
+      <p><strong>Marcel Planiol</strong> (et non Pagnol) : co-auteur de Georges Ripert, très grand civiliste.</p>
+
+      <p><strong>Subrogation personnelle vs subrogation réelle :</strong></p>
+      <div class="quote">"Il y a deux types de subrogation. La subrogation personnelle, c'est du droit des obligations. La subrogation réelle, c'est du droit des biens."</div>
+      <p>Subrogation réelle = remplacement d'un bien par un autre dans un patrimoine. Théorie d'Aubry et Rau. Hors programme — culture générale.</p>
+
+      <p><strong>Double nature de la créance — protégée par la CEDH :</strong></p>
+      <p>Les créances sont des biens protégés par l'<span class="art-num">art. 1er du Protocole additionnel n°1 à la CEDH</span>.</p>
+
+      <p><strong>Solidarité légale des parents :</strong> exemple à connaître pour le grand oral. Ce n'est pas une obligation in solidum — c'est une solidarité légale. N'importe lequel des deux parents peut être actionné pour le tout.</p>
+    </div>
+  </div>
+
+  <!-- CRITIQUE -->
+  <div class="section" id="critique">
+    <div class="section-header">
+      <span class="section-tag tag-critique">🔍 Critique des prépas</span>
+      <span class="section-title">Erreurs et manques de formation dénoncés</span>
+    </div>
+
+    <div class="block">
+      <p><strong>Le RGO enseigné comme matière théorique :</strong></p>
+      <div class="quote">"C'est du cambouis, le RGO. C'est la pire pratique qui soit. [...] Il y a des prépas qui n'ont même pas d'enseignants pour enseigner le RGO. Ils ne trouvent pas. Donc, ils expliquent aux étudiants que ce n'est pas important."</div>
+
+      <p><strong>Quasi-contrats délaissés :</strong></p>
+      <div class="quote">"La répétition de l'indu est un quasi-contrat. Et la répétition de l'indu, c'est du droit du paiement [...] Comment tu fais pour traiter le résumé général des obligations quand tu ne connais pas le droit des quasi-contrats ?"</div>
+
+      <p><strong>Sur la dégradation générale :</strong></p>
+      <div class="quote">"Les modalités de préparation de cet examen ont dégradé certains candidats de très bon niveau. On leur explique qu'il ne faut pas réfléchir, qu'il faut savoir trois conneries et raconter n'importe quoi sur n'importe quel sujet, donc ils finissent par y croire."</div>
+    </div>
+  </div>
+
+  <!-- ALERTES -->
+  <div class="section" id="alerte">
+    <div class="section-header">
+      <span class="section-tag tag-alerte">⚡ Alertes examen</span>
+      <span class="section-title">Sujets susceptibles de tomber</span>
+    </div>
+
+    <div class="block">
+      <div class="alert-box">
+        <div class="alert-title">Engagement unilatéral de volonté</div>
+        Jamais tombé mais codifié par l'ordonnance. Risque fort si un membre de la commission vient de Montpellier ou Aix-Marseille.
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Quasi-contrats</div>
+        Possible si la commission comporte un spécialiste. La répétition de l'indu est directement connectée au RGO.
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Preuve électronique</div>
+        Déjà tombé, peut retomber. Très chaud si un membre de la commission est spécialisé nouvelles technologies.
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">RGO — Conditions et terme</div>
+        Peu de sujets tombés. Risque fort si la commission comporte un "RGiste".
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Cession de dette</div>
+        Jamais tombée. Vrai sujet. L'ordonnance a beaucoup développé ce point.
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Fondamentaux sources + preuve</div>
+        Ces questions permettent de prendre des points sans même connaître le droit des contrats en détail.
+      </div>
+    </div>
+  </div>
+
+  <!-- ORGANISATION -->
+  <div class="section" id="orga">
+    <div class="section-header">
+      <span class="section-tag tag-orga">🗓️ Organisation</span>
+      <span class="section-title">Informations pratiques</span>
+    </div>
+
+    <div class="block">
+      <p><strong>Structure du cours annuel :</strong></p>
+      <ul style="padding-left:24px;margin:12px 0;">
+        <li>Cours 1 — Général : Sources / Preuve / RGO</li>
+        <li>Cours 2 — Droit des contrats (dès la 2e semaine, cours du mercredi)</li>
+        <li>Cours 3 — Responsabilité civile extra-contractuelle</li>
+      </ul>
+
+      <p><strong>Calendrier DST :</strong> premier DST en obligation dans environ 3 semaines. Note de synthèse : 2 semaines.</p>
+
+      <p><strong>Pourquoi deux cours en parallèle dès la semaine 2 :</strong></p>
+      <div class="quote">"Je veux pouvoir vous donner tout de suite des sujets transversaux. [...] Il faut que vous soyez capable de passer d'une question juridique à une autre, dans le cadre d'une situation complexe."</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
