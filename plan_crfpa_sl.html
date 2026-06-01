@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SYSTÈME — CRFPA 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg: #03040a;
+  --bg2: #060810;
+  --blue: #4fc3f7;
+  --blue-dim: #1a4a6e;
+  --blue-glow: rgba(79,195,247,0.15);
+  --purple: #9b59f7;
+  --purple-glow: rgba(155,89,247,0.15);
+  --gold: #ffd700;
+  --gold-glow: rgba(255,215,0,0.15);
+  --red: #ff4444;
+  --green: #00ff88;
+  --green-glow: rgba(0,255,136,0.15);
+  --text: #c8d8e8;
+  --text-dim: #4a6a8a;
+  --border: rgba(79,195,247,0.2);
+  --surface: rgba(10,20,40,0.8);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Rajdhani', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding-bottom: 80px;
+}
+
+/* Animated background grid */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(79,195,247,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79,195,247,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at 30% 20%, rgba(155,89,247,0.04) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, rgba(79,195,247,0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+  animation: bgpulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes bgpulse {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* System notification intro */
+.system-boot {
+  text-align: center;
+  padding: 40px 0 32px;
+  animation: fadeup 0.8s ease both;
+}
+
+@keyframes fadeup {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.system-alert {
+  display: inline-block;
+  font-family: 'Orbitron', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--blue);
+  border: 1px solid var(--border);
+  padding: 4px 16px;
+  margin-bottom: 16px;
+  position: relative;
+  animation: blink-border 2s ease-in-out infinite;
+}
+
+@keyframes blink-border {
+  0%, 100% { border-color: rgba(79,195,247,0.2); }
+  50% { border-color: rgba(79,195,247,0.7); box-shadow: 0 0 12px rgba(79,195,247,0.3); }
+}
+
+.system-alert::before,
+.system-alert::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border: 1px solid var(--blue);
+}
+.system-alert::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.system-alert::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+.main-title {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(28px, 7vw, 52px);
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 0 40px rgba(79,195,247,0.5), 0 0 80px rgba(79,195,247,0.2);
+  letter-spacing: 4px;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.main-sub {
+  font-size: 13px;
+  color: var(--text-dim);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Player card */
+.player-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 20px;
+  margin: 24px 0;
+  position: relative;
+  overflow: hidden;
+  animation: fadeup 0.8s 0.1s ease both;
+}
+
+.player-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--blue), transparent);
+}
+
+.player-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.player-info { flex: 1; }
+
+.player-rank {
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+
+.player-name {
+  font-family: 'Orbitron', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.player-class {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 2px;
+  letter-spacing: 1px;
+}
+
+.player-stats {
+  display: flex;
+  gap: 20px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-val {
+  font-family: 'Orbitron', monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--blue);
+  text-shadow: 0 0 12px rgba(79,195,247,0.5);
+}
+
+.stat-label {
+  font-size: 9px;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* XP bar */
+.xp-section { margin-top: 16px; }
+
+.xp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.xp-label {
+  font-family: 'Orbitron', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+}
+
+.xp-val {
+  font-family: 'Orbitron', monospace;
+  font-size: 12px;
+  color: var(--gold);
+  text-shadow: 0 0 8px rgba(255,215,0,0.4);
+}
+
+.xp-bar-wrap {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,215,0,0.15);
+  border-radius: 1px;
+  height: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.xp-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #b8860b, var(--gold), #fffacd);
+  border-radius: 1px;
+  transition: width 0.8s cubic-bezier(.4,0,.2,1);
+  position: relative;
+  box-shadow: 0 0 12px rgba(255,215,0,0.6);
+}
+
+.xp-bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 20px; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6));
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Quest list */
+.quest-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 32px 0 16px;
+  animation: fadeup 0.8s 0.2s ease both;
+}
+
+.quest-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--blue);
+  text-transform: uppercase;
+}
+
+.quest-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent);
+}
+
+/* Quest card */
+.quest {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  animation: fadeup 0.6s ease both;
+}
+
+.quest:nth-child(1) { animation-delay: 0.1s; }
+.quest:nth-child(2) { animation-delay: 0.15s; }
+.quest:nth-child(3) { animation-delay: 0.2s; }
+.quest:nth-child(4) { animation-delay: 0.25s; }
+.quest:nth-child(5) { animation-delay: 0.3s; }
+
+.quest:hover {
+  border-color: rgba(79,195,247,0.4);
+  box-shadow: 0 0 20px rgba(79,195,247,0.08);
+}
+
+.quest.active {
+  border-color: rgba(155,89,247,0.5);
+  box-shadow: 0 0 24px rgba(155,89,247,0.1);
+}
+
+.quest.complete {
+  border-color: rgba(0,255,136,0.3);
+}
+
+.quest-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+}
+
+.quest-rank-badge {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.quest-rank-badge.rank-s { color: var(--gold); border-color: rgba(255,215,0,0.4); background: rgba(255,215,0,0.05); text-shadow: 0 0 10px rgba(255,215,0,0.8); }
+.quest-rank-badge.rank-a { color: var(--purple); border-color: rgba(155,89,247,0.4); background: rgba(155,89,247,0.05); text-shadow: 0 0 10px rgba(155,89,247,0.8); }
+.quest-rank-badge.rank-b { color: var(--blue); border-color: rgba(79,195,247,0.4); background: rgba(79,195,247,0.05); text-shadow: 0 0 10px rgba(79,195,247,0.6); }
+
+.quest-info { flex: 1; min-width: 0; }
+
+.quest-name {
+  font-family: 'Orbitron', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.quest-meta {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 3px;
+  letter-spacing: 0.5px;
+}
+
+.quest-pct {
+  font-family: 'Orbitron', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+.quest.active .quest-pct { color: var(--purple); text-shadow: 0 0 8px rgba(155,89,247,0.6); }
+.quest.complete .quest-pct { color: var(--green); text-shadow: 0 0 8px rgba(0,255,136,0.6); }
+
+.quest-progress-bar {
+  height: 2px;
+  background: rgba(255,255,255,0.04);
+}
+
+.quest-progress-fill {
+  height: 100%;
+  transition: width 0.6s ease;
+}
+
+.quest.active .quest-progress-fill { background: linear-gradient(90deg, var(--purple), #c084fc); box-shadow: 0 0 8px rgba(155,89,247,0.6); }
+.quest.complete .quest-progress-fill { background: linear-gradient(90deg, var(--green), #7fffcc); }
+.quest-progress-fill.default { background: linear-gradient(90deg, var(--blue-dim), var(--blue)); }
+
+/* Tasks */
+.tasks {
+  display: none;
+  padding: 0 18px 16px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+.quest.open .tasks { display: block; }
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.task:last-child { border-bottom: none; }
+
+.task:hover { opacity: 0.85; }
+
+.task-check {
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--text-dim);
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 11px;
+  transition: all 0.2s;
+}
+
+.task.done .task-check {
+  background: var(--green);
+  border-color: var(--green);
+  color: #000;
+  box-shadow: 0 0 8px rgba(0,255,136,0.5);
+}
+
+.task-label {
+  flex: 1;
+  font-size: 12px;
+  color: var(--text);
+  letter-spacing: 0.3px;
+}
+
+.task.done .task-label {
+  color: var(--text-dim);
+  text-decoration: line-through;
+}
+
+.task-type {
+  font-family: 'Orbitron', monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  padding: 2px 7px;
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+
+.type-v { background: rgba(79,195,247,0.1); color: var(--blue); border: 1px solid rgba(79,195,247,0.2); }
+.type-n { background: rgba(155,89,247,0.1); color: var(--purple); border: 1px solid rgba(155,89,247,0.2); }
+.type-s { background: rgba(255,215,0,0.1); color: var(--gold); border: 1px solid rgba(255,215,0,0.2); }
+.type-a { background: rgba(255,100,100,0.1); color: #ff8888; border: 1px solid rgba(255,100,100,0.2); }
+
+/* Status bar */
+.status-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(6,8,16,0.95);
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+}
+
+.status-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.status-txt {
+  font-family: 'Orbitron', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.status-count {
+  color: var(--blue);
+  text-shadow: 0 0 8px rgba(79,195,247,0.5);
+}
+
+.reset-btn {
+  font-family: 'Orbitron', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  background: none;
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+
+.reset-btn:hover {
+  border-color: var(--red);
+  color: var(--red);
+  box-shadow: 0 0 12px rgba(255,68,68,0.2);
+}
+
+/* Notification popup */
+.notif {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-80px);
+  background: rgba(10,20,40,0.95);
+  border: 1px solid var(--green);
+  box-shadow: 0 0 30px rgba(0,255,136,0.3);
+  padding: 10px 20px;
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--green);
+  z-index: 200;
+  transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+  white-space: nowrap;
+  border-radius: 2px;
+}
+
+.notif.show {
+  transform: translateX(-50%) translateY(0);
+}
+
+.chevron-icon {
+  font-size: 10px;
+  color: var(--text-dim);
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+
+.quest.open .chevron-icon { transform: rotate(180deg); }
+</style>
+</head>
+<body>
+
+<div class="notif" id="notif">⬆ LEVEL UP — OBJECTIF COMPLÉTÉ</div>
+
+<div class="wrap">
+  <div class="system-boot">
+    <div class="system-alert">◈ NOUVEAU MESSAGE DU SYSTÈME ◈</div>
+    <div class="main-title">SYSTÈME<br>CRFPA</div>
+    <div class="main-sub">Barreau 2026 · Examen Septembre</div>
+  </div>
+
+  <div class="player-card">
+    <div class="player-row">
+      <div class="player-info">
+        <div class="player-rank">◆ RANG : CANDIDAT ÉLITE</div>
+        <div class="player-name">JOUEUR</div>
+        <div class="player-class">Classe : Juriste / Spé. Droit Social</div>
+      </div>
+      <div class="player-stats">
+        <div class="stat">
+          <div class="stat-val" id="statDone">0</div>
+          <div class="stat-label">Tâches</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">8</div>
+          <div class="stat-label">Semaines</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">5</div>
+          <div class="stat-label">Quêtes</div>
+        </div>
+      </div>
+    </div>
+    <div class="xp-section">
+      <div class="xp-header">
+        <div class="xp-label">◈ BARRE D'EXPÉRIENCE</div>
+        <div class="xp-val" id="xpVal">0 XP</div>
+      </div>
+      <div class="xp-bar-wrap">
+        <div class="xp-bar-fill" id="xpBar" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quest-header">
+    <div class="quest-title">◈ Quêtes Principales</div>
+    <div class="quest-line"></div>
+  </div>
+
+  <div id="quests"></div>
+</div>
+
+<div class="status-bar">
+  <div class="status-left">
+    <div class="status-dot"></div>
+    <div class="status-txt">Système actif · <span class="status-count" id="statusTxt">0/0</span></div>
+  </div>
+  <button class="reset-btn" onclick="resetAll()">✕ Reset</button>
+</div>
+
+<script>
+const QUESTS = [
+  {
+    id: "preuve",
+    name: "DROIT DE LA PREUVE",
+    meta: "5 cours · 22h30 · Priorité 1",
+    rank: "S",
+    tasks: [
+      { label: "Transcrire cours 1 — 4h30", type: "v" },
+      { label: "Transcrire cours 2 — 4h30", type: "v" },
+      { label: "Transcrire cours 3 — 4h30", type: "v" },
+      { label: "Transcrire cours 4 — 4h30", type: "v" },
+      { label: "Transcrire cours 5 — 4h30", type: "v" },
+      { label: "Import NotebookLM — synthèse globale", type: "n" },
+      { label: "Schématisation — plan global", type: "s" },
+      { label: "Schématisation — partie 1", type: "s" },
+      { label: "Schématisation — partie 2", type: "s" },
+      { label: "Schématisation — partie 3", type: "s" },
+    ]
+  },
+  {
+    id: "rgo",
+    name: "RÉGIME GÉNÉRAL DES OBLIGATIONS",
+    meta: "3 cours · 13h30 · Priorité 2",
+    rank: "A",
+    tasks: [
+      { label: "Enregistrer cours 1 — Audacity", type: "a" },
+      { label: "Enregistrer cours 2 — Audacity", type: "a" },
+      { label: "Enregistrer cours 3 — Audacity", type: "a" },
+      { label: "Transcrire cours 1 — 4h30", type: "v" },
+      { label: "Transcrire cours 2 — 4h30", type: "v" },
+      { label: "Transcrire cours 3 — 4h30", type: "v" },
+      { label: "Import NotebookLM — synthèse", type: "n" },
+      { label: "Schématisation — plan global", type: "s" },
+      { label: "Schématisation — partie 1", type: "s" },
+      { label: "Schématisation — partie 2", type: "s" },
+    ]
+  },
+  {
+    id: "contrats",
+    name: "DROIT DES CONTRATS",
+    meta: "14 cours · 63h · Priorité 3",
+    rank: "S",
+    tasks: [
+      { label: "Enregistrer cours 13 — Audacity", type: "a" },
+      { label: "Enregistrer cours 14 — Audacity", type: "a" },
+      { label: "Transcrire cours 1–3", type: "v" },
+      { label: "Transcrire cours 4–6", type: "v" },
+      { label: "Transcrire cours 7–9", type: "v" },
+      { label: "Transcrire cours 10–12", type: "v" },
+      { label: "Transcrire cours 13–14", type: "v" },
+      { label: "Import NotebookLM — synthèse", type: "n" },
+      { label: "Schématisation — Thèmes 1–3", type: "s" },
+      { label: "Schématisation — Thèmes 4–5", type: "s" },
+      { label: "Schématisation — Thèmes 6–7", type: "s" },
+      { label: "Schématisation — Thèmes 8–9", type: "s" },
+    ]
+  },
+  {
+    id: "pac",
+    name: "PROCÉDURE ADMINISTRATIVE",
+    meta: "~31h50 · 11 thèmes · Priorité 4",
+    rank: "A",
+    tasks: [
+      { label: "Enregistrer fichiers cours (4h30)", type: "a" },
+      { label: "Enregistrer petits fichiers — session groupée", type: "a" },
+      { label: "Transcrire Volume 1 — Thèmes 1–3", type: "v" },
+      { label: "Transcrire Volume 1 — Thèmes 4–6", type: "v" },
+      { label: "Transcrire Volume 2 — Thèmes 7–9", type: "v" },
+      { label: "Transcrire Volume 2 — Thèmes 10–11", type: "v" },
+      { label: "Import NotebookLM — synthèse", type: "n" },
+      { label: "Schématisation — Thèmes 1–4", type: "s" },
+      { label: "Schématisation — Thèmes 5–8", type: "s" },
+      { label: "Schématisation — Thèmes 9–11", type: "s" },
+    ]
+  },
+  {
+    id: "da",
+    name: "DROIT ADMINISTRATIF",
+    meta: "~17h47 · 6 blocs · Priorité 5",
+    rank: "B",
+    tasks: [
+      { label: "Enregistrer fichiers cours (4h30)", type: "a" },
+      { label: "Enregistrer petits fichiers — session groupée", type: "a" },
+      { label: "Transcrire — Thèmes 1–2", type: "v" },
+      { label: "Transcrire — Thèmes 3–4", type: "v" },
+      { label: "Transcrire — Thèmes 5–6", type: "v" },
+      { label: "Import NotebookLM — synthèse", type: "n" },
+      { label: "Schématisation — Thèmes 1–2", type: "s" },
+      { label: "Schématisation — Thèmes 3–4", type: "s" },
+      { label: "Schématisation — Thèmes 5–6", type: "s" },
+    ]
+  }
+];
+
+const TYPE_CLASS = { v: "type-v", n: "type-n", s: "type-s", a: "type-a" };
+const TYPE_LABEL = { v: "VOXTRAL", n: "NB-LM", s: "SCHÉMA", a: "AUDACITY" };
+
+function loadState() {
+  try { return JSON.parse(localStorage.getItem('sl_crfpa') || '{}'); } catch(e) { return {}; }
+}
+function saveState(s) {
+  try { localStorage.setItem('sl_crfpa', JSON.stringify(s)); } catch(e) {}
+}
+
+let state = loadState();
+let lastDone = Object.keys(state).filter(k => state[k]).length;
+
+function getProgress(q) {
+  const total = q.tasks.length;
+  const done = q.tasks.filter((_, i) => state[`${q.id}_${i}`]).length;
+  return { done, total, pct: total ? Math.round(done/total*100) : 0 };
+}
+
+function getGlobal() {
+  let total = 0, done = 0;
+  QUESTS.forEach(q => { const p = getProgress(q); total += p.total; done += p.done; });
+  return { done, total, pct: total ? Math.round(done/total*100) : 0 };
+}
+
+function toggleTask(qid, idx) {
+  const key = `${qid}_${idx}`;
+  state[key] = !state[key];
+  saveState(state);
+  const newDone = Object.keys(state).filter(k => state[k]).length;
+  if (newDone > lastDone) showNotif();
+  lastDone = newDone;
+  render();
+}
+
+function toggleQuest(id) {
+  document.querySelector(`[data-qid="${id}"]`).classList.toggle('open');
+}
+
+function showNotif() {
+  const n = document.getElementById('notif');
+  n.classList.add('show');
+  setTimeout(() => n.classList.remove('show'), 2500);
+}
+
+function resetAll() {
+  if (confirm('Réinitialiser toute la progression ?')) {
+    state = {};
+    saveState(state);
+    render();
+  }
+}
+
+function render() {
+  const global = getGlobal();
+
+  document.getElementById('xpBar').style.width = global.pct + '%';
+  document.getElementById('xpVal').textContent = `${global.done * 10} XP`;
+  document.getElementById('statDone').textContent = global.done;
+  document.getElementById('statusTxt').textContent = `${global.done}/${global.total}`;
+
+  const openIds = new Set();
+  document.querySelectorAll('.quest.open').forEach(el => openIds.add(el.dataset.qid));
+
+  const container = document.getElementById('quests');
+  container.innerHTML = QUESTS.map(q => {
+    const p = getProgress(q);
+    const isComplete = p.done === p.total && p.total > 0;
+    const isActive = p.done > 0 && !isComplete;
+    const isOpen = openIds.has(q.id);
+    const rankClass = `rank-${q.rank.toLowerCase()}`;
+
+    const tasksHtml = q.tasks.map((t, i) => {
+      const done = !!state[`${q.id}_${i}`];
+      return `
+        <div class="task ${done ? 'done' : ''}" onclick="toggleTask('${q.id}', ${i})">
+          <div class="task-check">${done ? '✓' : ''}</div>
+          <div class="task-label">${t.label}</div>
+          <div class="task-type ${TYPE_CLASS[t.type]}">${TYPE_LABEL[t.type]}</div>
+        </div>
+      `;
+    }).join('');
+
+    const fillClass = isActive ? '' : isComplete ? '' : 'default';
+
+    return `
+      <div class="quest ${isActive ? 'active' : ''} ${isComplete ? 'complete' : ''} ${isOpen ? 'open' : ''}" data-qid="${q.id}">
+        <div class="quest-top" onclick="toggleQuest('${q.id}')">
+          <div class="quest-rank-badge ${rankClass}">${q.rank}</div>
+          <div class="quest-info">
+            <div class="quest-name">${q.name}</div>
+            <div class="quest-meta">${q.meta}</div>
+          </div>
+          <div class="quest-pct">${p.pct}%</div>
+          <div class="chevron-icon">▼</div>
+        </div>
+        <div class="quest-progress-bar">
+          <div class="quest-progress-fill ${fillClass}" style="width:${p.pct}%"></div>
+        </div>
+        <div class="tasks">${tasksHtml}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+render();
+</script>
+</body>
+</html>
